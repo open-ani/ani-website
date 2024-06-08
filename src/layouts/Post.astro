@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+const { title } = Astro.props.frontmatter;
+const pgtitle = `Ani - Post ${title}`;
+---
+
+<Layout title={pgtitle}>
+    <article class="px-3 py-8 w-full xl:w-3/5 !mx-auto !bg-transparent markdown-body !break-words">
+        <slot />
+    </article>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css"
+        integrity="sha512-h/laqMqQKUXxFuu6aLAaSrXYwGYQ7qk4aYCQ+KJwHZMzAGaEoxMM6h8C+haeJTU1V6E9jrSUnjpEzX23OmV/Aw=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+</Layout>
+
+<style is:inline>
+    .markdown-body img {
+        display: inline-block !important;
+        vertical-align: middle !important;
+    }
+</style>
