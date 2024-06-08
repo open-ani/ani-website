@@ -2,12 +2,15 @@
 layout: ../layouts/Post.astro
 title: "About"
 ---
+<div align="center">
+  
+# Ani
 
-[dmhy]: http://www.dmhy.org/
+[动漫花园]: http://www.dmhy.org/
 
 [Bangumi]: http://bangumi.tv
 
-[ddplay]: https://www.dandanplay.com/
+[弹弹play]: https://www.dandanplay.com/
 
 [Compose Multiplatform]: https://www.jetbrains.com/lp/compose-mpp/
 
@@ -17,16 +20,39 @@ title: "About"
 
 [Ikaros]: https://ikaros.run/
 
+[MX 动漫]: https://www.mxdm.tv/
+
+[NyaFun 动漫]: https://www.nyafun.net/
+
+<div align="center">
+
 集找番、追番、看番的一站式弹幕追番平台。
 
-Ani 的目标是提供尽可能简单且舒适的追番体验。
+Ani 的目标是提供能在此应用提供完整舒适的追番体验。
 
-支持云同步观看记录 ([Bangumi][Bangumi]), 多视频数据源, 缓存, 弹幕, 以及更多功能。
+支持使用 Bangumi 同步观看记录, 多视频数据源, 缓存, 弹幕, 以及更多功能。
 
+## 功能
+
+<div align="left">
+
+* 支持各大 BT 网站 [acg.rip], [Mikan], [动漫花园]
+* 支持在线播放源 [MX 动漫], [NyaFun 动漫]
+* 支持从 [弹弹play] 提取弹幕使用
+* 全局默认代理,无需自行设定
+* 自动缓存功能,可自定义设置缓存集数与数量（未来将增加设置单条目缓存偏好）
+* 自定义设置资源偏好,支持设置数据源/字幕语言/分辨率/字幕组
+* 资源支持优先选择季度全集（种子速度较快）
+* 应用内自动下载更新,可选择正式版和测试版
+* 支持其他个人化小设置
+
+<div align="center">
 
 ## 功能截图
 
 ### 管理追番
+
+<div align="left">
 
 - 同步 [Bangumi][Bangumi] 收藏
 - 按"在看/想看/看过"分类
