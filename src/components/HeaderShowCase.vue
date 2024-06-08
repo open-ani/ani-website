@@ -12,6 +12,8 @@
                     class="rotatable w-[93%] top-[10.26%] left-[3.5%] absolute h-[80%] object-cover">
             </div>
         </div>
+        <link rel="prefetch" href="/showcase/phone/2.jpg">
+        <link rel="prefetch" href="/showcase/pc/2.jpg">
     </div>
 </template>
 <script setup lang="ts">

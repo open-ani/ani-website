@@ -8,9 +8,9 @@ import FAQ from "../components/FAQ.vue"
 
 <Layout title="Ani">
 	<main class="text-white xl:px-10 py-12 w-full">
-		<Header client:idle/>
+		<Header client:load/>
 		<Features />
-		<DanmakuComment client:load/>
+		<DanmakuComment client:visible/>
 		<FAQ />
 	</main>
 </Layout>
