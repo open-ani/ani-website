@@ -38,7 +38,7 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 const navigation = [
     { name: '主页', href: '/', current: false },
-    { name: '下载', href: '/downloads', current: false },
+    { name: '下载', href: '/downloads/stable', current: false },
     { name: '关于Ani', href: '/about', current: false },
 ]
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex w-full justify-center items-center flex-col mt-3 !space-y-3 px-12">
+    <div class="flex w-full justify-center items-center flex-col mt-3 !space-y-3 px-3">
         <h2 class="text-4xl font-bold">用户对 Ani 的评价</h2>
         <div ref="container" class="w-full xl:w-3/5 h-[500px] border-2 border-slate-400 rounded-md"></div>
         <div class="mt-6 w-full flex xl:w-3/5 gap-x-2">
@@ -17,7 +17,8 @@ const danmaku_data = [
     'elegant !',
     '這種項目總是要支持的(bgm105)',
     '支持，技术力贡献的美好世界',
-    '(bgm105)好东西啊'
+    '(bgm105)好东西啊',
+    '好厉害的软件啊！一条五毛记得删括号'
 ]
 let container: HTMLDivElement;
 const getRandomColor = ()=>{
