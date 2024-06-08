@@ -51,11 +51,9 @@ Ani 的目标是提供能在此应用提供完整舒适的追番体验。
 <div align="center">
 
 ## 功能截图
-
-### 管理追番
-
 <div align="left">
 
+### 管理追番
 
 <img width="300" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/collection/collection-dark.jpg" alt="collection-dark"/> <img width="300" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/subject/subject-dark.jpg" alt="subject-dark"/>
 
