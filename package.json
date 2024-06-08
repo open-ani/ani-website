@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
+    "@astrojs/node": "^8.2.6",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vue": "^4.4.0",
     "@headlessui/tailwindcss": "^0.2.1",

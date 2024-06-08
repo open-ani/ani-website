@@ -25,11 +25,11 @@
 				</div>
 				<div>
 					<h3 class="font-semibold">Bangumi 和 Ani 的关系 & 我注册不了 bangumi 怎么办</h3>
-					<p class="mt-1 text-gray-300">WIP</p>
+					<p class="mt-1 text-gray-300">Bangumi 是由 Sai 于桂林发起的 ACG 分享与交流项目，你可以通过它管理你的追番进度。Ani 依赖 Bangumi 的功能来做进度管理等功能。Bangumi 不提供播放功能，请使用能正常接受邮件的邮箱注册 Bangumi。</p>
 				</div>
 				<div>
-					<h3 class="font-semibold">如何解压（（（</h3>
-					<p class="mt-1 text-gray-300">WIP</p>
+					<h3 class="font-semibold">电脑版 Ani 播放不了怎么办</h3>
+					<p class="mt-1 text-gray-300">对于在线源，第一次播放需要等待资源下载一段时间。对于BT源，你需要下载 <a href="https://www.qbittorrent.org/" class="underline">qbittorrent</a>并做相应配置。</p>
 				</div>
 			</div>
 		</div>

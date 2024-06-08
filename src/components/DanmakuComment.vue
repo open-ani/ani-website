@@ -1,9 +1,9 @@
 <template>
     <div class="flex w-full justify-center items-center flex-col mt-3 !space-y-3 px-3">
         <h2 class="text-4xl font-bold">用户对 Ani 的评价</h2>
-        <div ref="container" class="w-full xl:w-3/5 h-[500px] border-2 border-slate-400 rounded-md"></div>
+        <div ref="container" class="w-full xl:w-3/5 h-[350px] border-2 border-slate-400 rounded-md"></div>
         <div class="mt-6 w-full flex xl:w-3/5 gap-x-2">
-          <input disabled type="text" placeholder="我也要说说" required class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
+          <input disabled type="text" placeholder="我也要说说（暂不开放）" required class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6">
           <button disabled type="submit" class="flex-none rounded-md //hover:bg-indigo-400 //bg-indigo-500 bg-slate-400 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">提交</button>
         </div>
     </div>
@@ -29,9 +29,9 @@ const getRandomColor = ()=>{
 }
 const randint = (min:number, max:number) => Math.floor(Math.random() * (max - min + 1)) + min; // [min,max]
 onMounted(() => {
-    const danmaku = new Danmaku({ container, engine: "dom", speed: 100 })
+    const danmaku = new Danmaku({ container, engine: "dom", speed: 110 })
     const add = () => {
-        var comment = {
+        let comment = {
             text: danmaku_data[randint(0, danmaku_data.length - 1)],
             style: {
                 fontSize: `${randint(22, 32)}px`,
@@ -40,6 +40,6 @@ onMounted(() => {
         }
         danmaku.emit(comment)
     }
-    setInterval(add, Math.random() * 400);
+    setTimeout(function cycle(){ add();setTimeout(function(){cycle();}, Math.random() * 1000)},Math.random() * 1000)
 })
 </script>

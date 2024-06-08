@@ -1,0 +1,22 @@
+name: zeabur_trigger
+on:
+  workflow_dispatch:
+
+jobs:
+  update-log:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Update log file
+      run: |
+        echo "$(date): Workflow triggered" >> .deployment
+        git add .deployment
+        git commit -m "ci: onRelease"
+        git push
