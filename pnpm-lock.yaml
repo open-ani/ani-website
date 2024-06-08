@@ -23,6 +23,9 @@ dependencies:
   astro:
     specifier: ^4.10.0
     version: 4.10.0(@types/node@20.14.2)(typescript@5.4.5)
+  danmaku:
+    specifier: ^2.0.6
+    version: 2.0.6
   tailwindcss:
     specifier: ^3.4.4
     version: 3.4.4
@@ -2225,6 +2228,10 @@ packages:
 
   /csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+    dev: false
+
+  /danmaku@2.0.6:
+    resolution: {integrity: sha512-yF+nLNp2JkkwTuLVCe/Y3POI6Y1CUZR6zlv1XZ28QYzfNMn4+xVMMKBbDGNeIXQjm70kuMR+iZrG1uYSo0SoDQ==}
     dev: false
 
   /debug@4.3.5:
