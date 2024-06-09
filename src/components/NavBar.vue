@@ -6,7 +6,7 @@
                     <DisclosureButton
                         class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                         <span class="absolute -inset-0.5" />
-                        三
+                        <Icon icon="mdi:menu" class="w-5 h-5" />
                     </DisclosureButton>
                 </div>
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
@@ -35,7 +35,8 @@
 </template>
 
 <script setup lang="ts">
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
+import { Icon } from '@iconify/vue/dist/iconify.js';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
 const navigation = [
     { name: '主页', href: '/', current: false },
     { name: '下载', href: '/downloads/stable', current: false },
