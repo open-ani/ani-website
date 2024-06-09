@@ -13,7 +13,6 @@
     "@astrojs/check": "^0.7.0",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vue": "^4.4.0",
-    "@headlessui/tailwindcss": "^0.2.1",
     "@headlessui/vue": "^1.7.22",
     "@types/node": "^20.14.2",
     "astro": "^4.10.0",
@@ -22,5 +21,8 @@
     "tailwindcss": "^3.4.4",
     "typescript": "^5.4.5",
     "vue": "^3.4.27"
+  },
+  "devDependencies": {
+    "@iconify/vue": "^4.1.2"
   }
 }
