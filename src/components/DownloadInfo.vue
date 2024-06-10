@@ -21,16 +21,16 @@
                             d="M8 5v2H5v13h14V7h-3V5h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm4-3a1 1 0 0 1 1 1v10.828L14.828 12a1 1 0 1 1 1.415 1.414l-3.36 3.359a1.25 1.25 0 0 1-1.767 0l-3.359-3.359A1 1 0 1 1 9.172 12L11 13.828V3a1 1 0 0 1 1-1" />
                     </g>
                 </svg>
-                <div class="ml-2 flex flex-col">
+                <div class="ml-2 w-fit flex flex-col">
                     <p class="font-bold">{{ str_map[k] }}</p>
-                    <small>版本：{{ v.version }}</small>
+                    <small>v{{ v.version }}</small>
                 </div>
             </div>
             <div class="space-x-2 flex text-nowrap my-auto w-fit float-end">
                 <a :href="v.urls[0]"
-                    class="inline-flex items-center border-2 border-white rounded px-3 py-2 text-sm font-semibold text-slate-300 shadow-sm">主线（推荐）</a>
+                    class="inline-flex items-center border-2 border-white rounded px-3 py-2 text-sm font-semibold text-slate-300 shadow-sm">主线</a>
                 <a :href="v.urls[1]"
-                    class="inline-flex items-center border-2 border-white rounded px-3 py-2 text-sm font-semibold text-slate-300 shadow-sm">全球</a>
+                    class="inline-flex items-center border-2 border-white rounded px-3 py-2 text-sm font-semibold text-slate-300 shadow-sm">备线</a>
             </div>
         </li>
         <!-- TODO: sort to pin the correct device type -->

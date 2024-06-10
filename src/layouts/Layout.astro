@@ -20,12 +20,11 @@ const { title } = Astro.props;
 		<script is:inline defer src="https://ani-umami.zeabur.app/script.js" data-website-id="bd38babb-a1c7-4d99-a96d-575f30c3354e"></script>
 		<title>{title}</title>
 	</head>
-	<body class="w-full h-full relative isolate bg-gray-900">
+	<body class="w-full h-full isolate bg-gray-900">
+		<div class="fixed left-0 top-0 -z-10 h-full w-full"><div class="relative h-full w-full bg-slate-950"><div class="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div><div class="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div></div></div>
 		<NavBar client:load/>
 		<slot />
-		<div class="absolute left-1/2 top-0 -z-10 -translate-x-1/2 blur-3xl xl:-top-6" aria-hidden="true">
-			<div class="aspect-[1155/678] w-[24.8rem] xl:w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-		</div>
+
 	</body>
 	<footer>
 		<Footer />

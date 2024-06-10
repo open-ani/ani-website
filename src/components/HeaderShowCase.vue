@@ -2,13 +2,13 @@
     <div class="relative flex w-fit xl:mb-20">
         <div>
             <div class="hidden xl:block bottom-0 right-0 relative w-[800px] h-[450px]" id="pc">
-                <img ref="pc_img" src="/showcase/pc/1.jpg"
+                <img ref="pc_img" alt="showcase" src="/showcase/pc/1.jpg"
                     class="w-[75%] top-[7.2%] left-[12.5%] absolute h-[84%] object-cover">
             </div>
         </div>
         <div ref="phone" class="rotatable xl:absolute xl:-bottom-24 xl:-right-8">
             <div class="relative w-[200px] h-[410px]" id="phone">
-                <img ref="phone_img" src="/showcase/phone/1.jpg"
+                <img ref="phone_img" alt="showcase" src="/showcase/phone/1.jpg"
                     class="rotatable w-[93%] top-[10.26%] left-[3.5%] absolute h-[80%] object-cover">
             </div>
         </div>

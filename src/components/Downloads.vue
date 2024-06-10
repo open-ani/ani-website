@@ -7,7 +7,7 @@
             </div>
 
             <div class="mt-2 w-full">
-                <div class="rounded-sm text-white p-3">
+                <div class="text-white">
                     <DownloadInfo :type="type" />
                 </div>
             </div>
