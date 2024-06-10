@@ -13,10 +13,9 @@ const { title } = Astro.props;
 <html lang="en" class="overflow-x-hidden">
 	<head>
 		<meta charset="UTF-8" />
-		<meta property="og:title" content="Ani">
+		<meta property="og:title" content={title}>
 		<meta name="generator" content={Astro.generator} />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="description" content="Astro description" />
 		<meta name="description" content="Ani - 一个一站式在线弹幕追番平台">
 		<meta property="og:description" content="Ani - 一个一站式在线弹幕追番平台">
 		<meta name="keywords" content="Ani, 弹幕, 追番, 全自动BT, 数据源聚合, 离线缓存, Bangumi, 弹幕云过滤, 开源, 动漫, 收藏同步">
