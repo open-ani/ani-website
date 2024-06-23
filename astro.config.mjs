@@ -8,5 +8,6 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   site: 'https://myani.org',
   integrations: [vue(), tailwind(), sitemap()],
-  output: 'static'
+  output: 'static',
+  prefetch: true
 });
