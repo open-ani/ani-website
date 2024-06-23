@@ -82,6 +82,6 @@ Ani 的目标是提供能在此应用提供完整舒适的追番体验。
 <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/preferences/cache.jpg"  alt="cache.jpg"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/subject/subject-cache.jpg"  alt="subject-cache.jpg"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/preferences/global-caches.jpg"  alt="global-caches.jpg"/> 
 
 
-### 网路设置
+### 网络设置
 
 <img width="300" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/preferences/preferences-network-proxy.jpg" alt="preferences-network-proxy"/> <img width="300" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/preferences/preferences-network-danmaku.jpg" alt="preferences-network-danmaku"/>

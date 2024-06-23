@@ -14,6 +14,6 @@ const { type } = Astro.params
 <Layout title="Ani - 下载">
     <div class="w-full xl:w-3/5 mx-auto py-6 px-4 space-y-3">
         <h2 class="text-4xl text-white font-semibold">下载 Ani</h2>
-        <DownloadsCompoent type={type} client:idle/>
+        <DownloadsCompoent type={type} client:load/>
     </div>
 </Layout>
