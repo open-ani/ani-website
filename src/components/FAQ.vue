@@ -29,7 +29,7 @@
 				</div>
 				<div>
 					<h3 class="font-semibold">电脑版 Ani 播放不了怎么办</h3>
-					<p class="mt-1 text-gray-300">对于在线源，第一次播放需要等待资源下载一段时间。对于BT源，你需要下载 <a href="https://www.qbittorrent.org/" class="underline">qbittorrent</a>并做相应配置。</p>
+					<p class="mt-1 text-gray-300">对于在线源，第一次播放需要等待资源下载一段时间。对于某些 BT 源（尤其是老旧的资源）则因无人做种而下载速度慢，这种情况下你可以尝试缓存。</p>
 				</div>
 			</div>
 		</div>
