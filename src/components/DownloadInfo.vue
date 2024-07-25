@@ -1,8 +1,8 @@
 <template>
     <div v-if="loaded === 0 || loaded === 2" class="w-2/3 xl:w-1/2 p-6 border-2 border-white rounded">
         <div v-if="loaded == 0" class="flex justify-center items-center space-x-3">
-            <Icon icon="fa:spinner" class=" animate-spin w-10 h-10" />
-            <b class="h-fit text-xl">资源加载中...</b>
+            <!-- <Icon icon="fa:spinner" class=" animate-spin w-10 h-10" /> -->
+            <b class="h-fit text-xl font-medium">资源加载中...</b>
         </div>
         <div v-else-if="loaded == 2" class="flex justify-center items-center space-x-3">
             <Icon icon="mdi:error-outline" class="w-10 h-10" />
@@ -33,14 +33,19 @@
                     class="inline-flex items-center border-2 border-white rounded px-3 py-2 text-sm font-semibold text-slate-300 shadow-sm">备线</a>
             </div>
         </li>
+        <div class=" px-4 flex flex-row-reverse items-center" v-show="ispc">
+            <img class=" w-28" alt="QRcode for downloading ani" id="qrc">
+            <span class=" mx-4 text-sm font-semibold text-slate-300 h-fit">扫描二维码下载</span>
+        </div>
         <!-- TODO: sort to pin the correct device type -->
     </ul>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, type Ref } from 'vue';
+import { nextTick, onMounted, ref, type Ref } from 'vue';
 import { Icon } from '@iconify/vue'
 const props = defineProps(['type'])
+const ispc = ref(true)
 type typeString = "stable" | "beta";
 interface updateItem {
     version: string,
@@ -116,10 +121,18 @@ onMounted(async () => {
     }
     Promise.all(pending).then(() => {
         loaded.value = 1
-
+        nextTick(()=>{
+                document.querySelector('#qrc')!.setAttribute('src',`https://api.qrtool.cn/?text=${outputs.value['data']['android'].urls[0]}`)
+            }
+        )
     }).catch((err) => {
         loaded.value = 2
         console.error(err)
     })
+    let userAgent = navigator.userAgent;
+    let mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+    if (mobileRegex.test(userAgent)){
+        ispc.value=false
+    }
 })
 </script>
