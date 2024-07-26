@@ -1,0 +1,13 @@
+---
+import Layout from "../../layouts/Layout.astro"
+const allPosts = await Astro.glob('./*.md');
+---
+
+<Layout title="Ani">
+	<main class="text-white xl:px-10 py-12 w-full flex items-center flex-col">
+        <span style="font-size: x-large;">Wiki / 问题大全</span>
+        <ul class="w-full list-decimal px-3 xl:w-3/5">
+            {allPosts.map((post) => <li class="w-full py-1"><a class="w-full block hover:text-blue-400" href={post.url}>{post.frontmatter.title}</a></li>)} 
+        </ul>
+	</main>
+</Layout>

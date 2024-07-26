@@ -40,6 +40,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue';
 const navigation = [
     { name: '主页', href: '/', current: false },
     { name: '下载', href: '/downloads/stable', current: false },
-    { name: '关于Ani', href: '/about', current: false },
+    { name: '功能截图', href: '/about', current: false },
+    { name: '常见问题', href: '/wiki', current: false },
 ]
 </script>
