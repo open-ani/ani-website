@@ -6,7 +6,7 @@
         </div>
         <div v-else-if="loaded == 2" class="flex justify-center items-center space-x-3">
             <Icon icon="mdi:error-outline" class="w-10 h-10" />
-            <b class="h-fit text-xl">资源加载失败，请刷新重试或前往<a href="https://github.com/open-ani/ani/releases">Github Releases</a>下载 😭</b>
+            <b class="h-fit text-xl">资源加载失败，请刷新重试或前往<a href="https://github.com/open-ani/ani/releases" class=" text-blue-600">Github Releases</a>下载 😭</b>
         </div>
     </div>
     <ul v-else-if="loaded === 1">
