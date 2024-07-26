@@ -84,16 +84,16 @@ onMounted(async () => {
             let api_url;
             switch (platform) {
                 case ("android"):
-                    api_url = `https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=3.0.0-rc04&clientPlatform=android&clientArch=aarch64&releaseClass=${type}`
+                    api_url = `https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=3.4.0&clientPlatform=android&clientArch=aarch64&releaseClass=${type}`
                     break
                 case ("maci"):
-                    api_url = `https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=3.0.0-rc04&clientPlatform=macos&clientArch=x86_64&releaseClass=${type}`
+                    api_url = `https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=3.4.0&clientPlatform=macos&clientArch=x86_64&releaseClass=${type}`
                     break
                 case ("macm"):
-                    api_url = `https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=3.0.0-rc04&clientPlatform=macos&clientArch=aarch64&releaseClass=${type}`
+                    api_url = `https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=3.4.0&clientPlatform=macos&clientArch=aarch64&releaseClass=${type}`
                     break
                 case ("win"):
-                    api_url = `https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=3.0.0-rc04&clientPlatform=windows&clientArch=x86_64&releaseClass=${type}`
+                    api_url = `https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=3.4.0&clientPlatform=windows&clientArch=x86_64&releaseClass=${type}`
                     break
             }
             try {
