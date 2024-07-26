@@ -98,7 +98,7 @@ onMounted(async () => {
             }
             try {
                 let latest;
-                if (api_url) (await fetch(api_url, { mode: 'same-origin', 'headers': { 'accept': 'application/json' } })).json().then((data: response) => {
+                if (api_url) (await fetch(api_url, { mode: 'cors', 'headers': { 'accept': 'application/json' } })).json().then((data: response) => {
                     latest = data.updates[0]
                     for (let item of data.updates)
                         if (item.publishTime > latest.publishTime && (type == 'stable' || item.version.includes('beta'))) latest = item
