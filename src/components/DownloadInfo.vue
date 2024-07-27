@@ -9,7 +9,7 @@
             <b class="h-fit text-xl">资源加载失败，请刷新重试或前往<a href="https://github.com/open-ani/ani/releases" class=" text-blue-600">Github Releases</a>下载 😭</b>
         </div>
     </div>
-    <ul v-else-if="loaded === 1">
+    <ul v-else-if="loaded === 1" class=" border-white border-2 py-3">
         <li v-for="(v, k) in outputs.data" aria-label="win" class="p-4 flex">
             <div class="w-full flex">
                 <svg class="w-12 h-12 p-1" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
@@ -32,12 +32,13 @@
                 <a :href="v.urls[1]"
                     class="inline-flex items-center border-2 border-white rounded px-3 py-2 text-sm font-semibold text-slate-300 shadow-sm">备线</a>
             </div>
+            <!-- TODO: sort to pin the correct device type -->
         </li>
-        <div class=" px-4 flex flex-row-reverse items-center" v-show="ispc">
-            <img class=" w-28" alt="QRcode for downloading ani" id="qrc">
-            <span class=" mx-4 text-sm font-semibold text-slate-300 h-fit">扫描二维码下载</span>
+    <hr class="my-3"/>
+    <div class=" px-4 flex flex-row-reverse items-center" v-show="ispc">
+            <img class="w-28 mx-4" alt="QRcode for downloading ani" id="qrc" v-show="showQR">
+            <span role="button"class="text-sm font-semibold text-slate-300 h-fit hover:text-blue-400" @click="showQR=!showQR">显示安卓端下载二维码</span>
         </div>
-        <!-- TODO: sort to pin the correct device type -->
     </ul>
 </template>
 
@@ -45,6 +46,7 @@
 import { nextTick, onMounted, ref, type Ref } from 'vue';
 import { Icon } from '@iconify/vue'
 const props = defineProps(['type'])
+const showQR = ref(false)
 const ispc = ref(true)
 type typeString = "stable" | "beta";
 interface updateItem {

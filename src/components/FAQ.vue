@@ -1,7 +1,7 @@
 <template>
-	<section class="text-gray-100 w-full xl:w-4/5 mx-auto" id="faq">
-		<div class="container flex flex-col justify-center p-6 mx-auto md:py-10">
-			<h2 class="mt-4 mb-6 text-4xl font-bold leading-none text-center sm:text-5xl">常见问题收集</h2>
+	<section class="text-gray-100 w-full xl:w-4/5 mx-auto px-4" id="faq">
+		<div class="container flex flex-col justify-center py-6 mx-auto md:py-10">
+			<h2 class="mt-4 mb-6 text-4xl font-bold leading-none text-center sm:text-5xl">常见问题</h2>
 			<div class="grid gap-10 md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32">
 				<div>
 					<h3 class="font-semibold">资源来源是什么?</h3>
@@ -24,12 +24,16 @@
                         番剧每集可拥有几十到几千条不等的弹幕量。</p>
 				</div>
 				<div>
-					<h3 class="font-semibold">Bangumi 和 Ani 的关系 & 我注册不了 bangumi 怎么办</h3>
+					<h3 class="font-semibold">Bangumi 和 Ani 的关系 & 我注册不了 bangumi 怎么办？</h3>
 					<p class="mt-1 text-gray-300">Bangumi 是由 Sai 于桂林发起的 ACG 分享与交流项目，你可以通过它管理你的追番进度。Ani 依赖 Bangumi 的功能来做进度管理等功能。Bangumi 不提供播放功能，请使用能正常接受邮件的邮箱注册 Bangumi。</p>
 				</div>
 				<div>
-					<h3 class="font-semibold">电脑版 Ani 播放不了怎么办</h3>
+					<h3 class="font-semibold">电脑版 Ani 播放不了怎么办？</h3>
 					<p class="mt-1 text-gray-300">对于在线源，第一次播放需要等待资源下载一段时间。对于某些 BT 源（尤其是老旧的资源）则因无人做种而下载速度慢，这种情况下你可以尝试缓存。</p>
+				</div>
+				<div>
+					<h3 class="font-semibold">播放卡顿/加载慢？</h3>
+					<p class="mt-1 text-gray-300">请首先检查自己的网络状况，我们不保证每个在线源的连通性，请尝试更换播放源或使用代理。</p>
 				</div>
 				<div>
 					<h3 class="font-semibold">更多问题？</h3>
