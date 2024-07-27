@@ -17,5 +17,5 @@
 
 <script setup lang="ts">
 import DownloadInfo from './DownloadInfo.vue';
-const props = defineProps(['type'])
+defineProps(['type']);
 </script>
