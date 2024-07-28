@@ -11,7 +11,7 @@
             <div class="space-x-2 flex text-nowrap my-auto w-fit float-end">
                 <a :href="v[0]" class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300">主线</a>
                 <a :href="v[1]" class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300">备线</a>
-                <button class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300" v-if="k === 'android'" @click="showQR=!showQR">扫码下载</button>
+                <button class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300" v-if="k === 'android'&& isPC" @click="showQR=!showQR">扫码下载</button>
             </div>
             <!-- TODO: sort to pin the correct device type -->
         </li>
