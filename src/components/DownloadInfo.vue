@@ -11,7 +11,7 @@
             <div class="space-x-2 flex text-nowrap my-auto w-fit float-end">
                 <a :href="outputs.downloadUrlAlternativesMap[v][0]" class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300">主线</a>
                 <a :href="outputs.downloadUrlAlternativesMap[v][1]" class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300">备线</a>
-                <button class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300" v-if="v === 'android-universal'&& isPC" @click="showQR=!showQR">扫码下载</button>
+                <button class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300" v-if="v === 'android'&& isPC" @click="showQR=!showQR">扫码下载</button>
             </div>
             <!-- TODO: sort to pin the correct device type -->
         </li>
@@ -51,7 +51,7 @@ interface responseType {
         'macos-aarch64': string[],
         'macos-x86_64': string[],
         'windows-x86_64': string[],
-        'android-universal': string[]
+        'android': string[]
     },
     publishTime: number,
     qrcodeUrls: string[]
@@ -61,7 +61,7 @@ const nameMap = ref({
     'macos-aarch64': 'macOS aarch64 (M 系列芯片)',
     'macos-x86_64': 'macOS x86_64 (Intel 芯片)',
     'windows-x86_64': 'Windows X86_64',
-    'android-universal': '安卓 APK'
+    'android': '安卓 APK'
 })
 
 const outputs:Ref<responseType|undefined> = ref()
