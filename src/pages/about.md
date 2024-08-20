@@ -3,7 +3,7 @@ layout: ../layouts/Post.astro
 title: "About"
 ---
 <div align="center">
-  
+
 # Ani
 
 [动漫花园]: http://www.dmhy.org/
@@ -59,12 +59,9 @@ Ani 的目标是提供能在此应用提供完整舒适的追番体验。
 
 ### 资源选择
 
-<img width="200" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/episode/episode-player-loading.jpg" alt="episode-player-loading"/> <img width="200" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/episode/episode-stats.jpg" alt="episode-stats"/> <img width="200" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/episode/episode-media.jpg" alt="episode-media"/> <img width="200" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/preferences/preferences-media.jpg"  alt="subtitle-language.jpg"/>  
-
-
+<img width="200" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/episode/episode-player-loading.jpg" alt="episode-player-loading"/> <img width="200" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/episode/episode-stats.jpg" alt="episode-stats"/> <img width="200" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/episode/episode-media.jpg" alt="episode-media"/> <img width="200" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/preferences/preferences-media.jpg"  alt="subtitle-language.jpg"/>
 
 ### 视频弹幕
-
 
 <img width="500" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/episode/player-controller.jpeg" alt="player-controller"/> <img width="500" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/episode/player-danmaku.jpeg" alt="player-danmaku"/>
 
@@ -74,13 +71,9 @@ Ani 的目标是提供能在此应用提供完整舒适的追番体验。
 
 <img width="600" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/episode/player-gesture.jpeg" alt="episode-gesture"/>
 
-
-
 ### 视频缓存
 
-
-<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/preferences/cache.jpg"  alt="cache.jpg"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/subject/subject-cache.jpg"  alt="subject-cache.jpg"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/preferences/global-caches.jpg"  alt="global-caches.jpg"/> 
-
+<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/preferences/cache.jpg"  alt="cache.jpg"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/subject/subject-cache.jpg"  alt="subject-cache.jpg"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/ani/.readme/images/preferences/global-caches.jpg"  alt="global-caches.jpg"/>
 
 ### 网络设置
 

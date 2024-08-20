@@ -24,4 +24,3 @@ title: "Windows 下字体与背景颜色异常"
 <img width="648" alt="image" src="https://s2.loli.net/2024/07/26/WcY5GnH4QvChgla.png">
 
 4. 重新打开 `Ani`
-
