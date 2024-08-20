@@ -1,3 +1,9 @@
+<script setup lang="ts">
+defineProps<{
+  isIndex?: boolean
+}>()
+</script>
+
 <template>
   <section id="faq" class="text-gray-100 w-full xl:w-4/5 mx-auto px-4">
     <div class="container flex flex-col justify-center py-6 mx-auto md:py-10">
@@ -54,7 +60,7 @@
             请首先检查自己的网络状况，我们不保证每个在线源的连通性，请尝试更换播放源或使用代理。
           </p>
         </div>
-        <div>
+        <div v-show="isIndex">
           <h3 class="font-semibold">
             更多问题？
           </h3>
