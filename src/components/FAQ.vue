@@ -15,7 +15,7 @@
             BT 源即为公共 BitTorrent P2P 网络， 每个在 BT 网络上的人都可分享自己拥有的资源供他人下载。
             在线源即为其他视频资源网站分享的内容。Ani 本身并不提供任何视频资源。
             本着互助精神，使用 BT 源时 Ani 会自动做种 (分享数据)。
-            BT 指纹为<label>-aniLT3000-</label>，其中<label>3000</label>为版本号；UA 为类似 <label>ani_libtorrent/3.0.0</label>。
+            BT 指纹为<span>-aniLT3000-</span>，其中<span>3000</span>为版本号；UA 为类似 <span>ani_libtorrent/3.0.0</span>。
           </p>
         </div>
         <div>
@@ -68,7 +68,7 @@
 </template>
 
 <style>
-#faq label {
+#faq span {
     background-color: #1d2432;
     padding: 5px;
     margin: 0 3px;

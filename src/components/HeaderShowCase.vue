@@ -28,16 +28,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative flex w-fit xl:mb-20">
+  <div class="relative flex w-fit md:mb-20">
     <div>
-      <div id="pc" class="hidden xl:block bottom-0 right-0 relative w-[800px] h-[450px]">
+      <div id="pc" class="hidden md:block bottom-0 right-0 relative w-[800px] h-[450px]">
         <img
           ref="pc_img" alt="showcase" src="/showcase/pc/1.jpg"
           class="w-[75%] top-[7.2%] left-[12.5%] absolute h-[84%] object-cover"
         >
       </div>
     </div>
-    <div ref="phone" class="rotatable xl:absolute xl:-bottom-24 xl:-right-8">
+    <div ref="phone" class="rotatable md:absolute md:-bottom-24 md:-right-8">
       <div id="phone" class="relative w-[200px] h-[410px]">
         <img
           ref="phone_img" alt="showcase" src="/showcase/phone/1.jpg"

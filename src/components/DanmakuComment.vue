@@ -34,7 +34,7 @@ onMounted(() => {
   }
   setTimeout(function cycle() {
     add()
-    setTimeout(() => { cycle() }, Math.random() * 1000)
+    setTimeout(cycle, Math.random() * 1000)
   }, Math.random() * 1000)
 })
 </script>

@@ -7,7 +7,7 @@ defineProps(['type'])
 <template>
   <div class="w-full">
     <div>
-      <div class="flex mt-3 item-center">
+      <div class="flex mt-3 ml-3 item-center">
         <a href="/downloads/stable" class="flex items-center text-white h-[50px] px-2 bg-grey-100" :class="[type === 'stable' ? 'border-b-4 border-blue-400' : '']">稳定版本</a>
         <a href="/downloads/beta" class="flex items-center text-white h-[50px] px-2 bg-grey-100" :class="[type === 'beta' ? 'border-b-4 border-blue-400' : '']">Beta（测试版）</a>
       </div>
