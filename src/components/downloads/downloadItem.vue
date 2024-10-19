@@ -80,6 +80,17 @@ async function getRemoteRelease(): Promise<void> {
   }
 }
 
+function ts2str(ts: number): string {
+  const date = new Date(ts * 1000)
+  const y = date.getFullYear().toString()
+  const m = (date.getMonth() + 1).toString().padStart(2, '0')
+  const d = date.getDate().toString().padStart(2, '0')
+  const h = date.getHours().toString().padStart(2, '0')
+  const mi = date.getMinutes().toString().padStart(2, '0')
+  const s = date.getSeconds().toString().padStart(2, '0')
+  return `${y}-${m}-${d} ${h}:${mi}:${s}`
+}
+
 onMounted(async () => {
   checkIsPc()
   const stat = await checkStat()
@@ -93,6 +104,17 @@ onMounted(async () => {
 
 <template>
   <ul v-if="fetchStat === FetchStatType.loaded && fetchResp !== undefined" class="py-3">
+    <li class="flex justify-between items-center">
+      <ul class="font-bold">
+        更新时间：{{ ts2str(fetchResp.publishTime) }}
+      </ul>
+      <ul
+        class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300 cursor-pointer"
+        @click="getRemoteRelease()"
+      >
+        刷新
+      </ul>
+    </li>
     <li
       v-for="(release, index) in releaseList" :key="index" aria-label="win"
       class="p-4 flex"
@@ -144,14 +166,23 @@ onMounted(async () => {
     </li>
   </ul>
   <div v-else class="w-2/3 xl:w-1/2 p-6 border-2 border-white rounded">
-    <div v-if="fetchStat === FetchStatType.loading" class="flex justify-center items-center space-x-3">
+    <div v-if="fetchStat === FetchStatType.networkErr" class="flex justify-center items-center space-x-3">
       <b class="h-fit text-xl font-medium">资源加载中...</b>
     </div>
     <div v-else class="flex justify-center items-center space-x-3">
       <Icon icon="mdi:error-outline" class="w-10 h-10" />
-      <b class="h-fit text-xl font-medium"> {{
-        FetchStatType.serviceErr === 3 ? "服务器故障，请等候服务恢复" : "资源加载失败，请刷新重试"
-      }}或前往<a href="https://github.com/open-ani/ani/releases" class=" text-blue-600">Github Releases</a>下载 😭</b>
+      <b class="h-fit text-xl font-medium">
+        {{ fetchStat === FetchStatType.serviceErr ? "服务器故障，请等候服务恢复" : "资源加载失败，请刷新重试" }}
+        <span>或前往</span>
+        <a href="https://github.com/open-ani/ani/releases" class=" text-blue-600">Github Releases</a>
+        <span>下载 😭</span>
+      </b>
+      <button
+        class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300 cursor-pointer"
+        @click="getRemoteRelease()"
+      >
+        刷新
+      </button>
     </div>
   </div>
 </template>
