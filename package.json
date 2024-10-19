@@ -1,7 +1,7 @@
 {
-  "name": "",
+  "name": "ani-website",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,21 +10,21 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
-    "@astrojs/sitemap": "^3.1.6",
-    "@astrojs/tailwind": "^5.1.0",
-    "@astrojs/vue": "^4.5.0",
-    "@headlessui/vue": "^1.7.22",
-    "@types/node": "^20.14.2",
-    "astro": "^4.14.2",
-    "danmaku": "^2.0.6",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/sitemap": "^3.2.1",
+    "@astrojs/tailwind": "^5.1.2",
+    "@astrojs/vue": "^4.5.2",
+    "@headlessui/vue": "^1.7.23",
+    "@types/node": "^22.7.7",
+    "astro": "^4.16.6",
+    "danmaku": "^2.0.7",
     "octokit": "^4.0.2",
-    "tailwindcss": "^3.4.4",
-    "typescript": "^5.4.5",
-    "vue": "^3.4.27"
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3",
+    "vue": "^3.5.12"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.26.0",
+    "@antfu/eslint-config": "^3.8.0",
     "@iconify/vue": "^4.1.2"
   }
 }
