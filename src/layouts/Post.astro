@@ -1,12 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
-const { title } = Astro.props.frontmatter;
+const {title} = Astro.props.frontmatter;
 const pgtitle = `Ani - Post ${title}`;
 ---
 
 <Layout title={pgtitle}>
     <article class="px-3 py-8 w-full xl:w-3/5 !mx-auto !bg-transparent markdown-body !break-words">
-        <slot />
+        <slot/>
     </article>
     <link rel="stylesheet" href="/markdown.css">
 </Layout>
