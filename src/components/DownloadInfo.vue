@@ -12,7 +12,7 @@ const showQR = ref(false)
 interface responseType {
   version: string
   downloadUrlAlternativesMap: {
-    'macos-x86_64': string[]
+    'macos-aarch64': string[]
     'windows-x86_64': string[]
     'android-universal': string[]
   }
@@ -21,7 +21,7 @@ interface responseType {
 }
 
 const nameMap = ref({
-  'macos-x86_64': 'macOS x86_64 (Intel 芯片)',
+  'macos-aarch64': 'macOS aarch64',
   'windows-x86_64': 'Windows X86_64',
   'android-universal': '安卓 APK',
 })
