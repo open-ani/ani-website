@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Buttons from './Buttons.vue'
-import HeaderShowCase from './HeaderShowCase.vue'
+import Buttons from '../components/Buttons.vue'
+import HeaderShowCase from '../components/HeaderShowCase.vue'
 </script>
 
 <template>

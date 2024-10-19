@@ -1,16 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import Header from "../components/Header.vue"
+import Header from "../ui/Header.vue"
 import DanmakuComment from "../components/DanmakuComment.vue"
 import Features from "../components/Features.vue"
 import FAQ from "../components/FAQ.vue"
 ---
 
 <Layout title="Ani">
-	<main class="text-white xl:px-10 py-12 w-full">
-		<Header client:load/>
-		<Features />
-		<DanmakuComment client:visible/>
-		<FAQ isIndex/>
-	</main>
+    <main class="text-white xl:px-10 py-12 w-full">
+        <Header client:load/>
+        <Features/>
+        <DanmakuComment client:visible/>
+        <FAQ isIndex/>
+    </main>
 </Layout>

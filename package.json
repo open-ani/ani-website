@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "code:check": "eslint .",
-    "code:lint": "eslint . --fix",
+    "code:lint": "eslint . --fix --no-ignore",
     "astro": "astro",
     "postinstall": "husky"
   },
@@ -33,6 +33,7 @@
     "lint-staged": "^15.2.10"
   },
   "lint-staged": {
-    "*": "eslint --fix"
+    "*.vue": "eslint --fix",
+    "*.astro": "astro check"
   }
 }

@@ -1,0 +1,11 @@
+---
+import Layout from "../layouts/Layout.astro";
+import DownloadTab from "../components/downloads/downloadTab.vue";
+---
+
+<Layout title="Ani - 下载">
+    <div class="w-full xl:w-3/5 mx-auto py-6 px-4 space-y-3">
+        <h2 class="text-3xl px-3 py-1 text-white font-bold">下载 Ani</h2>
+        <DownloadTab client:load/>
+    </div>
+</Layout>

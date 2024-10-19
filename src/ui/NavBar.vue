@@ -4,7 +4,7 @@ import { Icon } from '@iconify/vue/dist/iconify.js'
 
 const navigation = [
   { name: '主页', href: '/', current: false },
-  { name: '下载', href: '/downloads/stable', current: false },
+  { name: '下载', href: '/downloads', current: false },
   { name: '功能截图', href: '/about', current: false },
   { name: '常见问题', href: '/wiki', current: false },
 ]
@@ -24,7 +24,7 @@ const navigation = [
         </div>
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <a href="/" class="hover:animate-spin flex flex-shrink-0 items-center">
-            <img class="rounded-full" width="32" height="32" alt="logo" src="/logo.png">
+            <img class="rounded-full w-8 h-8" alt="logo" src="/logo.png">
           </a>
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
