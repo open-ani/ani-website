@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import DownloadInfo from '../DownloadInfo.vue'
+import DownloadItem from './downloadItem.vue'
 
 type ReleaseType = 'stable' | 'beta'
 
@@ -21,13 +21,15 @@ function toType(type: ReleaseType) {
     <div>
       <div class="flex mt-3 ml-3 item-center">
         <a
-          class="flex items-center text-white h-[50px] px-2 bg-grey-100" :class="[curType === 'stable' ? 'border-b-4 border-blue-400' : '']"
+          class="flex items-center text-white h-[50px] px-2 bg-grey-100"
+          :class="[curType === 'stable' ? 'border-b-4 border-blue-400' : '']"
           @click="toType('stable')"
         >
           稳定版本
         </a>
         <a
-          class="flex items-center text-white h-[50px] px-2 bg-grey-100" :class="[curType === 'beta' ? 'border-b-4 border-blue-400' : '']"
+          class="flex items-center text-white h-[50px] px-2 bg-grey-100"
+          :class="[curType === 'beta' ? 'border-b-4 border-blue-400' : '']"
           @click="toType('beta')"
         >
           测试版本
@@ -35,8 +37,8 @@ function toType(type: ReleaseType) {
       </div>
       <div class="mt-2 w-full">
         <div class="text-white">
-          <DownloadInfo v-show="curType === 'stable'" type="stable" />
-          <DownloadInfo v-show="curType === 'beta'" type="beta" />
+          <DownloadItem v-show="curType === 'stable'" type="stable" />
+          <DownloadItem v-show="curType === 'beta'" type="beta" />
         </div>
       </div>
     </div>
