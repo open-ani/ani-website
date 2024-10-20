@@ -166,7 +166,7 @@ onMounted(async () => {
     </li>
   </ul>
   <div v-else class="w-2/3 xl:w-1/2 p-6 border-2 border-white rounded">
-    <div v-if="fetchStat === FetchStatType.networkErr" class="flex justify-center items-center space-x-3">
+    <div v-if="fetchStat === FetchStatType.loading" class="flex justify-center items-center space-x-3">
       <b class="h-fit text-xl font-medium">资源加载中...</b>
     </div>
     <div v-else class="flex justify-center items-center space-x-3">

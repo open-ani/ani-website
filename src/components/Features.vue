@@ -5,7 +5,7 @@ import FeatureCard from './FeatureCard.vue'
 <template>
   <div class="flex flex-col w-full items-center justify-center space-y-5">
     <h2 class="text-4xl font-bold">
-      Ani 有什么亮点
+      ✨应用亮点✨
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 w-full md:w-3/5">
       <FeatureCard title="弹幕及弹幕云过滤" desc="Ani 从弹弹play, 其他弹幕网站, 以及 Ani 弹幕服务获取弹幕，你也可以发送弹幕到 Ani 的公益弹幕服务器，AI 团队将逐渐推进弹幕云过滤功能。">

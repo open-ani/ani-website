@@ -1,30 +1,38 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { useTemplateRef, watch } from 'vue'
 
-let rotation = 0
-let phone: HTMLDivElement
-let phone_img: HTMLImageElement
-let pc_img: HTMLImageElement
-function rotateElement() {
-  if (rotation++ % 2 === 0) {
-    phone.style.transform = `rotate(90deg)`
-    setTimeout(() => {
-      phone_img.src = '/showcase/phone/2.jpg'
-      pc_img.src = '/showcase/pc/2.jpg'
-    }, 400)
-  }
-  else {
-    phone.style.transform = `rotate(0deg)`
-    setTimeout(() => {
-      phone_img.src = '/showcase/phone/1.jpg'
-      pc_img.src = '/showcase/pc/1.jpg'
-    }, 400)
-  }
+const props = defineProps<HeaderShowCaseProps>()
+const phoneEl = useTemplateRef<HTMLDivElement>('phone')
+const phoneImgEl = useTemplateRef<HTMLImageElement>('phone_img')
+const pcImgEl = useTemplateRef<HTMLImageElement>('pc_img')
+
+interface HeaderShowCaseProps {
+  modelValue: boolean
 }
 
-onMounted(() => {
-  setTimeout(() => document.getElementById('rotate')!.addEventListener('click', rotateElement), 200)
-})
+function rotateElement(): void {
+  if (props.modelValue) {
+    if (phoneEl.value)
+      phoneEl.value.style.transform = 'rotate(90deg)'
+    setTimeout(() => {
+      if (phoneImgEl.value)
+        phoneImgEl.value.src = '/showcase/phone/2.jpg'
+      if (pcImgEl.value)
+        pcImgEl.value.src = '/showcase/pc/2.jpg'
+    }, 400)
+    return
+  }
+  if (phoneEl.value)
+    phoneEl.value.style.transform = 'rotate(0deg)'
+  setTimeout(() => {
+    if (phoneImgEl.value)
+      phoneImgEl.value.src = '/showcase/phone/1.jpg'
+    if (pcImgEl.value)
+      pcImgEl.value.src = '/showcase/pc/1.jpg'
+  }, 400)
+}
+
+watch(() => props.modelValue, () => rotateElement())
 </script>
 
 <template>
@@ -52,16 +60,16 @@ onMounted(() => {
 
 <style>
 #phone {
-    background-image: url('/phone.png');
-    background-size: cover;
+  background-image: url('/phone.png');
+  background-size: cover;
 }
 
 #pc {
-    background-image: url('/computer.png');
-    background-size: cover;
+  background-image: url('/computer.png');
+  background-size: cover;
 }
 
 .rotatable {
-    transition: transform 0.5s ease;
+  transition: all 0.5s ease-in-out;
 }
 </style>

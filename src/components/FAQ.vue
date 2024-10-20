@@ -41,7 +41,8 @@ defineProps<{
             Bangumi 和 Ani 的关系 & 我注册不了 bangumi 怎么办？
           </h3>
           <p class="mt-1 text-gray-300">
-            Bangumi 是由 Sai 于桂林发起的 ACG 分享与交流项目，你可以通过它管理你的追番进度。Ani 依赖 Bangumi 的功能来做进度管理等功能。Bangumi 不提供播放功能，请使用能正常接受邮件的邮箱注册 Bangumi。
+            Bangumi 是由 Sai 于桂林发起的 ACG 分享与交流项目，你可以通过它管理你的追番进度。Ani 依赖 Bangumi
+            的功能来做进度管理等功能。Bangumi 不提供播放功能，请使用能正常接受邮件的邮箱注册 Bangumi。
           </p>
         </div>
         <div>
@@ -62,10 +63,12 @@ defineProps<{
         </div>
         <div v-show="isIndex">
           <h3 class="font-semibold">
-            更多问题？
+            更多问题...
           </h3>
           <p class="mt-1 text-gray-300">
-            请前往 <a href="/wiki" class="underline">wiki</a> 查阅，或在群聊、<a href="https://github.com/open-ani/ani/issues/new/choose" class="underline">github issue</a> 中反馈
+            请前往 <a href="/wiki" class="underline">wiki</a> 查阅，或在群聊、<a
+              href="https://github.com/open-ani/ani/issues/new/choose" class="underline"
+            >github issue</a> 中反馈
           </p>
         </div>
       </div>
@@ -75,10 +78,10 @@ defineProps<{
 
 <style>
 #faq span {
-    background-color: #1d2432;
-    padding: 5px;
-    margin: 0 3px;
-    border-radius: 0.225rem;
-    font-size: small;
+  background-color: #1d2432;
+  padding: 5px;
+  margin: 0 3px;
+  border-radius: 0.225rem;
+  font-size: small;
 }
 </style>
