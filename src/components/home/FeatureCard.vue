@@ -1,8 +1,10 @@
 <script setup lang="ts">
-defineProps<{
+interface FeatureCardProps {
   title?: string
   desc?: string
-}>()
+}
+
+const props = defineProps<FeatureCardProps>()
 </script>
 
 <template>
@@ -11,10 +13,14 @@ defineProps<{
       <slot />
     </div>
     <dt class="mt-4 font-semibold text-white">
-      {{ title }}
+      <slot name="title">
+        {{ props.title ?? "" }}
+      </slot>
     </dt>
     <dd class="mt-2 leading-7 text-gray-400">
-      {{ desc }}
+      <slot name="desc">
+        {{ props.desc ?? "" }}
+      </slot>
     </dd>
   </dl>
 </template>

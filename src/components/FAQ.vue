@@ -1,14 +1,16 @@
 <script setup lang="ts">
-defineProps<{
+interface FAQProps {
   isIndex?: boolean
-}>()
+}
+
+const props = withDefaults(defineProps<FAQProps>(), { isIndex: undefined })
 </script>
 
 <template>
-  <section id="faq" class="text-gray-100 w-full xl:w-4/5 mx-auto px-4">
+  <section class="text-gray-100 w-full xl:w-4/5 mx-auto px-4">
     <div class="container flex flex-col justify-center py-6 mx-auto md:py-10">
       <h2 class="mt-4 mb-6 text-4xl font-bold leading-none text-center sm:text-5xl">
-        常见问题
+        {{ props.isIndex ? "🤔常见问题💡" : "常见问题" }}
       </h2>
       <div class="grid gap-10 md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32">
         <div>
@@ -21,7 +23,7 @@ defineProps<{
             BT 源即为公共 BitTorrent P2P 网络， 每个在 BT 网络上的人都可分享自己拥有的资源供他人下载。
             在线源即为其他视频资源网站分享的内容。Ani 本身并不提供任何视频资源。
             本着互助精神，使用 BT 源时 Ani 会自动做种 (分享数据)。
-            BT 指纹为<span>-aniLT3000-</span>，其中<span>3000</span>为版本号；UA 为类似 <span>ani_libtorrent/3.0.0</span>。
+            BT 指纹为<code>-aniLT3000-</code>，其中<code>3000</code>为版本号；UA 为类似 <code>ani_libtorrent/3.0.0</code>。
           </p>
         </div>
         <div>
@@ -41,7 +43,8 @@ defineProps<{
             Bangumi 和 Ani 的关系 & 我注册不了 bangumi 怎么办？
           </h3>
           <p class="mt-1 text-gray-300">
-            Bangumi 是由 Sai 于桂林发起的 ACG 分享与交流项目，你可以通过它管理你的追番进度。Ani 依赖 Bangumi 的功能来做进度管理等功能。Bangumi 不提供播放功能，请使用能正常接受邮件的邮箱注册 Bangumi。
+            Bangumi 是由 Sai 于桂林发起的 ACG 分享与交流项目，你可以通过它管理你的追番进度。Ani 依赖 Bangumi
+            的功能来做进度管理等功能。Bangumi 不提供播放功能，请使用能正常接受邮件的邮箱注册 Bangumi。
           </p>
         </div>
         <div>
@@ -60,12 +63,16 @@ defineProps<{
             请首先检查自己的网络状况，我们不保证每个在线源的连通性，请尝试更换播放源或使用代理。
           </p>
         </div>
-        <div v-show="isIndex">
+        <div v-show="props.isIndex">
           <h3 class="font-semibold">
-            更多问题？
+            更多问题...
           </h3>
           <p class="mt-1 text-gray-300">
-            请前往 <a href="/wiki" class="underline">wiki</a> 查阅，或在群聊、<a href="https://github.com/open-ani/ani/issues/new/choose" class="underline">github issue</a> 中反馈
+            <span>请前往 </span>
+            <a href="/wiki" class="underline">wiki</a>
+            <span>查阅，或在群聊、</span>
+            <a href="https://github.com/open-ani/ani/issues/new/choose" class="underline">github issue</a>
+            <span>中反馈</span>
           </p>
         </div>
       </div>
@@ -73,12 +80,12 @@ defineProps<{
   </section>
 </template>
 
-<style>
-#faq span {
-    background-color: #1d2432;
-    padding: 5px;
-    margin: 0 3px;
-    border-radius: 0.225rem;
-    font-size: small;
+<style lang="css" scoped>
+code {
+  background-color: #1d2432;
+  padding: 5px;
+  margin: 0 3px;
+  border-radius: 0.225rem;
+  font-size: small;
 }
 </style>
