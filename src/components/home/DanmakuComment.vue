@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Danmaku from 'danmaku'
-import { onMounted, useTemplateRef } from 'vue'
+import { onMounted, onUnmounted, useTemplateRef } from 'vue'
 
-const danmaku_data = [
+const danmakuList: string[] = [
   'ani太方便了导致经常摸鱼',
   '好漂亮的客户端',
   'elegant !',
@@ -14,32 +14,44 @@ const danmaku_data = [
 ]
 
 const containerEl = useTemplateRef<HTMLDivElement>('container')
+let danmakuTimer: NodeJS.Timeout | null = null
 
-function getRandomColor() {
+function getRandomColor(): string {
   const r = Math.floor(Math.random() * 128) + 128
   const g = Math.floor(Math.random() * 128) + 128
   const b = Math.floor(Math.random() * 128) + 128
   return `rgb(${r}, ${g}, ${b})`
 }
 
-const randint = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min // [min,max]
+function getRandomInt(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function addDanmaku(dmk: Danmaku): void {
+  const len = danmakuList.length
+  const idx = getRandomInt(0, len - 1)
+  dmk.emit({
+    text: danmakuList[idx],
+    style: {
+      fontSize: `${getRandomInt(22, 32)}px`,
+      color: getRandomColor(),
+    },
+  })
+}
+
 onMounted(() => {
   if (containerEl.value) {
     const danmaku = new Danmaku({ container: containerEl.value, engine: 'dom', speed: 110 })
-    const add = () => {
-      const comment = {
-        text: danmaku_data[randint(0, danmaku_data.length - 1)],
-        style: {
-          fontSize: `${randint(22, 32)}px`,
-          color: getRandomColor(),
-        },
-      }
-      danmaku.emit(comment)
-    }
-    setTimeout(function cycle() {
-      add()
-      setTimeout(cycle, Math.random() * 1000)
+    danmakuTimer = setInterval(() => {
+      addDanmaku(danmaku)
     }, Math.random() * 1000)
+  }
+})
+
+onUnmounted(() => {
+  if (danmakuTimer != null) {
+    clearInterval(danmakuTimer)
+    danmakuTimer = null
   }
 })
 </script>
@@ -47,7 +59,7 @@ onMounted(() => {
 <template>
   <div class="flex w-full justify-center items-center flex-col mt-3 !space-y-3 px-3">
     <h2 class="text-4xl font-bold my-2">
-      用户对 Ani 的评价
+      💬用户评价🗨
     </h2>
     <div ref="container" class="w-full md:w-3/5 h-[350px] border-2 border-slate-400 rounded-md" />
     <div class="mt-6 w-full flex md:w-3/5 gap-x-2">

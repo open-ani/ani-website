@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import Buttons from '../components/Buttons.vue'
-import HeaderShowCase from '../components/HeaderShowCase.vue'
+import Buttons from './Buttons.vue'
+import HeaderShowCase from './HeaderShowCase.vue'
 
 const isRotate = ref<boolean>(false)
 </script>
