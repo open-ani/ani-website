@@ -1,6 +1,6 @@
-# Ani-Website
+# Animeko -Website
 
-The website of [Ani](https://github.com/open-ani/ani), a one-stop danmaku animation platform.
+The website of [Animeko](https://github.com/open-ani/animeko), a one-stop danmaku animation platform.
 
 ## develop
 

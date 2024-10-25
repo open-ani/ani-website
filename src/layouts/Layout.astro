@@ -1,44 +1,45 @@
 ---
 interface Props {
-	title: string;
+    title: string;
 }
 
-import NavBar from "../components/NavBar.vue";
-import Footer from "../components/Footer.vue"
+import NavBar from "../ui/NavBar.vue";
+import Footer from "../ui/Footer.vue"
 
-const { title } = Astro.props;
+const {title} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="zh" class="overflow-x-hidden">
-	<head>
-		<meta charset="UTF-8" />
-		<meta property="og:title" content={title}>
-		<meta name="generator" content={Astro.generator} />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="description" content="Ani - 一个一站式在线弹幕追番平台">
-		<meta property="og:description" content="Ani - 一个一站式在线弹幕追番平台">
-		<meta name="generator" content={Astro.generator} />
-		<meta name="keywords" content="Ani, 弹幕, 追番, 全自动BT, 数据源聚合, 离线缓存, Bangumi, 弹幕云过滤, 开源, 动漫, 收藏同步">
-		<link rel="sitemap" href="/sitemap-index.xml" />
-		<link rel="icon" type="image/svg+xml" href="/logo.png" />
-		<script is:inline defer src="https://ani-umami.zeabur.app/script.js" data-website-id="bd38babb-a1c7-4d99-a96d-575f30c3354e"></script>
-		<title>{title}</title>
-	</head>
-	<body class="w-full h-full isolate bg-gray-900">
-		<div class="fixed left-0 top-0 -z-10 h-full w-full"><div class="relative h-full w-full bg-slate-950"><div class="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div><div class="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div></div></div>
-		<NavBar client:visible/>
-		<slot />
-
-	</body>
-	<footer>
-		<Footer />
-	</footer>
+<head>
+    <meta charset="UTF-8"/>
+    <meta property="og:title" content={title}>
+    <meta name="generator" content={Astro.generator}/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="description" content="Animeko - 一个一站式在线弹幕追番平台">
+    <meta property="og:description" content="Animeko - 一个一站式在线弹幕追番平台">
+    <meta name="generator" content={Astro.generator}/>
+    <meta name="keywords"
+          content="Animeko, 弹幕, 追番, 全自动BT, 数据源聚合, 离线缓存, Bangumi, 弹幕云过滤, 开源, 动漫, 收藏同步">
+    <link rel="sitemap" href="/sitemap-index.xml"/>
+    <link rel="icon" type="image/svg+xml" href="/logo.png"/>
+    <script is:inline defer src="https://ani-umami.zeabur.app/script.js"
+            data-website-id="bd38babb-a1c7-4d99-a96d-575f30c3354e"/>
+    <title>{title}</title>
+</head>
+<body class="w-full h-full isolate bg-gray-900">
+<div class="fixed left-0 top-0 w-full backdrop-blur bg-white/10 z-40">
+    <!--<div class="relative h-full w-full bg-slate-950">-->
+    <!--<div class="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>-->
+    <NavBar client:visible/>
+    <!--<div class="absolute bottom-0 right-[-20%] top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"></div>-->
+    <!--</div>-->
+</div>
+<div class="mt-10">
+    <slot/>
+</div>
+</body>
+<footer>
+    <Footer/>
+</footer>
 </html>
-
-<style is:global>
-	html,
-	body {
-		padding: 0;
-	}
-</style>

@@ -17,10 +17,10 @@ title: "Windows 下字体与背景颜色异常"
 
 <img width="648" alt="image" src="https://s2.loli.net/2024/07/26/p9kJgoCTHdNbmR1.png">
 
-2. 选择 **桌面应用** 并点击 **浏览**，找到 **Ani.exe** 添加。
+2. 选择 **桌面应用** 并点击 **浏览**，找到 **Animkeo.exe** 添加。
 
-3. 点击 **Ani.exe** 选项，选择 **集成显卡**(省电)，保存。
+3. 点击 **Animeko.exe** 选项，选择 **集成显卡**(省电)，保存。
 
 <img width="648" alt="image" src="https://s2.loli.net/2024/07/26/WcY5GnH4QvChgla.png">
 
-4. 重新打开 `Ani`
+4. 重新打开 `Animeko`
