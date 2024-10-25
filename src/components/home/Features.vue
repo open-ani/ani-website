@@ -10,7 +10,7 @@ import FeatureCard from './FeatureCard.vue'
     <div class="grid grid-cols-1 md:grid-cols-2 w-full md:w-3/5">
       <FeatureCard title="弹幕及弹幕云过滤">
         <template #desc>
-          Ani 从弹弹play, 其他弹幕网站, 以及 Ani 弹幕服务获取弹幕，你也可以发送弹幕到 Ani 的公益弹幕服务器，AI
+          Animeko 从弹弹play, 其他弹幕网站, 以及 Animeko 弹幕服务获取弹幕，你也可以发送弹幕到 Animeko 的公益弹幕服务器，AI
           团队将逐渐推进弹幕云过滤功能。
         </template>
         <template #default>
@@ -27,7 +27,7 @@ import FeatureCard from './FeatureCard.vue'
       </FeatureCard>
       <FeatureCard title="使用 bangumi 管理追番进度">
         <template #desc>
-          只要有一个 bangumi 账号，你就可以通过 Ani 一站式地管理追番的进度，标注想看/再看/看过的番剧，以及和网友们讨论剧集。当然，你也可以以游客的身份体验大部分功能。
+          只要有一个 bangumi 账号，你就可以通过 Animeko 一站式地管理追番的进度，标注想看/再看/看过的番剧，以及和网友们讨论剧集。当然，你也可以以游客的身份体验大部分功能。
         </template>
         <template #default>
           <svg

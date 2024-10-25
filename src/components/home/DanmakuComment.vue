@@ -3,7 +3,7 @@ import Danmaku from 'danmaku'
 import { onMounted, onUnmounted, useTemplateRef } from 'vue'
 
 const danmakuList: string[] = [
-  'ani太方便了导致经常摸鱼',
+  'animeko太方便了导致经常摸鱼',
   '好漂亮的客户端',
   'elegant !',
   '這種項目總是要支持的(bgm105)',

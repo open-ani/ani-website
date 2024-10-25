@@ -5,7 +5,7 @@ title: "macOS 无法打开解决方案"
 
 # macOS 无法打开解决方案
 
-## 未打开 “Ani”
+## 未打开 “Animeko”
 
 <img width="252" alt="image" src="https://s2.loli.net/2024/07/26/Le1l2BQj9bpixdw.png">
 
@@ -16,10 +16,10 @@ title: "macOS 无法打开解决方案"
 1. 按 `command + 空格` 并输入 `terminal` 后回车
 2. 在打开的页面中，输入以下命令并回车
    ```shell
-   sudo xattr -d com.apple.quarantine /Applications/Ani.app
+   sudo xattr -d com.apple.quarantine /Applications/Animeko.app
    ```
 3. 输入电脑的锁屏密码并回车
-4. 重新打开 `Ani`
+4. 重新打开 `Animeko`
 
 #### 方案2
 

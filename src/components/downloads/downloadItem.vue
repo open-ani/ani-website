@@ -174,7 +174,7 @@ onMounted(async () => {
       <b class="h-fit text-xl font-medium">
         {{ fetchStat === FetchStatType.serviceErr ? "服务器故障，请等候服务恢复" : "资源加载失败，请刷新重试" }}
         <span>或前往</span>
-        <a href="https://github.com/open-ani/ani/releases" class=" text-blue-600">Github Releases</a>
+        <a href="https://github.com/open-ani/animeko/releases" class=" text-blue-600">Github Releases</a>
         <span>下载 😭</span>
       </b>
       <button
