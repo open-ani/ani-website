@@ -1,4 +1,4 @@
-# Animeko -Website
+# Animeko - Website
 
 The website of [Animeko](https://github.com/open-ani/animeko), a one-stop danmaku animation platform.
 
