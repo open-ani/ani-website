@@ -104,16 +104,16 @@ onMounted(async () => {
 
 <template>
   <ul v-if="fetchStat === FetchStatType.loaded && fetchResp !== undefined" class="py-3">
-    <li class="flex justify-between items-center">
-      <ul class="font-bold">
+    <li class="flex p-4 justify-between items-center">
+      <span class="font-bold">
         更新时间：{{ ts2str(fetchResp.publishTime) }}
-      </ul>
-      <ul
+      </span>
+      <button
         class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300 cursor-pointer"
         @click="getRemoteRelease()"
       >
         刷新
-      </ul>
+      </button>
     </li>
     <li
       v-for="(release, index) in releaseList" :key="index" aria-label="win"

@@ -11,8 +11,8 @@ function toType(type: ReleaseType) {
     curType.value = type
     return
   }
-  // eslint-disable-next-line no-alert
-  alert(`Already on the ${curType.value} release tab!`)
+  // // eslint-disable-next-line no-alert
+  // alert(`Already on the ${curType.value} release tab!`)
 }
 </script>
 
