@@ -16,8 +16,8 @@ enum FetchStatType {
 }
 
 enum PlatType {
-  'macos-aarch64' = 'macOS aarch64',
-  'windows-x86_64' = 'Windows X86_64',
+  'macos-aarch64' = 'macOS(M系列芯片)',
+  'windows-x86_64' = 'Windows',
   'android-universal' = '安卓APK',
 }
 

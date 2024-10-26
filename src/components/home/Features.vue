@@ -25,9 +25,9 @@ import FeatureCard from './FeatureCard.vue'
           </svg>
         </template>
       </FeatureCard>
-      <FeatureCard title="使用 bangumi 管理追番进度">
+      <FeatureCard title="云同步追番进度">
         <template #desc>
-          只要有一个 bangumi 账号，你就可以通过 Animeko 一站式地管理追番的进度，标注想看/再看/看过的番剧，以及和网友们讨论剧集。当然，你也可以以游客的身份体验大部分功能。
+          只要有一个 Bangumi 账号，你就可以通过 Animeko 一站式地管理追番的进度，标注想看/在看/看过的番剧，以及和网友们讨论剧集。当然，你也可以以游客的身份体验大部分功能。
         </template>
         <template #default>
           <svg
@@ -65,9 +65,9 @@ import FeatureCard from './FeatureCard.vue'
           </svg>
         </template>
       </FeatureCard>
-      <FeatureCard title="BT + 在线源播放">
+      <FeatureCard title="多数据源聚合播放">
         <template #desc>
-          全自动整合多个 BT 数据源与在线数据源, 兼顾资源质量与缓冲速度，支持 emby 和 jellyfin 源，享受你的本地追番体验~
+          全自动整合多个 BT 数据源与在线数据源, 兼顾资源质量与缓冲速度。
         </template>
         <template #default>
           <svg
