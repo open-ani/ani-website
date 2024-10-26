@@ -104,7 +104,7 @@ onMounted(async () => {
 
 <template>
   <ul v-if="fetchStat === FetchStatType.loaded && fetchResp !== undefined" class="py-3">
-    <li class="flex p-4 justify-between items-center">
+    <li class="flex px-4 justify-between items-center">
       <span class="font-bold">
         更新时间：{{ ts2str(fetchResp.publishTime) }}
       </span>
