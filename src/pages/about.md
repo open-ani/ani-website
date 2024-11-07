@@ -20,10 +20,10 @@ Animeko 的目标是提供能在此应用提供完整舒适的追番体验。
 
 </div>
 
-* 支持各大 BT 网站 `acg.rip`[^1], `Mikan`[^2], `动漫花园`[^3]
-* 支持在线播放源 `MX 动漫`[^4], `NyaFun 动漫`[^5]
-* 支持从 `弹弹play`[^6] 提取弹幕使用
-* 同步 `Bangumi`[^7] 收藏,记录观看进度
+* 支持各大 BT 网站 `Mikan`[^1], `动漫花园`[^2]
+* 支持自定义播放源 `MX 动漫`[^3], `NyaFun 动漫`[^4]
+* 支持从 `弹弹play`[^5] 提取弹幕使用
+* 同步 `Bangumi`[^6] 收藏,记录观看进度
 * 无需代理,但有需求可自行设定
 * 观看时常用手势,播放/暂停,快进/快退,调整亮度,调整音量...等
 * 自动缓存功能,可自定义设置缓存集数与数量（未来将增加设置单条目缓存偏好）
@@ -64,10 +64,9 @@ Animeko 的目标是提供能在此应用提供完整舒适的追番体验。
 
 <img width="300" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/preferences/preferences-network-proxy.jpg" alt="preferences-network-proxy"/> <img width="300" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/preferences/preferences-network-danmaku.jpg" alt="preferences-network-danmaku"/>
 
-[^1]: [acg.rip](https://acg.rip)
-[^2]: [Mikan](https://mikanani.me/)
-[^3]: [动漫花园](http://www.dmhy.org/)
-[^4]: [MX 动漫](https://www.mxdm.tv/)
-[^5]: [NyaFun 动漫](https://www.nyafun.net/)
-[^6]: [弹弹play](https://www.dandanplay.com/)
-[^7]: [Bangumi](http://bangumi.tv)
+[^1]: [Mikan](https://mikanani.me/)
+[^2]: [动漫花园](http://www.dmhy.org/)
+[^3]: [MX 动漫](https://www.mxdm.tv/)
+[^4]: [NyaFun 动漫](https://www.nyafun.net/)
+[^5]: [弹弹play](https://www.dandanplay.com/)
+[^6]: [Bangumi](http://bangumi.tv)
