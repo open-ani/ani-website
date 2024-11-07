@@ -11,6 +11,6 @@ export default defineConfig({
     output: 'static',
     prefetch: true,
     redirects: {
-        '/downloads/[...slug]': '/downloads',
+        '/downloads/stable': '/downloads',
     }
 })
