@@ -9,7 +9,7 @@ const isRotate = ref<boolean>(false)
 <template>
   <div class="flex w-full flex-col-reverse xl:flex-row justify-center mb-24">
     <div class="flex justify-center items-center flex-col relative">
-      <p>
+      <p class="px-4">
         <span class="text-[2rem] xl:text-[2.8rem] font-bold w-full">Animeko</span>
         <span class="text-[1.3rem]">：<b>一站式</b>在线<b class="underline">弹幕</b>追番平台</span>
       </p>
