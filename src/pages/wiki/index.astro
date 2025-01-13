@@ -9,7 +9,7 @@ const allPosts = await Astro.glob('./*.md');
         <span class="mt-4 mb-6 text-4xl font-bold leading-none text-center sm:text-5xl">疑难杂症</span>
 
         <ul class="w-full list-decimal px-8 xl:w-3/5">
-            {allPosts.map((post) => <li class="w-full py-1"><a class="w-full block underline underline-offset-[4px] hover:text-blue-400" href={post.url}>{post.frontmatter.title}</a></li>)} 
+            {allPosts.map((post) => <li class="w-full py-1"><a class="w-full block underline underline-offset-[4px] hover:text-blue-400" href={post.url}>{post.frontmatter.title}</a></li>)}
         </ul>
         <FAQ />
 	</main>

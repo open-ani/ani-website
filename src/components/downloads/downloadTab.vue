@@ -7,10 +7,8 @@ type ReleaseType = 'stable' | 'beta'
 const curType = ref<ReleaseType>('stable')
 
 function toType(type: ReleaseType) {
-  if (curType.value !== type) {
+  if (curType.value !== type)
     curType.value = type
-    return
-  }
   // // eslint-disable-next-line no-alert
   // alert(`Already on the ${curType.value} release tab!`)
 }

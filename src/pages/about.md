@@ -42,7 +42,7 @@ Animeko 的目标是提供能在此应用提供完整舒适的追番体验。
 
 - 多端同步 [Bangumi][Bangumi] 收藏, 记录观看进度
 
-<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/collection/collection-dark.png" alt="collection-dark"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/subject/subject-dark.png" alt="subject-dark"/> 
+<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/collection/collection-dark.png" alt="collection-dark"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/subject/subject-dark.png" alt="subject-dark"/>
 
 <img width="600" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/collection/exploration-desktop.png" alt="exploration-desktop"/>
 
@@ -53,7 +53,7 @@ Animeko 的目标是提供能在此应用提供完整舒适的追番体验。
 - 全自动整合多个 BT 数据源与在线数据源, 兼顾资源质量与速度
 - 智能选择算法避免找资源的麻烦
 
-<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/episode-player-loading.jpg" alt="episode-player-loading"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/episode-stats.jpg" alt="episode-stats"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/episode-media.jpg" alt="episode-media"/> 
+<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/episode-player-loading.jpg" alt="episode-player-loading"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/episode-stats.jpg" alt="episode-stats"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/episode-media.jpg" alt="episode-media"/>
 
 ### 视频弹幕
 
@@ -76,13 +76,13 @@ Animeko 的目标是提供能在此应用提供完整舒适的追番体验。
 - 设置全局优先选择的字幕组, 字幕语言等设置
 - 在观看时修改过滤可自动记忆并应用到下次播放和自动缓存
 
-<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/settings.png"  alt="settings"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/settings-media.png"  alt="settings-media"/>  
+<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/settings.png"  alt="settings"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/settings-media.png"  alt="settings-media"/>
 
 ### 缓存
 
 - 支持离线播放
 
-<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/cache.png"  alt="cache"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/global-caches.png"  alt="global-caches"/> 
+<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/cache.png"  alt="cache"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/global-caches.png"  alt="global-caches"/>
 
 [^1]: [Mikan](https://mikanani.me/)
 [^2]: [动漫花园](http://www.dmhy.org/)
