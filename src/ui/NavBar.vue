@@ -6,6 +6,7 @@ const navigation = [
   { name: '主页', href: '/', current: false },
   { name: '下载', href: '/downloads', current: false },
   { name: '功能截图', href: '/about', current: false },
+  { name: '更新日志', href: '/changelogs', current: false },
   { name: '常见问题', href: '/wiki', current: false },
 ]
 </script>
