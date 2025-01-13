@@ -3,6 +3,7 @@
     class="text-sm/6
       mx-auto
       flex
+      flex-wrap
       items-center
       text-slate-400
       border-t-[1px]
@@ -18,7 +19,7 @@
       <span>❤ Website by </span>
       <a href="https://github.com/open-ani/ani-website" target="_blank" class=" text-blue-400">Nick</a>
     </p>
-    <div class="inline space-x-2 w-fit text-nowrap">
+    <div class="inline space-x-2 w-fit text-nowrap ml-auto">
       <a
         href="https://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=2EbZ0Qxe-fI_AHJLCMnSIOnqw-nfrFH5&authKey=L31zTMwfbMG0FhIgt8xNHGOFPHc531mSw2YzUVupHLRJ4L2f8xerAd%2ByNl4OigRK&noverify=0&group_code=927170241"
         class="underline"
