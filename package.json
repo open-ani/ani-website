@@ -9,7 +9,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "code:check": "eslint .",
-    "code:lint": "eslint . --fix --no-ignore",
+    "code:lint": "eslint . --fix --ignore-pattern dist",
     "astro": "astro",
     "postinstall": "husky"
   },
