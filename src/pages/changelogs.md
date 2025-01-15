@@ -7,6 +7,17 @@ title: "Changelogs"
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.
 
+## [v4.3.0](https://github.com/open-ani/animeko/releases/tag/v4.3.0) (2025-01-15)
+
+- 为桌面端添加水平滚动列表的按钮
+- 安卓端支持发送剧集评论
+- 支持修改 BT 分享率设置
+- 为 Jellyfin 添加 Movie 类型和字幕的支持 by [@he0119](https://github.com/he0119)
+- 优化播放器功能稳定性
+- 优化一些界面细节 by [@WoLeo-Z](https://github.com/WoLeo-Z)
+- 优化网络连通性
+- 优化资源匹配准确性
+
 ## [v4.2.1](https://github.com/open-ani/animeko/releases/tag/v4.2.1) (2025-01-03)
 
 - 修复条目数据可能没有刷新的问题
