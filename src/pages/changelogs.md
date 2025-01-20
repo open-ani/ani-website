@@ -7,6 +7,12 @@ title: "Changelogs"
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.
 
+## [v4.3.1](https://github.com/open-ani/animeko/releases/tag/v4.3.1) (2025-01-19)
+
+- 独立系统代理设置 (自动检测)
+- 禁用弹幕时显示提示
+- 修复播放器选集问题
+
 ## [v4.3.0](https://github.com/open-ani/animeko/releases/tag/v4.3.0) (2025-01-15)
 
 - 为桌面端添加水平滚动列表的按钮
