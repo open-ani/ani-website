@@ -7,6 +7,18 @@ title: "Changelogs"
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.
 
+## [v4.4.1](https://github.com/open-ani/animeko/releases/tag/v4.4.1) (2025-01-30)
+
+- 修复 Android 不显示弹幕
+
+## [v4.4.0](https://github.com/open-ani/animeko/releases/tag/v4.4.0) (2025-01-30)
+
+- 新增新番时间表
+- 新增更多主题设置 by [@WoLeo-Z](https://github.com/WoLeo-Z)
+- 优化资源排序逻辑
+- 增加 Monochrome 图标 by [@WoLeo-Z](https://github.com/WoLeo-Z)
+- 优化 Jellyfin / Emby 支持 by [@he0119](https://github.com/he0119)
+
 ## [v4.3.3](https://github.com/open-ani/animeko/releases/tag/v4.3.3) (2025-01-27)
 
 - 接入新版弹弹play 接口，修复弹幕无法获取的问题
