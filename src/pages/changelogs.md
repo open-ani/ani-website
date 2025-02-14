@@ -7,6 +7,11 @@ title: "Changelogs"
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.
 
+## [v4.4.2](https://github.com/open-ani/animeko/releases/tag/v4.4.2) (2025-02-14)
+
+- 修复剧集评论无法显示
+- 修复自定义代理设置无效
+
 ## [v4.4.1](https://github.com/open-ani/animeko/releases/tag/v4.4.1) (2025-01-30)
 
 - 修复 Android 不显示弹幕
