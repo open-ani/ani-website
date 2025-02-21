@@ -10,7 +10,7 @@ import FAQ from "../components/FAQ.vue"
     <main class="text-white xl:px-10 py-12 w-full">
         <Header client:load/>
         <Features/>
-        <DanmakuComment client:visible/>
+        <DanmakuComment client:visible client:only />
         <FAQ isIndex/>
     </main>
 </Layout>
