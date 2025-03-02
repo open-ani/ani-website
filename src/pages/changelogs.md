@@ -7,6 +7,21 @@ title: "Changelogs"
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.
 
+## [v4.5.1](https://github.com/open-ani/animeko/releases/tag/v4.5.1) (2025-03-02)
+
+- 修复安卓小窗模式的布局问题
+- 修复 Windows 全屏时可能有白边的问题
+- 修复安卓上无法用第三方 APP 打开 Ani 的问题
+
+## [v4.5.0](https://github.com/open-ani/animeko/releases/tag/v4.5.0) (2025-03-01)
+
+- 更优雅的动画效果
+- Windows 沉浸标题栏
+- Windows 支持动态主题
+- 增加新用户欢迎向导页
+- 优化网络连接稳定性
+- 修复 Windows 使用快捷方式启动时无法自动更新 APP
+
 ## [v4.4.3](https://github.com/open-ani/animeko/releases/tag/v4.4.3) (2025-02-20)
 
 - 修复数据源选择框闪烁
