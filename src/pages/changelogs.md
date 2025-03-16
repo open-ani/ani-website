@@ -7,6 +7,11 @@ title: "Changelogs"
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.
 
+## [v4.6.0](https://github.com/open-ani/animeko/releases/tag/v4.6.0) (2025-03-13)
+
+- 新增简单模式数据源选择
+- 优化资源匹配准确率
+
 ## [v4.5.1](https://github.com/open-ani/animeko/releases/tag/v4.5.1) (2025-03-02)
 
 - 修复安卓小窗模式的布局问题
