@@ -7,6 +7,22 @@ title: "Changelogs"
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.
 
+## [v4.7.0](https://github.com/open-ani/animeko/releases/tag/v4.7.0) (2025-03-28)
+
+- 支持标签搜索
+- 支持缓存在线源
+- 新增锁定播放页为深色模式设置 @WoLeo-Z
+- 播放器增加快捷键
+  + <kbd>F</kbd> - 全屏/取消全屏
+  + <kbd>A</kbd> - 播放速度减档
+  + <kbd>D</kbd> - 播放速度升档
+  + <kbd>S</kbd> - 回到正常播放速度
+  + <kbd>B</kbd> - 开/关弹幕
+
+## [v4.6.1](https://github.com/open-ani/animeko/releases/tag/v4.6.1) (2025-03-21)
+
+- 修复部分番剧正片无法播放的问题
+
 ## [v4.6.0](https://github.com/open-ani/animeko/releases/tag/v4.6.0) (2025-03-13)
 
 - 新增简单模式数据源选择
