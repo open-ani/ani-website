@@ -34,6 +34,8 @@ const releaseList: Array<keyof typeof PlatType> = [
   'macos-aarch64',
   'windows-x86_64',
   'android-universal',
+  'linux-x86_64',
+  'ios-4.8.0',
 ]
 
 const fetchStat = ref<FetchStatType>(FetchStatType.loading)
@@ -154,7 +156,7 @@ onMounted(async () => {
           class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300"
           @click="showQr = !showQr"
         >
-          扫码下载安卓版
+          扫码下载
         </button>
       </div>
     </li>
