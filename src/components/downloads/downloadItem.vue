@@ -19,6 +19,8 @@ enum PlatType {
   'macos-aarch64' = 'macOS(M系列芯片)',
   'windows-x86_64' = 'Windows',
   'android-universal' = '安卓APK',
+  'linux-x86_64'='Linux x86_64',
+  'ios-4.8.0' = 'iOS ipa',
 }
 
 interface FetchRespType {
@@ -68,6 +70,8 @@ async function getRemoteRelease(): Promise<void> {
         'macos-aarch64': resp.downloadUrlAlternativesMap['macos-aarch64'],
         'windows-x86_64': resp.downloadUrlAlternativesMap['windows-x86_64'],
         'android-universal': resp.downloadUrlAlternativesMap['android-universal'],
+        'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'],
+        'ios-4.8.0': resp.downloadUrlAlternativesMap['ios-4.8.0'],
       },
       qrcodeUrls: [resp.qrcodeUrls[0], resp.qrcodeUrls[2]],
       publishTime: resp.publishTime,
@@ -150,7 +154,7 @@ onMounted(async () => {
           class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300"
           @click="showQr = !showQr"
         >
-          扫码下载
+          扫码下载安卓版
         </button>
       </div>
     </li>
