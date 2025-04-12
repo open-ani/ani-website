@@ -7,6 +7,14 @@ title: "Changelogs"
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.
 
+## [V4.8.0](https://github.com/open-ani/animeko/releases/tag/v4.8.0) (2025-04-08)
+
+- 首页增加简单推荐
+- 增加 iOS 版
+- 增加 Linux 版
+- macOS 版支持全自动更新
+- 许多界面优化
+
 ## [v4.7.0](https://github.com/open-ani/animeko/releases/tag/v4.7.0) (2025-03-28)
 
 - 支持标签搜索
