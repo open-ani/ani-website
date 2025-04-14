@@ -16,11 +16,12 @@ enum FetchStatType {
 }
 
 enum PlatType {
-  'macos-aarch64' = 'macOS(M系列芯片)',
+  'macos-aarch64' = 'macOS (M系列芯片)',
+  'macos-x86_64' = 'macOS (Intel 芯片)',
   'windows-x86_64' = 'Windows',
-  'android-universal' = '安卓APK',
-  'linux-x86_64'='Linux x86_64',
-  'ios-4.8.0' = 'iOS ipa',
+  'android-universal' = '安卓 APK',
+  'linux-x86_64' = 'Linux AppImage',
+  'ios-aarch64' = 'iOS IPA（需要自签）',
 }
 
 interface FetchRespType {
@@ -70,10 +71,11 @@ async function getRemoteRelease(): Promise<void> {
       version: resp.version,
       downloadUrlAlternativesMap: {
         'macos-aarch64': resp.downloadUrlAlternativesMap['macos-aarch64'],
+        'macos-x86_64': resp.downloadUrlAlternativesMap['macos-aarch64'],
         'windows-x86_64': resp.downloadUrlAlternativesMap['windows-x86_64'],
         'android-universal': resp.downloadUrlAlternativesMap['android-universal'],
         'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'],
-        'ios-4.8.0': resp.downloadUrlAlternativesMap['ios-4.8.0'],
+        'ios-aarch64': resp.downloadUrlAlternativesMap['ios-4.8.0'],
       },
       qrcodeUrls: [resp.qrcodeUrls[0], resp.qrcodeUrls[2]],
       publishTime: resp.publishTime,
