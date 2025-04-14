@@ -33,10 +33,11 @@ interface FetchRespType {
 
 const releaseList: Array<keyof typeof PlatType> = [
   'macos-aarch64',
+  'macos-x86_64',
   'windows-x86_64',
   'android-universal',
   'linux-x86_64',
-  'ios-4.8.0',
+  'ios-aarch64',
 ]
 
 const fetchStat = ref<FetchStatType>(FetchStatType.loading)
@@ -75,7 +76,7 @@ async function getRemoteRelease(): Promise<void> {
         'windows-x86_64': resp.downloadUrlAlternativesMap['windows-x86_64'],
         'android-universal': resp.downloadUrlAlternativesMap['android-universal'],
         'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'],
-        'ios-aarch64': resp.downloadUrlAlternativesMap['ios-4.8.0'],
+        'ios-aarch64': resp.downloadUrlAlternativesMap['ios-aarch64'],
       },
       qrcodeUrls: [resp.qrcodeUrls[0], resp.qrcodeUrls[2]],
       publishTime: resp.publishTime,
