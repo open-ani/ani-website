@@ -72,7 +72,7 @@ async function getRemoteRelease(): Promise<void> {
       version: resp.version,
       downloadUrlAlternativesMap: {
         'macos-aarch64': resp.downloadUrlAlternativesMap['macos-aarch64'],
-        'macos-x86_64': resp.downloadUrlAlternativesMap['macos-aarch64'],
+        'macos-x86_64': resp.downloadUrlAlternativesMap['macos-x86_64'],
         'windows-x86_64': resp.downloadUrlAlternativesMap['windows-x86_64'],
         'android-universal': resp.downloadUrlAlternativesMap['android-universal'],
         'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'],
