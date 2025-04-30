@@ -7,6 +7,28 @@ title: "Changelogs"
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.
 
+## [v4.9.1](https://github.com/open-ani/animeko/releases/tag/v4.9.1) (2025-04-26)
+
+- 修复删除缓存
+
+## [v4.9.0](https://github.com/open-ani/animeko/releases/tag/v4.9.0) (2025-04-20)
+
+- 支持手动更换弹幕和数据源匹配
+- 优化 SP/OVA/OAD/剧场版 的检索和匹配
+- 支持繁体中文语言
+- iOS 版现在可以使用 SideStore 或 AltStore 等安装
+- iOS 版状态栏沉浸
+- 支持修改长按倍速的速率
+- 发送弹幕更快更稳定
+
+## [v4.8.2](https://github.com/open-ani/animeko/releases/tag/v4.8.2) (2025-04-17)
+
+- 修复 Bangumi 收藏列表的刷新 (请务必更新此版本)
+
+## [v4.8.1](https://github.com/open-ani/animeko/releases/tag/v4.8.1) (2025-04-13)
+
+- 优化登录
+
 ## [v4.8.0](https://github.com/open-ani/animeko/releases/tag/v4.8.0) (2025-04-08)
 
 - 首页增加简单推荐
