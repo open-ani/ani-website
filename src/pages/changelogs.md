@@ -7,6 +7,18 @@ title: "Changelogs"
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.
 
+## [v4.10.1](https://github.com/open-ani/animeko/releases/tag/v4.10.1) (2025-05-04)
+
+- 适配新 Bangumi 接口，修复某些番加载错误的问题
+
+## [v4.10.0](https://github.com/open-ani/animeko/releases/tag/v4.10.0) (2025-05-04)
+
+优化播放和缓存体验:
+
+- 选集播放中将 SP 和正片分开
+- BT 服务空闲时不再显示通知
+- 支持复制播放链接和 (安卓) 使用外部应用播放
+
 ## [v4.9.1](https://github.com/open-ani/animeko/releases/tag/v4.9.1) (2025-04-26)
 
 - 修复删除缓存
