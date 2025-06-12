@@ -3,90 +3,72 @@ layout: ../layouts/Post.astro
 title: "About"
 ---
 
-<div style="text-align: center">
+<div align="center">
 
-# Animeko
-
-集找番、追番、看番的一站式弹幕追番平台。
-
-Animeko 的目标是提供能在此应用提供完整舒适的追番体验。
-
-支持使用 Bangumi 同步观看记录, 多视频数据源, 缓存, 弹幕, 以及更多功能。
-
-</div>
-<div style="text-align: center">
-
-## 功能
-
+![Animeko](https://socialify.git.ci/open-ani/animeko/image?description=1&descriptionEditable=%E9%9B%86%E6%89%BE%E7%95%AA%E3%80%81%E8%BF%BD%E7%95%AA%E3%80%81%E7%9C%8B%E7%95%AA%E7%9A%84%E4%B8%80%E7%AB%99%E5%BC%8F%E5%BC%B9%E5%B9%95%E8%BF%BD%E7%95%AA%E5%B9%B3%E5%8F%B0&font=Jost&logo=https%3A%2F%2Fraw.githubusercontent.com%2Fopen-ani%2Fanimeko%2Frefs%2Fheads%2Fmain%2F.github%2Fassets%2Flogo.png&name=1&owner=1&pattern=Plus&theme=Light)
 </div>
 
-* 支持各大 BT 网站 `Mikan`[^1], `动漫花园`[^2]
-* 支持自定义播放源 `MX 动漫`[^3], `NyaFun 动漫`[^4]
-* 支持从 `弹弹play`[^5] 提取弹幕使用
-* 同步 `Bangumi`[^6] 收藏,记录观看进度
-* 无需代理,但有需求可自行设定
-* 观看时常用手势,播放/暂停,快进/快退,调整亮度,调整音量...等
-* 自动缓存功能,可自定义设置缓存集数与数量（未来将增加设置单条目缓存偏好）
-* 自定义设置资源偏好,支持设置数据源/字幕语言/分辨率/字幕组
-* 资源支持优先选择季度全集（种子速度较快）
-* 应用内自动下载更新,可选择正式版和测试版
-* 支持其他个人化小设置
+## 主要功能
 
-<div style="text-align: center">
+### 浏览来自 [Bangumi][Bangumi] 的番剧信息以及社区评价
 
-## 功能截图
+| <img src="/features/subject-details.png" alt="" width="200"/> | <img src="/features/subject-rating.png" alt="" width="200"/> |
+|:---------------------------------------------------------------------------:|:--------------------------------------------------------------------------:|
 
-</div>
+### 丰富的检索方式：新番时间表、标签搜索
 
-### 管理追番
+> 由 Bangumi 和 Animeko 服务端共同提供的精确新番时间表
 
-- 多端同步 [Bangumi][Bangumi] 收藏, 记录观看进度
+| <img src="/features/anime-schedule.png" alt="" width="200"/> | <img src="/features/search-by-tag.png" alt="" width="200"/> |
+|:--------------------------------------------------------------------------:|:-------------------------------------------------------------------------:|
 
-<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/collection/collection-dark.png" alt="collection-dark"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/subject/subject-dark.png" alt="subject-dark"/>
+### 云同步追番进度
 
-<img width="600" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/collection/exploration-desktop.png" alt="exploration-desktop"/>
+- 省心的追番进度管理，看完视频自动更新进度
+- 打开 APP 立即继续观看，无需回想上次看到了哪
 
-### 多数据源聚合
+| <img src="/features/subject-collection.png" alt="" width="200"/> | <img src="/features/home.png" alt="" width="200"/> |
+|:------------------------------------------------------------------------------:|:----------------------------------------------------------------:|
 
-总有一个源有你想看的番和喜欢的字幕组
+### 聚合数据源
 
-- 全自动整合多个 BT 数据源与在线数据源, 兼顾资源质量与速度
-- 智能选择算法避免找资源的麻烦
+- 聚合视频数据源，全自动选择
+  > 还支持 BitTorrent、Jellyfin、Emby、以及自定义源
+- 聚合全网弹幕源（[弹弹play][ddplay]），以及 Animeko 自己的[弹幕服务](https://danmaku-cn.myani.org/swagger/index.html)
 
-<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/episode-player-loading.jpg" alt="episode-player-loading"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/episode-stats.jpg" alt="episode-stats"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/episode-media.jpg" alt="episode-media"/>
+| <img src="/features/mediaselector-simple.png" alt="" width="200"/> | <img src="/features/mediaselector-detailed.png" alt="" width="200"/> |
+|:--------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------:|
 
-### 视频弹幕
+| <img src="/features/episode.png" alt="" width="200"/> | <img src="/features/episode-scrolled.png" alt="" width="200"/> |
+|:-------------------------------------------------------------------:|:----------------------------------------------------------------------------:|
 
-- 多弹幕数据源
-- 高效弹幕引擎, 自定义样式
-- 发送弹幕到 Animeko 公益弹幕服务器
+### 离线缓存
 
-<img width="600" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/player-controller.png" alt="player-controller"/>
+- 所有数据源都能缓存
 
-<img width="600" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/player-danmaku.png" alt="player-danmaku"/>
+| <img src="/features/cache-episode.png" alt="" width="200"/> | <img src="/features/cache-list.png" alt="" width="200"/> |
+|:-------------------------------------------------------------------------:|:----------------------------------------------------------------------:|
 
-<img width="600" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/player-settings.png" alt="player-settings"/>
+### 精美界面
 
-<img width="600" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/episode-play-desktop.png" alt="episode-play-desktop"/>
+| <img src="/features/player-fullscreen.png" alt="" width="600"/> |
+|:-----------------------------------------------------------------------------:|
 
-<img width="600" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/episode/player-gesture.jpeg" alt="episode-gesture"/>
+- 适配平板和大屏设备
 
-### 高度自定义
+| <img src="/features/pc-home.png" alt="" width="600"/> |
+|:-------------------------------------------------------------------:|
 
-- 设置全局优先选择的字幕组, 字幕语言等设置
-- 在观看时修改过滤可自动记忆并应用到下次播放和自动缓存
+| <img src="/features/pc-search.png" alt="" width="600"/> |
+|:---------------------------------------------------------------------:|
 
-<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/settings.png"  alt="settings"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/settings-media.png"  alt="settings-media"/>
+| <img src="/features/pc-search-detail.png" alt="" width="600"/> |
+|:----------------------------------------------------------------------------:|
 
-### 缓存
+### 更多个性设置
 
-- 支持离线播放
+| <img src="/features/danmaku-settings.png" alt="" width="600"/> |
+|:----------------------------------------------------------------------------:|
 
-<img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/cache.png"  alt="cache"/> <img width="270" src="https://cdn.jsdelivr.net/gh/open-ani/animeko/.readme/images/settings/global-caches.png"  alt="global-caches"/>
-
-[^1]: [Mikan](https://mikanani.me/)
-[^2]: [动漫花园](http://www.dmhy.org/)
-[^3]: [MX 动漫](https://www.mxdm.tv/)
-[^4]: [NyaFun 动漫](https://www.nyafun.net/)
-[^5]: [弹弹play](https://www.dandanplay.com/)
-[^6]: [Bangumi](http://bangumi.tv)
+| <img src="/features/theme-settings.png" alt="" width="200"/> | <img src="/features/media-preferences.png" alt="" width="200"/> |
+|:--------------------------------------------------------------------------:|:-----------------------------------------------------------------------------:|
