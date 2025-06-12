@@ -16,10 +16,10 @@ enum FetchStatType {
 }
 
 enum PlatType {
+  'android-universal' = '安卓 APK',
+  'windows-x86_64' = 'Windows',
   'macos-aarch64' = 'macOS (M系列芯片)',
   'macos-x86_64' = 'macOS (Intel 芯片)',
-  'windows-x86_64' = 'Windows',
-  'android-universal' = '安卓 APK',
   'linux-x86_64' = 'Linux AppImage',
   'ios-aarch64' = 'iOS IPA（需要自签）',
 }
@@ -32,10 +32,10 @@ interface FetchRespType {
 }
 
 const releaseList: Array<keyof typeof PlatType> = [
+  'android-universal',
+  'windows-x86_64',
   'macos-aarch64',
   'macos-x86_64',
-  'windows-x86_64',
-  'android-universal',
   'linux-x86_64',
   'ios-aarch64',
 ]
@@ -71,10 +71,10 @@ async function getRemoteRelease(): Promise<void> {
     fetchResp.value = {
       version: resp.version,
       downloadUrlAlternativesMap: {
+        'android-universal': resp.downloadUrlAlternativesMap['android-universal'],
+        'windows-x86_64': resp.downloadUrlAlternativesMap['windows-x86_64'],
         'macos-aarch64': resp.downloadUrlAlternativesMap['macos-aarch64'],
         'macos-x86_64': resp.downloadUrlAlternativesMap['macos-x86_64'],
-        'windows-x86_64': resp.downloadUrlAlternativesMap['windows-x86_64'],
-        'android-universal': resp.downloadUrlAlternativesMap['android-universal'],
         'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'],
         'ios-aarch64': resp.downloadUrlAlternativesMap['ios-aarch64'],
       },
@@ -161,6 +161,27 @@ onMounted(async () => {
         >
           扫码下载
         </button>
+        <a
+          v-if="release === 'linux-x86_64'"
+          class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300"
+          href="/wiki/Linux-%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E"
+        >
+          安装教程
+        </a>
+        <a
+          v-if="release === 'macos-x86_64'"
+          class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300"
+          href="/wiki/macOS-Intel-%E8%8A%AF%E7%89%87%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B"
+        >
+          安装教程
+        </a>
+        <a
+          v-if="release === 'ios-aarch64'"
+          class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300"
+          href="/wiki/iOS-%E8%87%AA%E7%AD%BE"
+        >
+          安装教程
+        </a>
       </div>
     </li>
     <li v-show="isPC && showQr" class="px-4 flex flex-row-reverse items-center gap-1">
