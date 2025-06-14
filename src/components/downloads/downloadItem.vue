@@ -2,48 +2,46 @@
 import { Icon } from '@iconify/vue'
 import { onMounted, ref } from 'vue'
 
+const props = withDefaults(defineProps<DownloadItemProps>(), { type: 'stable' })
 interface DownloadItemProps {
   type: 'stable' | 'beta'
 }
-
-const props = withDefaults(defineProps<DownloadItemProps>(), { type: 'stable' })
-
 enum FetchStatType {
   loading,
   loaded,
   networkErr,
   serviceErr,
 }
-
-enum PlatType {
-  'android-universal' = '安卓 APK',
-  'windows-x86_64' = 'Windows',
-  'macos-aarch64' = 'macOS (M系列芯片)',
-  'macos-x86_64' = 'macOS (Intel 芯片)',
-  'linux-x86_64' = 'Linux AppImage',
-  'ios-aarch64' = 'iOS IPA（自签）',
-}
-
+const PlatType = {
+  'android-universal': '安卓 APK',
+  'windows-x86_64': 'Windows',
+  'macos-aarch64': 'macOS (M系列芯片)',
+  'macos-x86_64': 'macOS (Intel 芯片)',
+  'linux-x86_64': 'Linux AppImage',
+  'ios-aarch64': 'iOS IPA（自签）',
+} as const
+type PlatKey = keyof typeof PlatType
+const releaseList = Object.entries(PlatType).map(([key]) => key as PlatKey)
 interface FetchRespType {
   version: string
   downloadUrlAlternativesMap: Record<keyof typeof PlatType, Array<string>>
   publishTime: number
-  qrcodeUrls: string[]
+  QRcodeUrls: string[]
 }
-
-const releaseList: Array<keyof typeof PlatType> = [
-  'android-universal',
-  'windows-x86_64',
-  'macos-aarch64',
-  'macos-x86_64',
-  'linux-x86_64',
-  'ios-aarch64',
-]
 
 const fetchStat = ref<FetchStatType>(FetchStatType.loading)
 const isPC = ref<boolean>(true)
 const showQr = ref<boolean>(false)
 const fetchResp = ref<FetchRespType>()
+
+const guidanceLink: Record<keyof typeof PlatType, string> = {
+  'android-universal': '',
+  'windows-x86_64': '',
+  'macos-aarch64': '',
+  'linux-x86_64': '/wiki/Linux-%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E',
+  'ios-aarch64': '/wiki/iOS-%E8%87%AA%E7%AD%BE',
+  'macos-x86_64': '/wiki/macOS-Intel-%E8%8A%AF%E7%89%87%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B',
+}
 
 async function checkStat(): Promise<boolean> {
   try {
@@ -57,9 +55,7 @@ async function checkStat(): Promise<boolean> {
 }
 
 function checkIsPc(): void {
-  const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-  if (mobileRegex.test(navigator.userAgent))
-    isPC.value = false
+  isPC.value = !/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
 }
 
 async function getRemoteRelease(): Promise<void> {
@@ -67,7 +63,9 @@ async function getRemoteRelease(): Promise<void> {
   const link = new URL('https://danmaku-cn.myani.org/v1/updates/latest')
   link.search = new URLSearchParams({ releaseClass: props.type }).toString()
   try {
-    const resp = await (await fetch(link, { mode: 'cors' })).json()
+    const resp = await fetch(link, {
+      mode: 'cors',
+    }).then(r => r.json())
     fetchResp.value = {
       version: resp.version,
       downloadUrlAlternativesMap: {
@@ -78,7 +76,7 @@ async function getRemoteRelease(): Promise<void> {
         'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'],
         'ios-aarch64': resp.downloadUrlAlternativesMap['ios-aarch64'],
       },
-      qrcodeUrls: [resp.qrcodeUrls[0], resp.qrcodeUrls[2]],
+      QRcodeUrls: [resp.QRcodeUrls[0], resp.QRcodeUrls[2]],
       publishTime: resp.publishTime,
     }
     fetchStat.value = FetchStatType.loaded
@@ -114,14 +112,11 @@ onMounted(async () => {
       <span class="font-bold">
         更新时间：{{ ts2str(fetchResp.publishTime) }}
       </span>
-      <button
-        class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300 cursor-pointer"
-        @click="getRemoteRelease()"
-      >
+      <button class="btn cursor-pointer" @click="getRemoteRelease()">
         刷新
       </button>
     </li>
-    <li v-for="(release, index) in releaseList" :key="index" class="py-4 flex">
+    <li v-for="release in releaseList" :key="release" class="py-4 flex">
       <div class="w-full flex items-center flex-wrap pr-1">
         <svg xmlns="http://www.w3.org/2000/svg" width="80px" height="80px" viewBox="0 0 24 24" class="w-12 h-12 p-1">
           <g fill="none">
@@ -134,7 +129,7 @@ onMounted(async () => {
             />
           </g>
         </svg>
-        <div class="ml-2 w-fit">
+        <div class="ml-2">
           <p class="font-bold">
             {{ PlatType[release] }}
           </p>
@@ -142,38 +137,13 @@ onMounted(async () => {
         </div>
       </div>
       <div class="space-x-2 flex text-nowrap my-auto w-fit float-end">
-        <a
-          v-for="(link, idx) in fetchResp.downloadUrlAlternativesMap[release]" :key="idx" :href="link"
-          class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300"
-        >
+        <a v-for="(link, idx) in fetchResp.downloadUrlAlternativesMap[release]" :key="idx" :href="link" class="btn">
           {{ idx === 0 ? '主线' : '备线' }}
         </a>
-        <button
-          v-if="release === 'android-universal' && isPC"
-          class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300"
-          @click="showQr = !showQr"
-        >
+        <button v-if="release === 'android-universal' && isPC" class="btn" @click="showQr = !showQr">
           扫码下载
         </button>
-        <a
-          v-if="release === 'linux-x86_64'"
-          class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300"
-          href="/wiki/Linux-%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E"
-        >
-          安装教程
-        </a>
-        <a
-          v-if="release === 'macos-x86_64'"
-          class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300"
-          href="/wiki/macOS-Intel-%E8%8A%AF%E7%89%87%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B"
-        >
-          安装教程
-        </a>
-        <a
-          v-if="release === 'ios-aarch64'"
-          class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300"
-          href="/wiki/iOS-%E8%87%AA%E7%AD%BE"
-        >
+        <a v-if="guidanceLink[release]" class="btn" :href="guidanceLink[release]">
           安装教程
         </a>
       </div>
@@ -181,11 +151,11 @@ onMounted(async () => {
     <li v-show="isPC && showQr" class="px-4 flex flex-row-reverse items-center gap-1">
       <div class="flex flex-col">
         <span class="font-bold">Cloudflare 下载（推荐）</span>
-        <img class="w-28 mx-4" alt="QRCode for downloading ani" :src="fetchResp.qrcodeUrls[0]">
+        <img class="w-28 m-4" alt="QRcode for downloading ani" :src="fetchResp.QRcodeUrls[0]">
       </div>
       <div class="flex flex-col">
         <span class="font-bold">GithubProxy 下载</span>
-        <img class="w-28 mx-4" alt="QRCode for downloading ani" :src="fetchResp.qrcodeUrls[1]">
+        <img class="w-28 m-4" alt="QRcode for downloading ani" :src="fetchResp.QRcodeUrls[1]">
       </div>
     </li>
   </ul>
@@ -202,10 +172,7 @@ onMounted(async () => {
         <a href="https://github.com/open-ani/animeko/releases" class=" text-blue-600">Github Releases</a>
         <span>下载 😭</span>
       </b>
-      <button
-        class="hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300 cursor-pointer"
-        @click="getRemoteRelease()"
-      >
+      <button class="btn cursor-pointer" @click="getRemoteRelease()">
         刷新
       </button>
     </div>

@@ -19,17 +19,12 @@ function toType(type: ReleaseType) {
     <div>
       <div class="flex mt-3 item-center">
         <a
-          class="flex items-center text-white h-[50px] px-2 bg-grey-100"
-          :class="[curType === 'stable' ? 'border-b-4 border-blue-400' : '']"
-          role="button" @click="toType('stable')"
+          class="tab-btn" :class="[curType === 'stable' ? 'border-b-4 border-blue-400' : '']"
+          @click="toType('stable')"
         >
           稳定版本
         </a>
-        <a
-          class="flex items-center text-white h-[50px] px-2 bg-grey-100"
-          :class="[curType === 'beta' ? 'border-b-4 border-blue-400' : '']"
-          role="button" @click="toType('beta')"
-        >
+        <a class="tab-btn" :class="[curType === 'beta' ? 'border-b-4 border-blue-400' : '']" @click="toType('beta')">
           测试版本
         </a>
       </div>

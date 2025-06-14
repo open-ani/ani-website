@@ -1,14 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
-const {title} = Astro.props.frontmatter;
-const pgtitle = `Animeko - Post ${title}`;
+const { title } = Astro.props.frontmatter;
+const pageTitle = `Animeko - Post ${title}`;
+import "../styles/markdown.css";
 ---
 
-<Layout title={pgtitle}>
-    <article class="px-3 py-8 w-full xl:w-3/5 !mx-auto !bg-transparent markdown-body !break-words">
-        <slot/>
+<Layout title={ pageTitle }>
+    <article
+        class="px-3 py-8 w-full xl:w-3/5 !mx-auto !bg-transparent markdown-body !break-words"
+    >
+        <slot />
     </article>
-    <link rel="stylesheet" href="/markdown.css">
 </Layout>
 
 <style is:inline>

@@ -36,7 +36,7 @@ watch(() => props.modelValue, () => rotateElement())
 </script>
 
 <template>
-  <div class="relative flex w-fit md:mb-20">
+  <div class="relative flex w-fit md:mb-20 md:-ml-15">
     <div>
       <div id="pc" class="hidden md:block bottom-0 right-0 relative w-[800px] h-[450px]">
         <img

@@ -3,14 +3,14 @@ import Danmaku from 'danmaku'
 import { onMounted, onUnmounted, useTemplateRef } from 'vue'
 
 const danmakuList: string[] = [
-  'animeko太方便了导致经常摸鱼',
+  'animeko 太方便了导致经常摸鱼',
   '好漂亮的客户端',
   'elegant !',
   '這種項目總是要支持的(bgm105)',
   '支持，技术力贡献的美好世界',
   '(bgm105)好东西啊',
   '好厉害的软件啊！一条五毛记得删括号',
-  'Ciallo～(∠・ω< )⌒☆',
+  'Ciallo~ (∠・ω< )⌒☆',
 ]
 
 const containerEl = useTemplateRef<HTMLDivElement>('container')
@@ -69,7 +69,7 @@ onUnmounted(() => {
       >
       <button
         disabled type="submit"
-        class="flex-none rounded-md //hover:bg-indigo-400 //bg-indigo-500 bg-slate-400 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+        class="flex-none rounded-md bg-slate-400 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
       >
         提交
       </button>
