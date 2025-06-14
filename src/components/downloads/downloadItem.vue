@@ -26,12 +26,12 @@ interface FetchRespType {
   version: string
   downloadUrlAlternativesMap: Record<keyof typeof PlatType, Array<string>>
   publishTime: number
-  QRcodeUrls: string[]
+  qrcodeUrls: string[]
 }
 
 const fetchStat = ref<FetchStatType>(FetchStatType.loading)
 const isPC = ref<boolean>(true)
-const showQr = ref<boolean>(false)
+const showqr = ref<boolean>(false)
 const fetchResp = ref<FetchRespType>()
 
 const guidanceLink: Record<keyof typeof PlatType, string> = {
@@ -76,7 +76,7 @@ async function getRemoteRelease(): Promise<void> {
         'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'],
         'ios-aarch64': resp.downloadUrlAlternativesMap['ios-aarch64'],
       },
-      QRcodeUrls: [resp.QRcodeUrls[0], resp.QRcodeUrls[1]],
+      qrcodeUrls: [resp.qrcodeUrls[0], resp.qrcodeUrls[1]],
       publishTime: resp.publishTime,
     }
     fetchStat.value = FetchStatType.loaded
@@ -140,7 +140,7 @@ onMounted(async () => {
         <a v-for="(link, idx) in fetchResp.downloadUrlAlternativesMap[release]" :key="idx" :href="link" class="btn">
           {{ idx === 0 ? '主线' : '备线' }}
         </a>
-        <button v-if="release === 'android-universal' && isPC" class="btn" @click="showQr = !showQr">
+        <button v-if="release === 'android-universal' && isPC" class="btn" @click="showqr = !showqr">
           扫码下载
         </button>
         <a v-if="guidanceLink[release]" class="btn" :href="guidanceLink[release]">
@@ -148,14 +148,14 @@ onMounted(async () => {
         </a>
       </div>
     </li>
-    <li v-show="isPC && showQr" class="px-4 flex flex-row-reverse items-center gap-1">
+    <li v-show="isPC && showqr" class="px-4 flex flex-row-reverse items-center gap-1">
       <div class="flex flex-col">
         <span class="font-bold">Cloudflare 下载（推荐）</span>
-        <img class="w-28 m-4" alt="QRcode for downloading ani" :src="fetchResp.QRcodeUrls[0]">
+        <img class="w-28 m-4" alt="qrcode for downloading ani" :src="fetchResp.qrcodeUrls[0]">
       </div>
       <div class="flex flex-col">
         <span class="font-bold">GithubProxy 下载</span>
-        <img class="w-28 m-4" alt="QRcode for downloading ani" :src="fetchResp.QRcodeUrls[1]">
+        <img class="w-28 m-4" alt="qrcode for downloading ani" :src="fetchResp.qrcodeUrls[1]">
       </div>
     </li>
   </ul>
