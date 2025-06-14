@@ -76,7 +76,7 @@ async function getRemoteRelease(): Promise<void> {
         'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'],
         'ios-aarch64': resp.downloadUrlAlternativesMap['ios-aarch64'],
       },
-      QRcodeUrls: [resp.QRcodeUrls[0], resp.QRcodeUrls[2]],
+      QRcodeUrls: [resp.QRcodeUrls[0], resp.QRcodeUrls[1]],
       publishTime: resp.publishTime,
     }
     fetchStat.value = FetchStatType.loaded
