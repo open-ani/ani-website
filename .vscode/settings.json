@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
     "aarch"
-  ]
+  ],
+  "css.customData": [".vscode/tailwindcss.json"]
 }
