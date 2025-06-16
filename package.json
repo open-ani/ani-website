@@ -23,6 +23,7 @@
     "@types/node": "^22.15.31",
     "astro": "^5.9.2",
     "danmaku": "^2.0.8",
+    "marked": "^15.0.12",
     "tailwindcss": "^4.1.10",
     "typescript": "^5.8.3",
     "vue": "^3.5.16"
