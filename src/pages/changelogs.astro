@@ -1,7 +1,13 @@
 ---
 import Layout from "../layouts/Changelog.astro";
 import { marked } from "marked";
-
+function ts2str(ts: number): string {
+  const date = new Date(ts * 1000)
+  const y = date.getFullYear().toString()
+  const m = (date.getMonth() + 1).toString().padStart(2, '0')
+  const d = date.getDate().toString().padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
 const response = await fetch(
   "https://danmaku-global.myani.org/v1/updates/incremental/details?clientVersion=4.0.0&clientPlatform=android&clientArch=x86_64&releaseClass=stable",
 );
@@ -23,10 +29,10 @@ let html =
 
 > 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.`);
 
-updates.forEach((update) => {
+[...updates].reverse().forEach((update) => {
   if (update.version.includes("beta") || update.version.includes("alpha"))
     return;
-  html += marked.parse(`## ${update.version}\n\n${update.description}`) + "\n";
+  html += marked.parse(`## v${update.version} \n\n更新时间: ${ts2str(update.publishTime)}\n\n${update.description}`) + "\n";
 });
 ---
 
