@@ -9,7 +9,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "code:check": "eslint .",
-    "code:lint": "eslint . --fix --ignore-pattern dist",
+    "code:lint": "eslint . --fix",
     "astro": "astro",
     "postinstall": "husky"
   },
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.1",
     "@iconify/vue": "^5.0.0",
+    "eslint": "^9.33.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.5"
   },
