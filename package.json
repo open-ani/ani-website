@@ -20,17 +20,16 @@
     "@astrojs/vue": "^5.1.0",
     "@headlessui/vue": "^1.7.23",
     "@tailwindcss/vite": "^4.1.12",
-    "@types/node": "^24.3.0",
     "astro": "^5.13.2",
     "danmaku": "^2.0.9",
     "marked": "^16.2.0",
     "tailwindcss": "^4.1.12",
-    "typescript": "^5.9.2",
     "vue": "^3.5.19"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.1",
     "@iconify/vue": "^5.0.0",
+    "@typescript/native-preview": "7.0.0-dev.20250821.1",
     "eslint": "^9.33.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.5"
