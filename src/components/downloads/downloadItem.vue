@@ -1,14 +1,12 @@
 <script lang="ts" setup>
+import type { Ref } from 'vue'
 import { Icon } from '@iconify/vue'
-import { onMounted, ref, type Ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 // 发布类型
-type ReleaseType = 'stable' | 'beta'
-
+type ReleaseType = 'stable' | 'beta' | 'alpha'
 // 组件属性类型
-interface DownloadItemProps {
-  type: ReleaseType
-}
+interface DownloadItemProps { type?: ReleaseType }
 
 const props = withDefaults(defineProps<DownloadItemProps>(), { type: 'stable' })
 
