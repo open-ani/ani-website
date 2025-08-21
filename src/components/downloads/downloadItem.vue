@@ -1,17 +1,26 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, type Ref } from 'vue'
+
+// 发布类型
+type ReleaseType = 'stable' | 'beta'
+
+// 组件属性类型
+interface DownloadItemProps {
+  type: ReleaseType
+}
 
 const props = withDefaults(defineProps<DownloadItemProps>(), { type: 'stable' })
-interface DownloadItemProps {
-  type: 'stable' | 'beta'
-}
+
+// 获取状态枚举
 enum FetchStatType {
-  loading,
-  loaded,
-  networkErr,
-  serviceErr,
+  loading = 'loading',
+  loaded = 'loaded',
+  networkErr = 'networkErr',
+  serviceErr = 'serviceErr',
 }
+
+// 平台类型映射
 const PlatType = {
   'android-universal': '安卓 APK',
   'windows-x86_64': 'Windows',
@@ -20,21 +29,42 @@ const PlatType = {
   'linux-x86_64': 'Linux AppImage',
   'ios-aarch64': 'iOS IPA（自签）',
 } as const
-type PlatKey = keyof typeof PlatType
-const releaseList = Object.entries(PlatType).map(([key]) => key as PlatKey)
-interface FetchRespType {
+
+// 平台键类型
+type PlatformKey = keyof typeof PlatType
+
+// 下载链接映射类型
+type DownloadUrlMap = Record<PlatformKey, string[]>
+
+// API 响应类型
+interface ApiResponse {
   version: string
-  downloadUrlAlternativesMap: Record<keyof typeof PlatType, Array<string>>
+  downloadUrlAlternativesMap: DownloadUrlMap
   publishTime: number
   qrcodeUrls: string[]
 }
 
-const fetchStat = ref<FetchStatType>(FetchStatType.loading)
-const isPC = ref<boolean>(true)
-const showqr = ref<boolean>(false)
-const fetchResp = ref<FetchRespType>()
+// 组件内部使用的响应类型
+interface FetchRespType {
+  version: string
+  downloadUrlAlternativesMap: DownloadUrlMap
+  publishTime: number
+  qrcodeUrls: [string, string] // 固定两个二维码URL
+}
 
-const guidanceLink: Record<keyof typeof PlatType, string> = {
+// 安装指导链接映射类型
+type GuidanceLinkMap = Record<PlatformKey, string>
+
+const releaseList: PlatformKey[] = Object.keys(PlatType) as PlatformKey[]
+
+// 响应式状态
+const fetchStat: Ref<FetchStatType> = ref(FetchStatType.loading)
+const isPC: Ref<boolean> = ref(true)
+const showqr: Ref<boolean> = ref(false)
+const fetchResp: Ref<FetchRespType | undefined> = ref()
+
+// 安装指导链接配置
+const guidanceLink: GuidanceLinkMap = {
   'android-universal': '',
   'windows-x86_64': '',
   'macos-aarch64': '',
@@ -43,50 +73,78 @@ const guidanceLink: Record<keyof typeof PlatType, string> = {
   'macos-x86_64': '/wiki/macOS-Intel-%E8%8A%AF%E7%89%87%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B',
 }
 
+// 检查服务状态
 async function checkStat(): Promise<boolean> {
   try {
-    const resp = await fetch('https://danmaku-cn.myani.org/status', { mode: 'cors' })
+    const resp: Response = await fetch('https://danmaku-cn.myani.org/status', { mode: 'cors' })
     return resp.status === 200
   }
-  catch (error) {
+  catch (error: unknown) {
     console.error(error)
     return false
   }
 }
 
+// 检查是否为PC设备
 function checkIsPc(): void {
   isPC.value = !/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
 }
 
+// 替换 ghproxy 链接为 ghfast 链接
+function replaceGhproxyLinks(downloadMap: DownloadUrlMap): DownloadUrlMap {
+  // 188 拖了好久都不换，只有我前端替换了（
+  const result: DownloadUrlMap = { ...downloadMap }
+
+  for (const platform in result) {
+    const platformKey = platform as PlatformKey
+    const urls = result[platformKey]
+    if (urls && urls.length >= 2) {
+      const secondUrl = urls[1]
+      if (secondUrl && secondUrl.startsWith('https://mirror.ghproxy.com/?q=https://github.com/open-ani/ani/releases/download/')) {
+        const githubUrl = secondUrl.replace('https://mirror.ghproxy.com/?q=', '')
+        // 替换为新的格式
+        urls[1] = `https://ghfast.top/${githubUrl}`
+      }
+    }
+  }
+
+  return result
+}
+
+// 获取远程发布信息
 async function getRemoteRelease(): Promise<void> {
   fetchStat.value = FetchStatType.loading
   const link = new URL('https://danmaku-cn.myani.org/v1/updates/latest')
   link.search = new URLSearchParams({ releaseClass: props.type }).toString()
+
   try {
-    const resp = await fetch(link, {
-      mode: 'cors',
-    }).then(r => r.json())
+    const response: Response = await fetch(link, { mode: 'cors' })
+    const resp: ApiResponse = await response.json()
+
+    const originalDownloadMap: DownloadUrlMap = {
+      'android-universal': resp.downloadUrlAlternativesMap['android-universal'] || [],
+      'windows-x86_64': resp.downloadUrlAlternativesMap['windows-x86_64'] || [],
+      'macos-aarch64': resp.downloadUrlAlternativesMap['macos-aarch64'] || [],
+      'macos-x86_64': resp.downloadUrlAlternativesMap['macos-x86_64'] || [],
+      'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'] || [],
+      'ios-aarch64': resp.downloadUrlAlternativesMap['ios-aarch64'] || [],
+    }
+
     fetchResp.value = {
       version: resp.version,
-      downloadUrlAlternativesMap: {
-        'android-universal': resp.downloadUrlAlternativesMap['android-universal'],
-        'windows-x86_64': resp.downloadUrlAlternativesMap['windows-x86_64'],
-        'macos-aarch64': resp.downloadUrlAlternativesMap['macos-aarch64'],
-        'macos-x86_64': resp.downloadUrlAlternativesMap['macos-x86_64'],
-        'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'],
-        'ios-aarch64': resp.downloadUrlAlternativesMap['ios-aarch64'],
-      },
-      qrcodeUrls: [resp.qrcodeUrls[0], resp.qrcodeUrls[1]],
+      downloadUrlAlternativesMap: replaceGhproxyLinks(originalDownloadMap),
+      qrcodeUrls: [resp.qrcodeUrls[0] || '', resp.qrcodeUrls[1] || ''] as [string, string],
       publishTime: resp.publishTime,
     }
     fetchStat.value = FetchStatType.loaded
   }
-  catch (error) {
+  catch (error: unknown) {
     console.error(error)
     fetchStat.value = FetchStatType.networkErr
   }
 }
 
+// 时间戳转换为日期字符串
 function ts2str(ts: number): string {
   const date = new Date(ts * 1000)
   const y = date.getFullYear().toString()
@@ -153,10 +211,11 @@ onMounted(async () => {
         <span class="font-bold">Cloudflare 下载（推荐）</span>
         <img class="w-28 m-4" alt="qrcode for downloading ani" :src="fetchResp.qrcodeUrls[0]">
       </div>
-      <div class="flex flex-col">
+      <!-- <div class="flex flex-col">
         <span class="font-bold">GithubProxy 下载</span>
         <img class="w-28 m-4" alt="qrcode for downloading ani" :src="fetchResp.qrcodeUrls[1]">
-      </div>
+      </div> -->
+      <!-- 暂时用不了 -->
     </li>
   </ul>
   <div v-else class="w-full sm:w-1/2 p-6 border-2 border-white rounded">

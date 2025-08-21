@@ -1,16 +1,17 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import DownloadItem from './downloadItem.vue'
 
 type ReleaseType = 'stable' | 'beta'
 
-const curType = ref<ReleaseType>('stable')
+// 当前选中的发布类型
+const curType: Ref<ReleaseType> = ref<ReleaseType>('stable')
 
-function toType(type: ReleaseType) {
-  if (curType.value !== type)
+// 切换发布类型
+function toType(type: ReleaseType): void {
+  if (curType.value !== type) {
     curType.value = type
-  // // eslint-disable-next-line no-alert
-  // alert(`Already on the ${curType.value} release tab!`)
+  }
 }
 </script>
 
