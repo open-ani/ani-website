@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { ref, type Ref } from 'vue'
+import type { Ref } from 'vue'
+import { ref } from 'vue'
 import DownloadItem from './downloadItem.vue'
 
 type ReleaseType = 'stable' | 'beta'
@@ -32,7 +33,7 @@ function toType(type: ReleaseType): void {
       <div class="mt-2 w-full">
         <div class="text-white">
           <DownloadItem v-show="curType === 'stable'" type="stable" />
-          <DownloadItem v-show="curType === 'beta'" type="beta" />
+          <DownloadItem v-show="curType === 'beta'" type="alpha" />
         </div>
       </div>
     </div>

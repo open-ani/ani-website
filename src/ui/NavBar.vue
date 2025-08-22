@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
-import { Icon } from '@iconify/vue/dist/iconify.js'
+import { Icon } from '@iconify/vue'
 
 const navigation = [
   { name: '主页', href: '/', current: false },
