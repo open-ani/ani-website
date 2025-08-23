@@ -164,6 +164,18 @@ onMounted(async () => {
 
 <template>
   <ul v-if="fetchStat === FetchStatType.loaded && fetchResp !== undefined">
+    <!-- 版本稳定性提示 -->
+    <li v-if="props.type === 'beta' || props.type === 'alpha'" class="mb-3">
+      <div
+        class="flex items-center gap-2 px-3 py-4 rounded-md bg-gray-800 border-l-2"
+        :class="props.type === 'alpha' ? 'border-red-500 text-red-300' : 'border-yellow-500 text-yellow-300'"
+      >
+        <Icon :icon="props.type === 'alpha' ? 'mdi:alert-circle-outline' : 'mdi:alert-outline'" class="w-6 h-6 mr-1" />
+        <span>
+          {{ props.type === 'alpha' ? 'Alpha 测试版，可能存在较多问题和不稳定因素，仅供尝鲜使用。' : 'Beta 测试版，功能基本稳定但可能存在少量问题，建议谨慎使用。' }}
+        </span>
+      </div>
+    </li>
     <li class="flex justify-between items-center">
       <span class="font-bold">
         更新时间：{{ ts2str(fetchResp.publishTime) }}
@@ -209,11 +221,6 @@ onMounted(async () => {
         <span class="font-bold">Cloudflare 下载（推荐）</span>
         <img class="w-28 m-4" alt="qrcode for downloading ani" :src="fetchResp.qrcodeUrls[0]">
       </div>
-      <!-- <div class="flex flex-col">
-        <span class="font-bold">GithubProxy 下载</span>
-        <img class="w-28 m-4" alt="qrcode for downloading ani" :src="fetchResp.qrcodeUrls[1]">
-      </div> -->
-      <!-- 暂时用不了 -->
     </li>
   </ul>
   <div v-else class="w-full sm:w-1/2 p-6 border-2 border-white rounded">
