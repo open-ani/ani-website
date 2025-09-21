@@ -7,12 +7,12 @@ const props = withDefaults(defineProps<FAQProps>(), { isIndex: undefined })
 </script>
 
 <template>
-  <section class="text-gray-100 w-full xl:w-4/5 mx-auto px-4">
-    <div class="container flex flex-col justify-center py-6 mx-auto md:py-10">
-      <h2 class="mt-4 mb-6 text-4xl font-bold leading-none text-center sm:text-5xl">
+  <section class="text-gray-100 w-full flex items-center justify-center flex-col py-10">
+    <div class="w-full space-y-6 md:w-3/5">
+      <h2 class="text-4xl font-bold leading-none text-center">
         {{ props.isIndex ? "🤔常见问题💡" : "常见问题" }}
       </h2>
-      <div class="grid gap-10 md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32">
+      <div class="grid gap-10 md:gap-8 md:grid-cols-2">
         <div>
           <h3 class="font-semibold">
             资源来源是什么?

@@ -15,24 +15,24 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/sitemap": "^3.5.0",
-    "@astrojs/starlight": "^0.35.2",
-    "@astrojs/vue": "^5.1.0",
+    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/starlight": "^0.36.0",
+    "@astrojs/vue": "^5.1.1",
     "@headlessui/vue": "^1.7.23",
-    "@tailwindcss/vite": "^4.1.12",
-    "astro": "^5.13.2",
+    "@tailwindcss/vite": "^4.1.13",
+    "astro": "^5.13.9",
     "danmaku": "^2.0.9",
-    "marked": "^16.2.0",
-    "tailwindcss": "^4.1.12",
-    "vue": "^3.5.19"
+    "marked": "^16.3.0",
+    "tailwindcss": "^4.1.13",
+    "vue": "^3.5.21"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^5.2.1",
+    "@antfu/eslint-config": "^5.4.1",
     "@iconify/vue": "^5.0.0",
     "@typescript/native-preview": "7.0.0-dev.20250821.1",
-    "eslint": "^9.33.0",
+    "eslint": "^9.36.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.1.5"
+    "lint-staged": "^16.1.6"
   },
   "lint-staged": {
     "*.vue": "eslint --fix",

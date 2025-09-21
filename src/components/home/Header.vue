@@ -27,7 +27,7 @@ const isRotate = ref<boolean>(false)
       </ul>
       <Buttons v-model="isRotate" />
     </div>
-    <div class="xl:float-right w-full xl:w-fit flex justify-center scale-[85%] xl:scale-100">
+    <div class="xl:float-right w-full xl:w-fit mb-12 xl:mb-0 flex justify-center xl:scale-100">
       <HeaderShowCase v-model="isRotate" />
     </div>
   </div>

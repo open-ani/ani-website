@@ -2,12 +2,12 @@
 import Layout from "../layouts/Layout.astro"
 import Header from "../components/home/Header.vue"
 import DanmakuComment from "../components/home/DanmakuComment.vue"
-import Features from "../components/home/Features.vue"
+import Features from "../components/home/Features.astro"
 import FAQ from "../components/FAQ.vue"
 ---
 
 <Layout title="Animeko">
-    <main class="text-white xl:px-10 py-12 w-full">
+    <main class="text-white xl:px-10 pb-12 w-full space-y-6 pt-24">
         <Header client:load/>
         <Features/>
         <DanmakuComment client:visible client:only />

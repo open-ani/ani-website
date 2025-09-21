@@ -57,12 +57,12 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="flex w-full justify-center items-center flex-col mt-3 !space-y-3 px-3">
-    <h2 class="text-4xl font-bold my-2">
+  <div class="flex flex-col w-full items-center justify-center space-y-6">
+    <h2 class="text-4xl font-bold">
       💬用户评价🗨
     </h2>
-    <div ref="container" class="w-full md:w-3/5 h-[350px] border-2 border-slate-400 rounded-md" />
-    <div class="mt-6 w-full flex md:w-3/5 gap-x-2">
+    <div ref="container" class="w-full mt-2 md:w-3/5 h-[350px] border-2 border-slate-400 rounded-md" />
+    <div class="mt-2 w-full flex md:w-3/5 gap-x-2">
       <input
         disabled type="text" placeholder="我也要说说（暂不开放）" required
         class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"

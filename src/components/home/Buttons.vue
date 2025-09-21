@@ -15,6 +15,7 @@ const isRotate = computed<boolean>({
   get: () => props.modelValue,
   set: (value: boolean): void => {
     emits('update:modelValue', value)
+    // TODO: 这里不要写成向父组件传
   },
 })
 
