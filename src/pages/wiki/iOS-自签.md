@@ -5,36 +5,33 @@ title: "iOS 安装教程"
 
 # iOS 安装教程
 
-### 准备事项
+## 准备事项
 
 - 对应架构的 [Sideloadly](https://sideloadly.io/#download) (通常为 64 bit)
+
 >[!TIP]
 >同时按下 `Win` + `R` ，输入 `msinfo32` ，在系统类型一栏即可查询到您的电脑是 64 bit 还是 32 bit
 
 - 使用邮箱注册的 [Apple 账户](https://support.apple.com/zh-cn/apple-account)
 
 - Animeko IPA 安装包
->从[Github Release](https://github.com/open-ani/animeko/releases/latest)或[分流地址](https://myani.org/downloads)下载
+（从[Github Release](https://github.com/open-ani/animeko/releases/latest)或[分流地址](https://myani.org/downloads)下载）
 
 - Windows 用户需要额外下载 [iTunes](https://www.apple.com.cn/itunes/)
 
 > [!IMPORTANT]
-> 
 > iTunes 需要为非 Microsoft Store 版本，如果安装了 Microsoft Store 版本，请卸载并从官网下载
 
-### 安装
+## 安装
 
 逐一安装上述软件并重启电脑，准备好 Apple 账户 后就可以开始了。
+![sideloadly.png](https://youke1.picui.cn/s1/2025/10/25/68fcd8dc853dc.png)
 
 1. 启动 Sideloadly。
 
-![sideloadly.png](https://youke1.picui.cn/s1/2025/10/25/68fcd8dc853dc.png)
-
 2. 在 `Apple ID` 一栏中输入你的 Apple 账户 邮箱。
 
-3. 连接设备
-
-使用一条稳定的数据线将设备连接至电脑。如无意外，你将会在 `iDevice` 一栏中看到你的设备名称。在设备上信任这部电脑并输入你的锁屏密码。
+3. 连接设备: 使用一条稳定的数据线将设备连接至电脑。如无意外，你将会在 `iDevice` 一栏中看到你的设备名称。在设备上信任这部电脑并输入你的锁屏密码。
 
 4. 安装至设备
 
@@ -53,7 +50,7 @@ title: "iOS 安装教程"
 
 ![done.png](https://youke1.picui.cn/s1/2025/10/25/68fcd8dcab59d.png)
 
-### 不受信任的开发者
+## 不受信任的开发者
 
 安装后直接打开 Animeko 可能会失败，并提示不受信任的开发者。
 

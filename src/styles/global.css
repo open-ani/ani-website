@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+:root {
+  text-autospcae: nromal;
+}
+
 .btn {
   @apply hover:bg-slate-600 border-2 border-white rounded px-3 py-2 text-sm text-slate-300
 }

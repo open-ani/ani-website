@@ -13,12 +13,12 @@ const { title, desc } = Astro.props
   </div>
   <dt class="mt-4 font-semibold text-white">
     <slot name="title">
-      {title ?? ""}
+      {title ?? ''}
     </slot>
   </dt>
   <dd class="mt-2 leading-7 text-gray-400">
     <slot name="desc">
-      {desc ?? ""}
+      {desc ?? ''}
     </slot>
   </dd>
 </dl>

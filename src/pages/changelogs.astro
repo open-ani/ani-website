@@ -1,6 +1,7 @@
 ---
-import Layout from "../layouts/Changelog.astro";
-import { marked } from "marked";
+import { marked } from 'marked'
+import Layout from '../layouts/Changelog.astro'
+
 function ts2str(ts: number): string {
   const date = new Date(ts * 1000)
   const y = date.getFullYear().toString()
@@ -9,30 +10,26 @@ function ts2str(ts: number): string {
   return `${y}-${m}-${d}`
 }
 const response = await fetch(
-  "https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=4.0.0&clientPlatform=android&clientArch=x86_64&releaseClass=stable"
-);
+  'https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=4.0.0&clientPlatform=android&clientArch=x86_64&releaseClass=stable',
+)
 interface dataType {
   updates: Array<{
-    version: string;
-    downloadUrlAlternatives: string[];
-    publishTime: number;
-    description: string;
-  }>;
+    version: string
+    downloadUrlAlternatives: string[]
+    publishTime: number
+    description: string
+  }>
 }
-const buffer = Buffer.from(await response.arrayBuffer());
-const text = buffer.toString("utf-8");
-
-const data: dataType = await JSON.parse(text);
-const { updates } = data;
-let html =
-  marked.parse(`[![GitHub Release](https://img.shields.io/github/v/release/open-ani/animeko?sort=semver&display_name=tag&style=flat-square)](https://github.com/open-ani/animeko/releases/latest)
-
-> 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本.`);
-
+const data: dataType = await response.json()
+const { updates } = data
+let html = marked.parse(`[![GitHub Release](https://img.shields.io/github/v/release/open-ani/animeko?sort=semver&display_name=tag&style=flat-square)](https://github.com/open-ani/animeko/releases/latest)\n\n> 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本。`);
 [...updates].reverse().forEach((update) => {
-  if (update.version.includes("beta") || update.version.includes("alpha"))
-    return;
-  html += marked.parse(`## v${update.version} \n\n更新时间: ${ts2str(update.publishTime)}\n\n${update.description}`) + "\n";
+  if (update.version.includes('beta') || update.version.includes('alpha')) {
+    return
+  }
+  // @ts-ignore
+  html += marked.parse(`## v${update.version} \n\n更新时间: ${ts2str(update.publishTime)}\n\n${update.description}`)
+  html += `\n`
 });
 ---
 

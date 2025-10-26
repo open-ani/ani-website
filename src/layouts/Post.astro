@@ -1,13 +1,15 @@
 ---
-import Layout from "../layouts/Layout.astro";
-const { title } = Astro.props.frontmatter;
+import Layout from '../layouts/Layout.astro'
+import '../styles/callouts.css'
+import '../styles/markdown.css'
+
+const { title } = Astro.props.frontmatter
 const pageTitle = `Animeko - Post ${title}`;
-import "../styles/markdown.css";
 ---
 
-<Layout title={ pageTitle }>
+<Layout title={pageTitle}>
     <article
-        class="px-4 pb-8 pt-12 w-full xl:w-3/5 !mx-auto !bg-transparent markdown-body !break-words"
+      class="px-4 pb-8 pt-12 w-full xl:w-3/5 !mx-auto !bg-transparent markdown-body !break-words"
     >
         <slot />
     </article>

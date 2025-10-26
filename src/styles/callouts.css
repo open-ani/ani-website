@@ -1,0 +1,31 @@
+:root{
+	/* 默认：暗色主题 */
+	--callout-bg-color: #161616;
+	--callout-text-color: #e6e6e6;
+	--callout-border-color: rgba(255,255,255,0.06);
+}
+
+/* 浅色主题覆盖（使用 .light 在根元素上或 :root.light） */
+:root.light{ 
+	--callout-bg-color: #f2f3f5;
+	--callout-text-color: #111827;
+	--callout-border-color: rgba(0,0,0,0.06);
+}
+
+.blockquote, .callout{
+	background: var(--callout-bg-color);
+	color: var(--callout-text-color);
+	border-radius: 2px;
+	font-style: normal;
+	border: 1px solid var(--callout-border-color);
+}
+
+.callout{padding:0!important}
+.callout-title{align-items:center;display:flex;gap:10px;padding:10px}
+.callout-title>strong{font-weight:700}
+.blockquote,.callout-content{padding:10px 20px}
+.blockquote-heading{margin:5px 0!important;padding:0!important}
+.blockquote>p,.callout-content>p{font-weight:400;margin:5px 0}
+.callout-title p{margin:0}
+.callout-title>strong{line-height:1.5}
+.blockquote>p:before,.callout p:before,p:after{display:none}
