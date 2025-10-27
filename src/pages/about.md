@@ -10,7 +10,7 @@ title: "About"
 
 ## 主要功能
 
-### 浏览来自 [Bangumi][Bangumi] 的番剧信息以及社区评价
+### 浏览来自 [Bangumi](https://bangumi.tv) 的番剧信息以及社区评价
 
 | <img src="/features/subject-details.png" alt="" width="200"/> | <img src="/features/subject-rating.png" alt="" width="200"/> |
 |:---------------------------------------------------------------------------:|:--------------------------------------------------------------------------:|
