@@ -1,23 +1,24 @@
 # Animeko - Website
 
-The official website of [Animeko](https://github.com/open-ani/animeko): (https://myani.org), a one-stop danmaku animation platform.
+
+The [official website](https://myani.org) of [Animeko](https://github.com/open-ani/animeko), a one-stop danmaku animation platform.
 
 ## Develop
 
 1. Clone this repo to your PC.
 2. Run
-```bash
+```shell
 pnpm install
 ```
 3. To start a dev server, run
-```bash
+```shell
 pnpm dev
 ```
  4. To build and start a preview server, run 
-```bash
+```shell
 pnpm build&&pnpm preview
 ```
-  in Powershell
-```powerhsell
+  using Powershell, run
+```shell
 pnpm build pnpm preview
 ```
