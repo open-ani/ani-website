@@ -1,5 +1,5 @@
+[简体中文](README-CN.md) / English
 # Animeko - Website
-
 
 The [official website](https://myani.org) of [Animeko](https://github.com/open-ani/animeko), a one-stop danmaku animation platform.
 
