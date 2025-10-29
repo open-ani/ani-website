@@ -1,69 +1,15 @@
-<footer class="px-6 md:px-16 w-full max-w-7xl mx-auto">
-    <hr class="w-full border-slate-700 mb-10">
-    <div class="footer-bg"></div>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    
-    <!-- 自定义动画样式 -->
-    <style>
-        /* 链接悬停时横线展开动画 */
-        .hover-line::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #94a3b8; /* slate-400 */
-            transition: width 0.3s ease;
-        }
-        .hover-line:hover::after {
-            width: 100%;
-        }
-    </style>
-
-    <div class="flex flex-col md:flex-row justify-between items-center gap-10 mb-10">
-        <!-- 左侧版权与许可证信息 -->
-        <div class="text-center md:text-left">
-            <p class="copyright text-slate-400 text-lg">
-                © 2024-2025 
-                <a href="https://github.com/open-ani/animeko" target="_blank" rel="noopener noreferrer" 
-                   class="footer-link font-medium text-slate-300 inline-block relative pb-0.5 hover:-translate-y-1 transition-transform duration-300 hover-line">
-                    open-ani
-                </a>
-                . Released under the 
-                <a href="https://www.gnu.org/licenses/agpl-3.0.html" target="_blank" rel="noopener noreferrer"
-                   class="license-link font-medium bg-[#F2F4F7] text-[#101828] px-2 py-0.5 rounded 
-                   hover:bg-[#E4E7EC] inline-block hover:-translate-y-1 transition-all duration-300">
-                    AGPL-3.0 License
-                </a>
-            </p>
-        </div>
-        
-        <!-- 右侧社交链接 -->
-        <div class="flex items-center gap-5 sm:gap-5">
-            <!-- QQ群链接 -->
-            <a href="https://qm.qq.com/..." class="social-icon flex items-center gap-3 
-                text-slate-300 hover:text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-md relative">
-                <i class="fab fa-qq text-xl"></i>
-                <span class="font-medium text-lg">QQ群</span>
-            </a>
-            
-            <!-- TG群链接 -->
-            <a href="https://t.me/openani" class="social-icon flex items-center gap-3 
-                text-slate-300 hover:text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-md relative">
-                <i class="fab fa-telegram text-xl"></i>
-                <span class="font-medium text-lg">TG群</span>
-            </a>
-            
-            <!-- 分隔点 -->
-            <span class="hidden sm:inline-block w-1 h-1 rounded-full bg-slate-600"></span>
-            
-            <!-- GitHub链接 -->
-            <a href="https://github.com/open-ani" class="social-icon flex items-center 
-                text-slate-400 hover:text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-md relative">
-                <i class="fab fa-github text-xl"></i>
-            </a>
-        </div>
-    </div>
-</footer>
+<div
+  class="text-sm leading-6 mx-auto flex items-center text-slate-400 border-t border-slate-100 w-full xl:w-3/5 px-6 h-14"
+>
+  <div class="float-left">
+    <span>© 2024-2025 </span>
+    <a class="text-blue-400" target="_blank" href="https://github.com/open-ani/animeko">❤ Animeko</a>
+  </div>
+  <div class="space-x-2 w-fit ml-auto whitespace-nowrap">
+    <a
+      href="https://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=2EbZ0Qxe-fI_AHJLCMnSIOnqw-nfrFH5&authKey=L31zTMwfbMG0FhIgt8xNHGOFPHc531mSw2YzUVupHLRJ4L2f8xerAd%2ByNl4OigRK&noverify=0&group_code=927170241"
+      class="underline"
+    >QQ群</a>
+    <a href="https://t.me/openani" class="underline">TG群</a>
+  </div>
+</div>
