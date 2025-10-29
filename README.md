@@ -24,3 +24,5 @@ pnpm dev
 ```shell
 pnpm build && pnpm preview
 ```
+>[!IMPORTANT]
+>For errors in Windows, please use PowerShell 7.
