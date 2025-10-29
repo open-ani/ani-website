@@ -25,3 +25,5 @@ pnpm dev
 ```shell
 pnpm build&&pnpm preview
 ```
+>[!IMPORTANT]
+>对于Windows上出现的报错，请使用PowerShell 7
