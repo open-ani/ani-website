@@ -23,7 +23,7 @@ pnpm dev
 4. 若要构建并运行预览服务器，请运行 
 
 ```shell
-pnpm build&&pnpm preview
+pnpm build && pnpm preview
 ```
 >[!IMPORTANT]
 >对于Windows上出现的报错，请使用PowerShell 7
