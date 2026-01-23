@@ -15,7 +15,7 @@ title: "iOS 安装教程 (自签)"
 
 无论选择哪种方法，在开始前请确保做好以下准备：
 
-- **硬件**：一台 macOS 或 Windows 电脑、一台 iPhone 或 iPad、一根数据线（优先原装、稳定的数据线，否则可能无法正确连接设备）。
+- **硬件**：一台 macOS 或 Windows 电脑、一台 iPhone 或 iPad，请使用一根稳定的数据线，否则可能无法正确连接设备。
 - **账号**：一个使用邮箱注册的 [Apple ID](https://support.apple.com/zh-cn/apple-account)。
 - **安装包**：Animeko 的 IPA 文件（下载地址：[GitHub Release](https://github.com/open-ani/animeko/releases/latest) 或 [分流地址](https://myani.org/downloads)）。
 - 对于 Windows 用户，必须安装 [iTunes](https://www.apple.com.cn/itunes/)。
