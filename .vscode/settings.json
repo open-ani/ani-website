@@ -1,9 +1,16 @@
 {
-  "cSpell.words": [
-    "aarch",
-    "animeko",
-    "iconify",
-    "qrcode"
-  ],
-  "css.customData": [".vscode/tailwindcss.json"]
+  "cSpell.words": ["aarch", "animeko", "iconify", "qrcode"],
+  "css.customData": [".vscode/tailwindcss.json"],
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "never",
+    "source.fixAll.biome": "explicit"
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  }
 }

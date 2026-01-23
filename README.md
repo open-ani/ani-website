@@ -13,16 +13,17 @@ The [official website](https://myani.org) of [Animeko](https://github.com/open-a
 pnpm install
 ```
 
-3. To start a dev server, run
+1. To start a dev server, run
 
 ```shell
 pnpm dev
 ```
 
-4. To build and start a preview server, run
+1. To build and start a preview server, run
 
 ```shell
 pnpm build && pnpm preview
 ```
+
 >[!IMPORTANT]
->For errors in Windows, please use PowerShell 7.
+>For errors happenning in Windows, please use PowerShell 7.

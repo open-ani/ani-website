@@ -2,7 +2,7 @@
 
 简体中文 / [English](README.md)
 
-[Animeko](https://github.com/open-ani/animeko)的[官方网站](https://myani.org) , 一个一站式弹幕动画平台
+一个一站式弹幕动画平台 [Animeko](https://github.com/open-ani/animeko) 的[官方网站](https://myani.org)
 
 ## 开发
 
@@ -14,16 +14,17 @@
 pnpm install
 ```
 
-3. 若要启动开发服务器，请运行
+1. 若要启动开发服务器，请运行
 
 ```shell
 pnpm dev
 ```
 
-4. 若要构建并运行预览服务器，请运行 
+1. 若要构建并运行预览服务器，请运行
 
 ```shell
 pnpm build && pnpm preview
 ```
+
 >[!IMPORTANT]
->对于Windows上出现的报错，请使用PowerShell 7
+>对于 Windows 上出现的报错，请使用 PowerShell 7
