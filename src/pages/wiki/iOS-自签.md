@@ -128,7 +128,7 @@ Windows 用户除 iTunes 外，还需安装 [iCloud for Windows](https://support
 **解决方法**：
 1.  打开 iOS `设置` -> `通用`。
 2.  向下滑动选择 `VPN 与设备管理`（旧版本系统可能显示为“描述文件与设备管理”）。
-3.  在“开发者 APP”下方点击你的 Apple ID。
+3.  在 `开发者 APP` 下方点击你的 Apple ID。
 4.  点击 **“信任 [你的邮箱]”** 并确认。
 
 现在，你可以正常打开 Animeko 了。
