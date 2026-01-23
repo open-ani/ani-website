@@ -5,7 +5,7 @@ title: "iOS 安装教程 (自签)"
 
 # iOS 安装教程
 
-在 iOS 设备上安装 Animeko 需要使用“侧载”（Sideload）工具。本教程将详细介绍两种目前最常用的安装方案：**Sideloadly** 和 **AltStore**。
+在 iOS 设备上安装 Animeko 需要使用“侧载”（Sideload）工具。本教程将详细介绍两种安装方案：**Sideloadly** 和 **AltStore**。
 
 这两种方法均利用了 Apple 提供的开发者签名功能。对于未付费的用户，存在以下限制：
 - 应用签名有效期为 7 天，到期后需重新续签，否则应用将无法打开。
