@@ -37,7 +37,7 @@ Sideloadly 是一款界面简洁、操作简单的侧载工具，且支持自动
 
 ### 2. 安装 IPA
 
-![sideloadly.png](https://youke1.picui.cn/s1/2025/10/25/68fcd8dc853dc.png)
+![sideloadly.png](https://free.picui.cn/free/2026/01/22/697224c1b2c95.png)
 
 1. 打开 Sideloadly，在 `Apple ID` 栏输入你的 Apple 账号邮箱。
 
@@ -49,13 +49,13 @@ Sideloadly 是一款界面简洁、操作简单的侧载工具，且支持自动
     > [!TIP]
     > `Start` 按钮左侧的“刷新图标”建议保持开启状态（默认即开启）。这允许设备在同一 Wi-Fi 环境下每 7 天自动续签。
 
-    ![ready.png](https://youke1.picui.cn/s1/2025/10/25/68fcd8dc7353c.png)
+    ![ready.png](https://free.picui.cn/free/2026/01/22/697225d66f994.png)
 
 4. 首次使用时，需输入 Apple ID 密码。若开启了双重认证，请在弹窗中输入手机收到的 6 位验证码。
 
 5. 等待进度条跑完，当显示 `Done.` 时即表示安装成功。
 
-   ![done.png](https://youke1.picui.cn/s1/2025/10/25/68fcd8dcab59d.png)
+   ![done.png](https://free.picui.cn/free/2026/01/22/6972260219689.png)
 
 ## 方法二：使用 AltStore 安装
 
