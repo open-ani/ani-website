@@ -95,7 +95,7 @@ Windows 用户除 iTunes 外，还需安装 [iCloud for Windows](https://support
 - 前往 `设置` -> `隐私与安全性` -> 拉到底部找到 `开发者模式` -> **开启**。
 - 按提示重启设备并确认开启。
 
-### 6. 安装 Animeko IPA
+### 6. 安装 Animeko
 
 确保 AltServer 在电脑上运行，且手机与电脑在同一 Wi-Fi 下（推荐连接数据线以提高稳定性）。
 
