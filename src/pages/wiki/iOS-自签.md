@@ -123,7 +123,7 @@ Windows 用户除 iTunes 外，还需安装 [iCloud for Windows](https://support
 
 ## 常见问题：不受信任的开发者
 
-首次打开安装好的 Animeko 时，可能会提示“不受信任的开发者”。
+首次启动 Animeko 时，可能会提示`不受信任的开发者`。
 
 **解决方法**：
 1.  打开 iOS `设置` -> `通用`。
