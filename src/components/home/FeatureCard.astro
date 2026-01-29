@@ -7,16 +7,16 @@ interface Props {
 const { title, desc } = Astro.props
 ---
 
-<dl class="flex flex-col items-center mx-auto p-4 h-[200px] max-w-[500px]">
-  <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+<dl>
+  <div>
     <slot />
   </div>
-  <dt class="mt-4 font-semibold text-white">
+  <dt>
     <slot name="title">
       {title ?? ''}
     </slot>
   </dt>
-  <dd class="mt-2 leading-7 text-gray-400">
+  <dd>
     <slot name="desc">
       {desc ?? ''}
     </slot>

@@ -2,18 +2,17 @@
 import FeatureCard from './FeatureCard.astro'
 ---
 
-<div class="flex flex-col w-full items-center justify-center space-y-6">
-  <h2 class="text-4xl font-bold">
+<div>
+  <h2>
     ✨应用亮点✨
   </h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 w-full md:w-3/5">
+  <div>
     <FeatureCard title="弹幕及弹幕云过滤">
       <Fragment slot="desc">
         Animeko 从弹弹play, 其他弹幕网站, 以及 Animeko 弹幕服务获取弹幕，你也可以发送弹幕到 Animeko 的公益弹幕服务器，AI
         团队将逐渐推进弹幕云过滤功能。
       </Fragment>
       <svg
-        class="h-6 w-6 text-white"
         fill="none"
         viewBox="0 0 24 24"
         stroke-width="1.5"
@@ -32,7 +31,6 @@ import FeatureCard from './FeatureCard.astro'
         只要有一个 Bangumi 账号，你就可以通过 Animeko 一站式地管理追番的进度，标注想看/在看/看过的番剧，以及和网友们讨论剧集。当然，你也可以以游客的身份体验大部分功能。
       </Fragment>
       <svg
-        class="h-6 w-6 text-white"
         xmlns="http://www.w3.org/2000/svg"
         width="1em"
         height="1em"
@@ -59,7 +57,6 @@ import FeatureCard from './FeatureCard.astro'
         开放源代码, 公开自动构建, 无资料泄露风险，可 PR 添加自己喜欢的功能。
       </Fragment>
       <svg
-        class="h-6 w-6 text-white"
         xmlns="http://www.w3.org/2000/svg"
         width="1em"
         height="1em"
@@ -76,7 +73,6 @@ import FeatureCard from './FeatureCard.astro'
         全自动整合多个 BT 数据源与在线数据源, 兼顾资源质量与缓冲速度。
       </Fragment>
       <svg
-        class="h-6 w-6 text-white"
         xmlns="http://www.w3.org/2000/svg"
         width="1em"
         height="1em"

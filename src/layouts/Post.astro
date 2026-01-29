@@ -1,23 +1,12 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import '@/styles/callouts.css'
-import '@/styles/markdown.css'
 
 const { title } = Astro.props.frontmatter
 const pageTitle = `Animeko - Post ${title}`;
 ---
 
 <Layout title={pageTitle}>
-    <article
-      class="px-4 pb-8 pt-12 w-full xl:w-3/5 !mx-auto !bg-transparent markdown-body !break-words"
-    >
+    <article>
         <slot />
     </article>
 </Layout>
-
-<style is:inline>
-    .markdown-body img {
-        display: inline-block !important;
-        vertical-align: middle !important;
-    }
-</style>
