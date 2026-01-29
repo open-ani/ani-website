@@ -1,0 +1,21 @@
+<div class="mt-5 space-x-3 w-full flex justify-center">
+  <a data-astro-prefetch href="/downloads" class="index-btn">
+    下载 Animeko
+  </a>
+  <a target="_blank" href="https://github.com/open-ani/animeko/" class="index-btn">
+    开源仓库
+  </a>
+  <button id="rotate-btn" class="index-btn">
+    切换全屏
+  </button>
+</div>
+
+<script>
+  const btn = document.getElementById('rotate-btn');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      // Dispatch custom event for HeaderShowCase to listen to
+      window.dispatchEvent(new CustomEvent('toggle-rotation'));
+    });
+  }
+</script>

@@ -7,7 +7,7 @@ title: "macOS 无法打开解决方案"
 
 ## 未打开 “Ani”
 
-<img width="252" alt="image" src="https://s2.loli.net/2025/06/12/fERQwiCkYq3xmIW.png">
+<img width="252" alt="image" src="/assets/images/macos-security.svg">
 
 ### 解决方案
 
@@ -28,5 +28,5 @@ title: "macOS 无法打开解决方案"
 1. 安全性设置点击 `仍要打开`
 1. 输入电脑的锁屏密码
 
-<img width="700" alt="image" src="https://s2.loli.net/2025/06/12/lMRJDgZX4dcYmnC.png">
-<img width="250" alt="image" src="https://s2.loli.net/2025/06/12/cT1IHxv4Zs2P8gW.png">
+<img width="700" alt="image" src="/assets/images/macos-xattr.svg">
+<img width="250" alt="image" src="/assets/images/macos-open.svg">

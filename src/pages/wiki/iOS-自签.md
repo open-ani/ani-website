@@ -25,7 +25,7 @@ title: "iOS 安装教程"
 ## 安装
 
 逐一安装上述软件并重启电脑，准备好 Apple 账户 后就可以开始了。
-![sideloadly.png](https://youke1.picui.cn/s1/2025/10/25/68fcd8dc853dc.png)
+![sideloadly.png](/assets/images/sideloadly.svg)
 
 1. 启动 Sideloadly。
 
@@ -37,7 +37,7 @@ title: "iOS 安装教程"
 
 点击 IPA 图标，在窗口中选择你下载的 IPA 文件。选择好后如图所示，确认无误后点击 `Start`。
 
-![ready.png](https://youke1.picui.cn/s1/2025/10/25/68fcd8dc7353c.png)
+![ready.png](/assets/images/ready.svg)
 
 > [!TIP]
 > `Start` 按钮左边的刷新按钮应该是默认启用的。启用后，在同一网络环境下，每 7 天会自动续签，推荐开启。
@@ -48,7 +48,7 @@ title: "iOS 安装教程"
 
 安装完成后，Sideloadly 会显示 `Done.`
 
-![done.png](https://youke1.picui.cn/s1/2025/10/25/68fcd8dcab59d.png)
+![done.png](/assets/images/done.svg)
 
 ## 不受信任的开发者
 

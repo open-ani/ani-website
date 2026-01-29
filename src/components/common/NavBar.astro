@@ -1,0 +1,84 @@
+---
+const navigation = [
+  { name: '主页', href: '/' },
+  { name: '下载', href: '/downloads' },
+  { name: '功能截图', href: '/about' },
+  { name: '更新日志', href: '/changelogs' },
+  { name: '常见问题', href: '/wiki' },
+];
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => {
+    if (href === '/') {
+        return currentPath === '/';
+    }
+    return currentPath.startsWith(href);
+};
+---
+
+<nav class="bg-transparent w-full relative z-50">
+  <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="relative flex h-16 items-center justify-between">
+      <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+        <!-- Mobile menu button-->
+        <button type="button" id="mobile-menu-btn" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+          <span class="absolute -inset-0.5"></span>
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+        <a href="/" class="hover:animate-spin flex flex-shrink-0 items-center">
+          <img class="rounded-full w-8 h-8" alt="logo" src="/logo.png">
+        </a>
+        <div class="hidden sm:ml-6 sm:block">
+          <div class="flex space-x-4">
+            {navigation.map((item) => (
+              <a
+                href={item.href}
+                class:list={[
+                  'rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  isActive(item.href) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                ]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div class="hidden sm:hidden bg-gray-900/90 backdrop-blur-sm" id="mobile-menu">
+    <div class="space-y-1 px-2 pb-3 pt-2">
+      {navigation.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'block rounded-md px-3 py-2 text-base font-medium',
+             isActive(item.href) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+          ]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  }
+</script>

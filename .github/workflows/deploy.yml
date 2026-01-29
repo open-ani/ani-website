@@ -1,0 +1,27 @@
+name: Deploy to Zeabur
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [release-published]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+
+      - name: Install Zeabur CLI
+        run: pnpm add -g @zeabur/cli
+
+      - name: Deploy to Zeabur
+        env:
+          ZEABUR_TOKEN: ${{ secrets.ZEABUR_TOKEN }}
+          ZEABUR_PROJECT_ID: ${{ secrets.ZEABUR_PROJECT_ID }}
+        run: zeabur deploy --token $ZEABUR_TOKEN --project $ZEABUR_PROJECT_ID

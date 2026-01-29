@@ -3,9 +3,9 @@ interface Props {
   title: string
 }
 
-import NavBar from "../ui/NavBar.vue";
-import Footer from "../ui/Footer.astro"
-import "../styles/global.css";
+import NavBar from "@/components/common/NavBar.astro";
+import Footer from "@/components/common/Footer.astro";
+import "@/styles/global.css";
 
 const {title} = Astro.props;
 ---
@@ -24,13 +24,11 @@ const {title} = Astro.props;
           content="Animeko, 弹幕, 追番, 全自动BT, 数据源聚合, 离线缓存, Bangumi, 弹幕云过滤, 开源, 动漫, 收藏同步">
     <link rel="sitemap" href="/sitemap-index.xml"/>
     <link rel="icon" type="image/svg+xml" href="/logo.png"/>
-    <script is:inline defer src="https://ani-umami.zeabur.app/script.js"
-            data-website-id="bd38babb-a1c7-4d99-a96d-575f30c3354e"/>
     <title>{title}</title>
 </head>
 <body class="w-full h-full isolate bg-gray-900">
 <div class="fixed left-0 top-0 w-full backdrop-blur bg-white/10 z-40">
-    <NavBar client:visible/>
+    <NavBar />
 </div>
 <div class="mt-10">
     <slot/>

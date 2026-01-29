@@ -16,28 +16,24 @@
     "@astrojs/check": "^0.9.6",
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/starlight": "^0.36.3",
-    "@astrojs/vue": "^5.1.4",
     "@biomejs/biome": "^2.3.13",
-    "@headlessui/vue": "^1.7.23",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.0",
-    "danmaku": "^2.0.9",
     "marked": "^16.4.2",
     "rehype-callouts": "^2.1.2",
     "rehype-github-alerts": "^4.2.0",
     "remark-callouts": "^2.0.0",
     "remark-rehype": "^11.1.2",
-    "tailwindcss": "^4.1.18",
-    "vue": "^3.5.27"
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "@iconify/vue": "^5.0.0",
     "@typescript/native-preview": "7.0.0-dev.20250821.1",
+    "@zeabur/cli": "^0.2.9",
+    "danmaku": "^2.0.9",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7"
   },
   "lint-staged": {
-    "*.vue": "biome lint --fix",
     "*.astro": "astro check"
   }
 }

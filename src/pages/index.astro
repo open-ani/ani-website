@@ -1,16 +1,16 @@
 ---
-import FAQ from '../components/FAQ.vue'
-import DanmakuComment from '../components/home/DanmakuComment.vue'
-import Features from '../components/home/Features.astro'
-import Header from '../components/home/Header.vue'
-import Layout from '../layouts/Layout.astro'
+import FAQ from '@/components/modules/FAQ.astro'
+import DanmakuComment from '@/components/home/DanmakuComment.astro'
+import Features from '@/components/home/Features.astro'
+import Header from '@/components/home/Header.astro'
+import Layout from '@/layouts/Layout.astro'
 ---
 
 <Layout title="Animeko">
     <main class="text-white xl:px-10 pb-12 w-full space-y-6 pt-24">
-        <Header client:load />
+        <Header />
         <Features />
-        <DanmakuComment client:visible />
+        <DanmakuComment />
         <FAQ isIndex />
     </main>
 </Layout>
