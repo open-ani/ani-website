@@ -1,23 +1,5 @@
 ---
-// import { Icon } from "astro-icon/components";
-
-interface DownloadUrlMap {
-  [key: string]: string[];
-}
-
-interface ApiResponse {
-  version: string;
-  downloadUrlAlternativesMap: DownloadUrlMap;
-  publishTime: number;
-  qrcodeUrls: string[];
-}
-
-interface FetchRespType {
-  version: string;
-  downloadUrlAlternativesMap: DownloadUrlMap;
-  publishTime: number;
-  qrcodeUrls: [string, string];
-}
+// DownloadList.astro - Client Side Fetching Version
 
 const PlatType = {
   'android-universal': '安卓 APK',
@@ -26,217 +8,242 @@ const PlatType = {
   'macos-x86_64': 'macOS (Intel 芯片)',
   'linux-x86_64': 'Linux AppImage',
   'ios-aarch64': 'iOS IPA（自签）',
-} as const;
+};
 
-type PlatformKey = keyof typeof PlatType;
+const PlatformIcons = {
+  'android-universal': 'mgc_android_line',
+  'windows-x86_64': 'mgc_windows_line',
+  'macos-aarch64': 'mgc_apple_line',
+  'macos-x86_64': 'mgc_apple_line',
+  'linux-x86_64': 'mgc_linux_line',
+  'ios-aarch64': 'mgc_apple_line',
+};
 
-const releaseList: PlatformKey[] = Object.keys(PlatType) as PlatformKey[];
-
-const guidanceLink: Record<PlatformKey, string> = {
+const guidanceLink = {
   'android-universal': '',
   'windows-x86_64': '',
   'macos-aarch64': '',
-  'linux-x86_64': '/wiki/Linux-%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E',
-  'ios-aarch64': '/wiki/iOS-%E8%87%AA%E7%AD%BE',
-  'macos-x86_64': '/wiki/macOS-Intel-%E8%8A%AF%E7%89%87%E7%89%88%E6%9C%AC%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B',
+  'linux-x86_64': '/wiki/Linux-安装说明',
+  'ios-aarch64': '/wiki/iOS-自签',
+  'macos-x86_64': '/wiki/macOS-Intel-芯片版本安装教程',
 };
-
-// Function to replace ghproxy links
-function replaceGhproxyLinks(downloadMap: DownloadUrlMap): DownloadUrlMap {
-  const result: DownloadUrlMap = { ...downloadMap };
-  for (const platform in result) {
-    const urls = result[platform];
-    if (urls && urls.length >= 2) {
-      const secondUrl = urls[1];
-      if (secondUrl && secondUrl.startsWith('https://mirror.ghproxy.com/?q=https://github.com/open-ani/ani/releases/download/')) {
-        const githubUrl = secondUrl.replace('https://mirror.ghproxy.com/?q=', '');
-        urls[1] = `https://ghfast.top/${githubUrl}`;
-      }
-    }
-  }
-  return result;
-}
-
-// Function to fetch release data
-async function getRemoteRelease(type: 'stable' | 'alpha' = 'stable'): Promise<FetchRespType | null> {
-  const link = new URL('https://danmaku-cn.myani.org/v1/updates/latest');
-  link.search = new URLSearchParams({ releaseClass: type }).toString();
-
-  try {
-    const response = await fetch(link);
-    if (!response.ok) {
-        console.error(`Failed to fetch release ${type}: ${response.statusText}`);
-        return null;
-    }
-    const resp: ApiResponse = await response.json();
-
-    const originalDownloadMap: DownloadUrlMap = {
-      'android-universal': resp.downloadUrlAlternativesMap['android-universal'] || [],
-      'windows-x86_64': resp.downloadUrlAlternativesMap['windows-x86_64'] || [],
-      'macos-aarch64': resp.downloadUrlAlternativesMap['macos-aarch64'] || [],
-      'macos-x86_64': resp.downloadUrlAlternativesMap['macos-x86_64'] || [],
-      'linux-x86_64': resp.downloadUrlAlternativesMap['linux-x86_64'] || [],
-      'ios-aarch64': resp.downloadUrlAlternativesMap['ios-aarch64'] || [],
-    };
-
-    return {
-      version: resp.version,
-      downloadUrlAlternativesMap: replaceGhproxyLinks(originalDownloadMap),
-      qrcodeUrls: [resp.qrcodeUrls?.[0] || '', resp.qrcodeUrls?.[1] || ''] as [string, string],
-      publishTime: resp.publishTime,
-    };
-  } catch (error) {
-    console.error(`Error fetching release ${type}:`, error);
-    return null;
-  }
-}
-
-function ts2str(ts: number): string {
-  const date = new Date(ts * 1000);
-  const y = date.getFullYear().toString();
-  const m = (date.getMonth() + 1).toString().padStart(2, '0');
-  const d = date.getDate().toString().padStart(2, '0');
-  return `${y}-${m}-${d}`;
-}
-
-const stableData = await getRemoteRelease('stable');
-const betaData = await getRemoteRelease('alpha');
 ---
 
-<div>
-  <div>
+<div class="max-w-4xl mx-auto min-h-[500px] relative">
+  <!-- Tabs -->
+  <div class="flex justify-center mb-8 bg-bg-card p-1 rounded-full w-fit mx-auto border border-border-subtle">
     <button
+      class="tab-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-txt-main bg-border-subtle"
       data-target="stable"
+      id="btn-stable"
     >
       稳定版本
     </button>
     <button
+      class="tab-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-txt-muted hover:text-txt-main"
       data-target="beta"
+      id="btn-beta"
     >
       测试版本
     </button>
   </div>
 
-  <div>
-    <!-- Stable Section -->
-    <div id="content-stable">
-      {stableData ? (
-        <ul>
-          <li>
-             <span>更新时间：{ts2str(stableData.publishTime)}</span>
-          </li>
-          {releaseList.map((release) => (
-             stableData.downloadUrlAlternativesMap[release]?.length > 0 && (
-                <li>
-                  <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="80px" height="80px" viewBox="0 0 24 24">
-                      <g fill="none" stroke="currentColor" stroke-width="0">
-                         <path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" fill="none"/>
-                         <path fill="currentColor" d="M8 5v2H5v13h14V7h-3V5h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm4-3a1 1 0 0 1 1 1v10.828L14.828 12a1 1 0 1 1 1.415 1.414l-3.36 3.359a1.25 1.25 0 0 1-1.767 0l-3.359-3.359A1 1 0 1 1 9.172 12L11 13.828V3a1 1 0 0 1 1-1"/>
-                      </g>
-                    </svg>
-                    <div>
-                      <p>{PlatType[release]}</p>
-                      <small>v{stableData.version}</small>
-                    </div>
-                  </div>
-                  <div>
-                    {stableData.downloadUrlAlternativesMap[release].map((link, idx) => (
-                      <a href={link}>
-                        {idx === 0 ? '主线' : '备线'}
-                      </a>
-                    ))}
-                    {guidanceLink[release] && (
-                        <a href={guidanceLink[release]}>
-                            安装教程
-                        </a>
-                    )}
-                  </div>
-                </li>
-             )
-          ))}
-           {stableData.qrcodeUrls[0] && (
-                <li>
-                  <div>
-                    <span>Cloudflare 下载（推荐）</span>
-                    <img alt="qrcode" src={stableData.qrcodeUrls[0]} />
-                  </div>
-                </li>
-           )}
-        </ul>
-      ) : (
-        <div>
-             <p>资源加载失败，请刷新重试或前往 <a href="https://github.com/open-ani/animeko/releases">Github Releases</a> 下载。</p>
-        </div>
-      )}
-    </div>
+  <!-- Loading Spinner -->
+  <div id="loading-spinner" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-bg-base/50 backdrop-blur-sm transition-opacity duration-300">
+    <div class="spinner mb-4"></div>
+    <p class="text-txt-muted">正在获取最新版本信息...</p>
+  </div>
 
-    <!-- Beta Section -->
-    <div id="content-beta">
-       {betaData ? (
-        <ul>
-           <li>
-              <div>
-                <span>⚠️ Alpha 测试版，可能存在较多问题和不稳定因素，仅供尝鲜使用。</span>
-              </div>
-           </li>
-          <li>
-             <span>更新时间：{ts2str(betaData.publishTime)}</span>
-          </li>
-          {releaseList.map((release) => (
-             betaData.downloadUrlAlternativesMap[release]?.length > 0 && (
-                <li>
-                  <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="80px" height="80px" viewBox="0 0 24 24">
-                      <g fill="none" stroke="currentColor" stroke-width="0">
-                         <path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" fill="none"/>
-                         <path fill="currentColor" d="M8 5v2H5v13h14V7h-3V5h3a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm4-3a1 1 0 0 1 1 1v10.828L14.828 12a1 1 0 1 1 1.415 1.414l-3.36 3.359a1.25 1.25 0 0 1-1.767 0l-3.359-3.359A1 1 0 1 1 9.172 12L11 13.828V3a1 1 0 0 1 1-1"/>
-                      </g>
-                    </svg>
-                    <div>
-                      <p>{PlatType[release]}</p>
-                      <small>v{betaData.version}</small>
-                    </div>
-                  </div>
-                  <div>
-                    {betaData.downloadUrlAlternativesMap[release].map((link, idx) => (
-                      <a href={link}>
-                        {idx === 0 ? '主线' : '备线'}
-                      </a>
-                    ))}
-                    {guidanceLink[release] && (
-                        <a href={guidanceLink[release]}>
-                            安装教程
-                        </a>
-                    )}
-                  </div>
-                </li>
-             )
-          ))}
-        </ul>
-      ) : (
-        <div>
-             <p>资源加载失败，请刷新重试或前往 <a href="https://github.com/open-ani/animeko/releases">Github Releases</a> 下载。</p>
-        </div>
-      )}
-    </div>
+  <!-- Content Container -->
+  <div id="download-container" class="opacity-0 transition-opacity duration-300">
+      <!-- Stable Section -->
+      <div id="content-stable" class="download-content space-y-4"></div>
+      <!-- Beta Section -->
+      <div id="content-beta" class="download-content hidden space-y-4"></div>
   </div>
 </div>
 
-<script>
-  const btns = document.querySelectorAll('.tab-btn');
-  const contents = document.querySelectorAll('.download-content');
+<script is:inline define:vars={{ PlatType, PlatformIcons, guidanceLink }}>
+  const apiBase = 'https://danmaku-cn.myani.org/v1/updates/latest';
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.getAttribute('data-target');
-      contents.forEach(content => {
-        if (content.id === `content-${target}`) {
-          content.classList.remove('hidden');
-        } else {
-          content.classList.add('hidden');
+  function ts2str(ts) {
+    const date = new Date(ts * 1000);
+    const y = date.getFullYear().toString();
+    const m = (date.getMonth() + 1).toString().padStart(2, '0');
+    const d = date.getDate().toString().padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  }
+
+  function replaceGhproxyLinks(downloadMap) {
+      const result = { ...downloadMap };
+      for (const platform in result) {
+        const urls = result[platform];
+        if (urls && urls.length >= 2) {
+          const secondUrl = urls[1];
+          if (secondUrl && secondUrl.startsWith('https://mirror.ghproxy.com/?q=https://github.com/open-ani/ani/releases/download/')) {
+            const githubUrl = secondUrl.replace('https://mirror.ghproxy.com/?q=', '');
+            urls[1] = `https://ghfast.top/${githubUrl}`;
+          }
         }
+      }
+      return result;
+  }
+
+  async function fetchData(type) {
+    try {
+      const res = await fetch(`${apiBase}?releaseClass=${type === 'beta' ? 'alpha' : 'stable'}`);
+      if (!res.ok) throw new Error('Network response was not ok');
+      return await res.json();
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  }
+
+  function createReleaseCard(release, data, type) {
+      const links = data.downloadUrlAlternativesMap[release] || [];
+      if (links.length === 0) return '';
+
+      const buttonsHtml = links.map((link, idx) => `
+        <a href="${link}" class="inline-flex items-center px-4 py-2 rounded-btn text-sm font-medium transition-colors ${
+            idx === 0 
+            ? 'bg-accent text-on-accent hover:bg-accent/90' 
+            : 'bg-transparent border border-border-subtle text-txt-main hover:bg-border-subtle'
+        }">
+            <i class="${idx === 0 ? 'mgc_download_2_fill' : 'mgc_download_line'} mr-1.5"></i>
+            ${idx === 0 ? '下载' : '备用'}
+        </a>
+      `).join('');
+
+      const guideLink = guidanceLink[release] ? `
+        <a href="${guidanceLink[release]}" class="inline-flex items-center px-4 py-2 rounded-btn text-sm font-medium text-txt-muted hover:text-accent hover:bg-bg-base transition-colors">
+            <i class="mgc_book_2_line mr-1.5"></i>
+            教程
+        </a>
+      ` : '';
+
+      return `
+        <div class="flex flex-col sm:flex-row items-center justify-between p-6 bg-bg-card rounded-card border border-border-subtle hover:border-accent/30 transition-all duration-200 gap-4">
+            <div class="flex items-center gap-4 w-full sm:w-auto">
+                <div class="w-12 h-12 rounded-full bg-bg-base flex items-center justify-center border border-border-subtle text-accent shrink-0">
+                    <i class="${PlatformIcons[release] || 'mgc_file_line'} text-2xl"></i>
+                </div>
+                <div class="text-left">
+                    <p class="font-medium text-lg text-txt-main">${PlatType[release] || release}</p>
+                    <small class="text-txt-muted">v${data.version}</small>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
+                ${buttonsHtml}
+                ${guideLink}
+            </div>
+        </div>
+      `;
+  }
+
+  async function init() {
+      const spinner = document.getElementById('loading-spinner');
+      const container = document.getElementById('download-container');
+      const stableContainer = document.getElementById('content-stable');
+      const betaContainer = document.getElementById('content-beta');
+
+      const [stableData, betaData] = await Promise.all([
+          fetchData('stable'),
+          fetchData('beta')
+      ]);
+
+      // Render Stable
+      if (stableData) {
+        const fixedMap = replaceGhproxyLinks(stableData.downloadUrlAlternativesMap);
+        stableData.downloadUrlAlternativesMap = fixedMap;
+        
+        let html = `
+            <div class="text-center mb-6 text-txt-muted flex items-center justify-center gap-2">
+                <i class="mgc_time_line"></i>
+                <span>更新时间：${ts2str(stableData.publishTime)}</span>
+            </div>
+            <div class="grid gap-4">
+        `;
+        
+        Object.keys(PlatType).forEach(key => {
+            html += createReleaseCard(key, stableData, 'stable');
+        });
+        html += '</div>';
+
+        if (stableData.qrcodeUrls && stableData.qrcodeUrls[0]) {
+            html += `
+                <div class="mt-8 p-6 bg-bg-card rounded-card border border-border-subtle flex flex-col items-center justify-center text-center">
+                    <span class="mb-4 text-txt-muted flex items-center gap-2">
+                        <i class="mgc_cellphone_line"></i>
+                        手机扫码下载
+                    </span>
+                    <div class="p-2 bg-white rounded-lg">
+                        <img alt="qrcode" src="${stableData.qrcodeUrls[0]}" class="w-48 h-48" />
+                    </div>
+                </div>
+            `;
+        }
+        stableContainer.innerHTML = html;
+      } else {
+          stableContainer.innerHTML = '<div class="p-8 text-center text-txt-muted">加载失败</div>';
+      }
+
+      // Render Beta
+      if (betaData) {
+        const fixedMap = replaceGhproxyLinks(betaData.downloadUrlAlternativesMap);
+        betaData.downloadUrlAlternativesMap = fixedMap;
+
+        let html = `
+           <div class="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-card flex items-start gap-3 text-yellow-500 mb-6">
+             <i class="mgc_warning_line text-xl mt-0.5"></i>
+             <span class="text-sm">Alpha 测试版可能存在较多问题和不稳定因素，建议仅供尝鲜使用。</span>
+           </div>
+           <div class="text-center mb-6 text-txt-muted flex items-center justify-center gap-2">
+             <i class="mgc_time_line"></i>
+             <span>更新时间：${ts2str(betaData.publishTime)}</span>
+           </div>
+           <div class="grid gap-4">
+        `;
+        
+        Object.keys(PlatType).forEach(key => {
+            html += createReleaseCard(key, betaData, 'beta');
+        });
+        html += '</div>';
+        betaContainer.innerHTML = html;
+      }
+
+      // Hide spinner, show content
+      spinner.classList.add('opacity-0', 'pointer-events-none');
+      container.classList.remove('opacity-0');
+      
+      // Tab Logic
+      const btns = document.querySelectorAll('.tab-btn');
+      const contents = document.querySelectorAll('.download-content');
+
+      btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = btn.getAttribute('data-target');
+          
+          // Toggle Content
+          contents.forEach(c => {
+              if(c.id === `content-${target}`) c.classList.remove('hidden');
+              else c.classList.add('hidden');
+          });
+
+          // Toggle Buttons
+          btns.forEach(b => {
+              if(b === btn) {
+                  b.classList.remove('text-txt-muted', 'hover:text-txt-main');
+                  b.classList.add('bg-border-subtle', 'text-txt-main');
+              } else {
+                  b.classList.add('text-txt-muted', 'hover:text-txt-main');
+                  b.classList.remove('bg-border-subtle', 'text-txt-main');
+              }
+          });
+        });
       });
-    });
-  });
+  }
+
+  init();
 </script>
+

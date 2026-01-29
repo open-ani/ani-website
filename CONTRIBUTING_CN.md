@@ -2,7 +2,7 @@
 
 感谢你有兴趣为 **Animeko Website** 做贡献！这是 Animeko 的官方网站，基于 Astro 构建。
 
-## 🛠 技术栈 (Tech Stack)
+## 技术栈 (Tech Stack)
 
 - **框架:** [Astro](https://astro.build/) (静态站点生成)
 - **样式:** [Tailwind CSS](https://tailwindcss.com/) (v4)
@@ -10,14 +10,14 @@
 - **代码规范:** [Biome](https://biomejs.dev/) (Linting & Formatting)
 - **包管理器:** [pnpm](https://pnpm.io/)
 
-## 📋 前置要求 (Prerequisites)
+## 前置要求 (Prerequisites)
 
 在开始之前，请确保你的环境已安装：
 
 - **Node.js:** 推荐 v22.x 或更高版本。
 - **pnpm:** v10.x 或更高版本。
 
-## 🚀 开发流程 (Development Workflow)
+## 开发流程 (Development Workflow)
 
 ### 1. 初始化 (Setup)
 
@@ -57,7 +57,7 @@ pnpm build
 pnpm code:lint
 ```
 
-## 📂 项目结构 (Project Structure)
+## 项目结构 (Project Structure)
 
 我们采用模块化的目录结构：
 
@@ -69,12 +69,16 @@ pnpm code:lint
 
 **注意:** 我们使用 `@/`别名映射到 `src/` 目录。
 
-## 📏 编码规范 (Coding Conventions)
+## 编码规范 (Coding Conventions)
 
 - **代码风格:** 我们通过 `biome.json` 强制执行严格的代码规范。提交代码前请务必运行 `pnpm code:lint`。
-- **AI 代理:** 如果你是 AI Agent，请参考 `AGENTS.md` 获取详细指令。
+- **AI 代理:** 如果你是 AI Agent，请参考 `AGENTS.md` 获取详细指令。**不要提交任何未经人为干预的AI垃圾PR**，如果出现，我们会不加解释地 reject。
 
-## 🤝 Pull Request 流程
+## 提交规范
+
+我们推荐你使用 <https://gitmoji.dev/> 形式的 git commit message
+
+## Pull Request 流程
 
 1.  **Fork** 本仓库到你的 GitHub 账号。
 2.  **Clone** 你的 Fork 到本地。

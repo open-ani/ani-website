@@ -2,11 +2,59 @@
 import Layout from '@/layouts/Layout.astro'
 
 const { title } = Astro.props.frontmatter
-const pageTitle = `Animeko - Post ${title}`;
+const pageTitle = `Animeko - ${title}`;
 ---
 
 <Layout title={pageTitle}>
-    <article>
-        <slot />
-    </article>
+    <div class="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <article class="prose prose-invert prose-lg max-w-none prose-headings:text-txt-main prose-p:text-txt-muted prose-a:text-accent hover:prose-a:text-accent/80 prose-blockquote:border-accent prose-blockquote:bg-bg-card prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-code:text-accent prose-pre:bg-bg-card prose-pre:border prose-pre:border-border-subtle prose-li:text-txt-muted prose-strong:text-txt-main prose-img:rounded-card prose-img:border prose-img:border-border-subtle">
+            <slot />
+        </article>
+    </div>
+
+    <script>
+        // Copy Button Logic
+        const codeBlocks = document.querySelectorAll('pre');
+        codeBlocks.forEach(block => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-block-wrapper';
+            
+            const button = document.createElement('button');
+            button.className = 'copy-button';
+            button.innerText = 'Copy';
+            
+            // Insert wrapper before block
+            block.parentNode?.insertBefore(wrapper, block);
+            wrapper.appendChild(block);
+            wrapper.appendChild(button);
+            
+            button.addEventListener('click', async () => {
+                const code = block.querySelector('code')?.innerText;
+                if (code) {
+                    await navigator.clipboard.writeText(code);
+                    button.innerText = 'Copied!';
+                    setTimeout(() => {
+                        button.innerText = 'Copy';
+                    }, 2000);
+                }
+            });
+        });
+
+        // Enhance blockquotes to Callouts if they have specific markers
+        const blockquotes = document.querySelectorAll('blockquote');
+        blockquotes.forEach(bq => {
+            const text = bq.innerText;
+            if (text.includes('[!TIP]') || text.includes('[!INFO]')) {
+                bq.classList.add('callout', 'callout-tip');
+                bq.innerHTML = bq.innerHTML.replace(/\[!(TIP|INFO)\]/g, '<strong class="block mb-2 text-green-400">TIP</strong>');
+            } else if (text.includes('[!WARNING]')) {
+                bq.classList.add('callout', 'callout-warning');
+                bq.innerHTML = bq.innerHTML.replace(/\[!WARNING\]/g, '<strong class="block mb-2 text-yellow-400">WARNING</strong>');
+            } else if (text.includes('[!DANGER]') || text.includes('[!IMPORTANT]')) {
+                bq.classList.add('callout', 'callout-danger');
+                bq.innerHTML = bq.innerHTML.replace(/\[!(DANGER|IMPORTANT)\]/g, '<strong class="block mb-2 text-red-400">IMPORTANT</strong>');
+            }
+        });
+    </script>
 </Layout>
+

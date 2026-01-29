@@ -13,8 +13,6 @@
   ];
 
   const container = document.getElementById('danmaku-container');
-  // @ts-ignore
-  let danmakuTimer = null;
 
   function getRandomColor() {
     const r = Math.floor(Math.random() * 128) + 128;
@@ -41,24 +39,41 @@
 
   if (container) {
     const danmaku = new Danmaku({ container: container, engine: 'dom', speed: 110 });
-    danmakuTimer = setInterval(() => {
+    setInterval(() => {
       addDanmaku(danmaku);
     }, Math.random() * 1000);
   }
 </script>
 
-<div>
-  <h2>
-    💬用户评价🗨
-  </h2>
-  <div id="danmaku-container">
-  <div>
-    <input
-      disabled type="text" placeholder="我也要说说（暂不开放）" required
-     
-    >
-    <button disabled type="submit">
-      提交
-    </button>
+<div class="py-24 bg-bg-card border-y border-border-subtle">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold text-txt-main mb-8 flex items-center justify-center gap-3">
+      <i class="mgc_comment_line text-accent"></i>
+      用户评价
+    </h2>
+    
+    <div class="relative h-64 bg-bg-base rounded-card border border-border-subtle overflow-hidden mb-8 shadow-inner">
+      <div id="danmaku-container" class="absolute inset-0 w-full h-full"></div>
+    </div>
+
+    <div class="max-w-xl mx-auto flex gap-2">
+      <div class="relative flex-grow">
+        <input
+          disabled 
+          type="text" 
+          placeholder="我也要说说（暂不开放）" 
+          required
+          class="w-full bg-bg-base text-txt-muted px-4 py-3 rounded-btn border border-border-subtle focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed pl-10"
+        >
+        <i class="mgc_edit_line absolute left-3 top-1/2 -translate-y-1/2 text-txt-dim"></i>
+      </div>
+      <button 
+        disabled 
+        type="submit"
+        class="px-6 py-3 bg-surface-highlight text-txt-dim font-medium rounded-btn cursor-not-allowed border border-border-subtle hover:bg-surface-highlight/80 transition-colors"
+      >
+        提交
+      </button>
+    </div>
   </div>
 </div>

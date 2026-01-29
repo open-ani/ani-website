@@ -29,6 +29,9 @@ importers:
       marked:
         specifier: ^16.4.2
         version: 16.4.2
+      mingcute_icon:
+        specifier: ^2.9.71
+        version: 2.9.71
       rehype-callouts:
         specifier: ^2.1.2
         version: 2.1.2
@@ -1901,6 +1904,9 @@ packages:
   mimic-function@5.0.1:
     resolution: {integrity: sha512-VP79XUPxV2CigYP3jWwAUFSku2aKqBH7uTAapFWCBqutsbmDo96KY5o8uh6U+/YSIn5OxJnXp73beVkpqMIGhA==}
     engines: {node: '>=18'}
+
+  mingcute_icon@2.9.71:
+    resolution: {integrity: sha512-4QCtrym4uGW9pCsMs8u2ACbRKg5acumoT5st8EIo2aiLjws5XOGzafZvZULr6YiALa5JrsNHaeX7Nt/j+4ZB9g==}
 
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -4985,6 +4991,8 @@ snapshots:
       picomatch: 2.3.1
 
   mimic-function@5.0.1: {}
+
+  mingcute_icon@2.9.71: {}
 
   mri@1.2.0: {}
 

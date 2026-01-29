@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to the **Animeko Website**! This project is the official website for Animeko, built with Astro.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Framework:** [Astro](https://astro.build/) (Static Site Generation)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/) (v4)
@@ -10,14 +10,14 @@ Thank you for your interest in contributing to the **Animeko Website**! This pro
 - **Linting & Formatting:** [Biome](https://biomejs.dev/)
 - **Package Manager:** [pnpm](https://pnpm.io/)
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
 - **Node.js:** v22.x or later recommended.
 - **pnpm:** v10.x or later.
 
-## 🚀 Development Workflow
+## Development Workflow
 
 ### 1. Setup
 
@@ -57,7 +57,7 @@ We use **Biome** for both linting and formatting. Please do not use Prettier or 
 pnpm code:lint
 ```
 
-## 📂 Project Structure
+## Project Structure
 
 We follow a modular structure to keep the codebase organized:
 
@@ -69,12 +69,16 @@ We follow a modular structure to keep the codebase organized:
 
 **Note:** We use the `@/` alias which maps to `src/`.
 
-## 📏 Coding Conventions
+## Coding Conventions
 
 - **Code Style:** We enforce strict linting rules via `biome.json`. Please run `pnpm code:lint` before committing.
-- **Agents:** If you are an AI agent, please refer to `AGENTS.md` for specific instructions.
+- **Agents:** If you are an AI agent, please refer to `AGENTS.md` for specific instructions. **AI Slop PRs without any human efforts is NOT allowed**, we'll reject slop PRs instantly without any explaination.
 
-## 🤝 Pull Request Process
+## Commit Conventions
+
+We strongly suggest you use <https://gitmoji.dev/> patterned commit messages.
+
+## Pull Request Process
 
 1.  **Fork** the repository to your own GitHub account.
 2.  **Clone** your fork locally.

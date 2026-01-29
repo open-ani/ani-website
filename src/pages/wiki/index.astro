@@ -2,16 +2,33 @@
 import FAQ from '@/components/modules/FAQ.astro'
 import Layout from '@/layouts/Layout.astro'
 
-const allPosts = await Astro.glob('./*.md');
+// Use import.meta.glob instead of deprecated Astro.glob
+const matches = import.meta.glob('./*.md', { eager: true });
+const allPosts = Object.values(matches);
 ---
 
-<Layout title="Animeko">
-    <main>
-        <span>疑难杂症</span>
 
-        <ul>
-            {allPosts.map(post => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
-        </ul>
+<Layout title="Animeko - 常见问题">
+    <main class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+            <h1 class="text-3xl md:text-4xl font-bold text-txt-main mb-8 text-center">疑难杂症与 Wiki</h1>
+            <div class="grid gap-4 md:grid-cols-2">
+                {allPosts.map((post: any) => (
+                    <a href={post.url} class="block group">
+                        <div class="bg-bg-card border border-border-subtle rounded-card p-6 h-full transition-all duration-300 hover:border-accent hover:bg-surface-highlight/30">
+                            <h2 class="text-xl font-semibold text-txt-main group-hover:text-accent mb-2 flex items-center justify-between">
+                                {post.frontmatter.title}
+                                <i class="mgc_right_line text-txt-muted group-hover:text-accent transition-colors"></i>
+                            </h2>
+                            <p class="text-txt-muted text-sm line-clamp-2">
+                                点击查看详细说明文档
+                            </p>
+                        </div>
+                    </a>
+                ))}
+            </div>
+        </div>
+        
         <FAQ />
     </main>
 </Layout>

@@ -3,27 +3,51 @@ import Buttons from './Buttons.astro'
 import HeaderShowCase from './HeaderShowCase.astro'
 ---
 
-<div>
-  <div>
-    <p>
-      <span>Animeko</span>
-      <span>：<b>一站式</b>在线<b class="underline">弹幕</b>追番平台</span>
-    </p>
-    <ul>
-      <li>📦 在线多数据源聚合</li>
-      <li>⛔ 离线缓存支持</li>
-      <li>🚩 Bangumi 收藏同步</li>
-      <li>
-        <span>✨</span>
-        <a href="https://github.com/open-ani/animeko">代码开源</a>
-        <span>，更多功能等你来PR！</span>
-      </li>
-      <li>🧲 全自动 BT，无需下载其他客户端</li>
-      <li>🤩 Compose Multiplatform 多平台客户端支持</li>
-    </ul>
-    <Buttons />
-  </div>
-  <div>
-    <HeaderShowCase />
+<div class="relative overflow-hidden pt-12 pb-16 lg:pt-20 lg:pb-24">
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center">
+    <div class="w-full lg:w-1/2 lg:pr-12 text-center lg:text-left z-10">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-txt-main mb-6 leading-tight">
+        <span class="block text-accent">Animeko</span>
+        <span class="block text-2xl sm:text-3xl lg:text-4xl mt-2 font-medium text-txt-muted">
+          一站式在线<span class="text-txt-main underline decoration-accent decoration-4 underline-offset-4">弹幕</span>追番平台
+        </span>
+      </h1>
+      
+      <ul class="space-y-3 text-lg text-txt-muted max-w-2xl mx-auto lg:mx-0">
+        <li class="flex items-center justify-center lg:justify-start gap-2">
+          <i class="mgc_server_line text-accent text-xl"></i>
+          <span>在线多数据源聚合</span>
+        </li>
+        <li class="flex items-center justify-center lg:justify-start gap-2">
+          <i class="mgc_download_line text-accent text-xl"></i>
+          <span>离线缓存支持</span>
+        </li>
+        <li class="flex items-center justify-center lg:justify-start gap-2">
+          <i class="mgc_flag_3_line text-accent text-xl"></i>
+          <span>Bangumi 收藏同步</span>
+        </li>
+        <li class="flex items-center justify-center lg:justify-start gap-2">
+          <i class="mgc_code_line text-accent text-xl"></i>
+          <span>
+            <a href="https://github.com/open-ani/animeko" class="text-txt-main hover:text-accent underline decoration-border-subtle hover:decoration-accent transition-all">代码开源</a>
+            ，更多功能等你来PR！
+          </span>
+        </li>
+        <li class="flex items-center justify-center lg:justify-start gap-2">
+          <i class="mgc_magnet_line text-accent text-xl"></i>
+          <span>全自动 BT，无需下载其他客户端</span>
+        </li>
+        <li class="flex items-center justify-center lg:justify-start gap-2">
+          <i class="mgc_cellphone_line text-accent text-xl"></i>
+          <span>Compose Multiplatform 多平台客户端支持</span>
+        </li>
+      </ul>
+      
+      <Buttons />
+    </div>
+    
+    <div class="w-full lg:w-1/2 mt-16 lg:mt-0 relative flex justify-center lg:justify-end">
+      <HeaderShowCase />
+    </div>
   </div>
 </div>
