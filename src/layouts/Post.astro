@@ -1,23 +1,45 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import '../styles/callouts.css'
-import '../styles/markdown.css'
+import Layout from '@/layouts/Layout.astro'
+import '@/styles/markdown.css'
 
 const { title } = Astro.props.frontmatter
-const pageTitle = `Animeko - Post ${title}`;
+const pageTitle = `Animeko - ${title}`;
 ---
 
 <Layout title={pageTitle}>
-    <article
-      class="px-4 pb-8 pt-12 w-full xl:w-3/5 !mx-auto !bg-transparent markdown-body !break-words"
-    >
-        <slot />
-    </article>
+    <div class="pt-20 pb-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <article class="markdown-body">
+            <slot />
+        </article>
+    </div>
+
+    <script>
+        // Copy Button Logic
+        const codeBlocks = document.querySelectorAll('pre');
+        codeBlocks.forEach(block => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-block-wrapper';
+            
+            const button = document.createElement('button');
+            button.className = 'copy-button';
+            button.innerText = 'Copy';
+            
+            // Insert wrapper before block
+            block.parentNode?.insertBefore(wrapper, block);
+            wrapper.appendChild(block);
+            wrapper.appendChild(button);
+            
+            button.addEventListener('click', async () => {
+                const code = block.querySelector('code')?.innerText;
+                if (code) {
+                    await navigator.clipboard.writeText(code);
+                    button.innerText = 'Copied!';
+                    setTimeout(() => {
+                        button.innerText = 'Copy';
+                    }, 2000);
+                }
+            });
+        });
+    </script>
 </Layout>
 
-<style is:inline>
-    .markdown-body img {
-        display: inline-block !important;
-        vertical-align: middle !important;
-    }
-</style>

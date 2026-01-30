@@ -1,17 +1,34 @@
 ---
-import FAQ from '../../components/FAQ.vue'
-import Layout from '../../layouts/Layout.astro'
+import FAQ from '@/components/modules/FAQ.astro'
+import Layout from '@/layouts/Layout.astro'
 
-const allPosts = await Astro.glob('./*.md');
+// Use import.meta.glob instead of deprecated Astro.glob
+const matches = import.meta.glob('./*.md', { eager: true });
+const allPosts = Object.values(matches);
 ---
 
-<Layout title="Animeko">
-    <main class="text-white xl:px-10 py-12 w-full flex items-center flex-col">
-        <span class="mt-4 mb-6 text-4xl font-bold leading-none text-center">疑难杂症</span>
 
-        <ul class="w-full list-decimal px-8 xl:w-3/5">
-            {allPosts.map(post => <li class="w-full py-1"><a class="w-full block underline underline-offset-[4px] hover:text-blue-400" href={post.url}>{post.frontmatter.title}</a></li>)}
-        </ul>
+<Layout title="Animeko - 常见问题">
+    <main class="pt-28 pb-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+            <h1 class="text-3xl md:text-4xl font-bold text-text-main mb-8 text-center">疑难杂症</h1>
+            <div class="grid gap-4 md:grid-cols-2">
+                {allPosts.map((post: any) => (
+                    <a href={post.url} class="block group">
+                        <div class="border border-border-subtle rounded-card p-6 h-full transition-all duration-300 hover:border-primary hover:bg-surface-highlight/30">
+                            <h2 class="text-xl font-semibold text-text-main group-hover:text-primary mb-2 flex items-center justify-between">
+                                {post.frontmatter.title}
+                                <i class="mgc_right_line text-text-muted group-hover:text-primary transition-colors"></i>
+                            </h2>
+                            <p class="text-text-muted text-sm line-clamp-2">
+                                点击查看详细说明文档
+                            </p>
+                        </div>
+                    </a>
+                ))}
+            </div>
+        </div>
+        
         <FAQ />
     </main>
 </Layout>

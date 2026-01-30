@@ -10,6 +10,14 @@
           "url": "https://tailwindcss.com/docs/functions-and-directives#apply"
         }
       ]
+    },
+    {
+      "name": "@plugin",
+      "description": "Use the `@plugin` to declare a plugin"
+    },
+    {
+      "name": "@theme",
+      "description": "Use the `@theme` to declare a theme"
     }
   ]
 }

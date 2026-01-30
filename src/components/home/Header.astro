@@ -1,0 +1,193 @@
+---
+import HeaderShowCase from './HeaderShowCase.astro'
+---
+<script>
+  import Danmaku from 'danmaku';
+
+  const danmakuList = [
+    'animeko 太方便了导致经常摸鱼',
+    '好漂亮的客户端',
+    'elegant !',
+    '這種項目總是要支持的(bgm105)',
+    '支持，技术力贡献的美好世界',
+    '(bgm105)好东西啊',
+    '好厉害的软件啊！一条五毛记得删括号',
+    'Ciallo~ (∠・ω< )⌒☆',
+  ];
+
+  const container = document.getElementById('danmaku_container');
+
+  function getRandomColor() {
+    const r = Math.floor(Math.random() * 128) + 128;
+    const g = Math.floor(Math.random() * 128) + 128;
+    const b = Math.floor(Math.random() * 128) + 128;
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+
+  function getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function addDanmaku(dmk: any) {
+    const len = danmakuList.length;
+    const idx = getRandomInt(0, len - 1);
+    dmk.emit({
+      text: danmakuList[idx],
+      style: {
+        fontSize: `${getRandomInt(22, 32)}px`,
+        color: getRandomColor(),
+      },
+    });
+  }
+
+  if (container) {
+    let danmakuInstance: any = null;
+    let timeoutId: number | null = null;
+    let isEnabled = localStorage.getItem('danmaku-enabled') === 'true';
+
+    function startDanmaku() {
+      if (!danmakuInstance && container) {
+        danmakuInstance = new Danmaku({ container: container, engine: 'dom', speed: 110 });
+      }
+      if (timeoutId) clearTimeout(timeoutId);
+      
+      if (danmakuInstance) {
+        danmakuInstance.show();
+      }
+      
+      function loop() {
+        if (!danmakuInstance) return;
+        addDanmaku(danmakuInstance);
+        timeoutId = setTimeout(loop, Math.random() * 800) as unknown as number;
+      }
+      
+      loop();
+    }
+
+    function stopDanmaku() {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+      if (danmakuInstance) {
+        danmakuInstance.hide();
+        danmakuInstance.clear();
+      }
+    }
+    if (isEnabled) {
+      startDanmaku();
+    }
+    
+    const handleToggleDanmaku = ((e: CustomEvent) => {
+      isEnabled = e.detail.enabled;
+      if (isEnabled) {
+        startDanmaku();
+      } else {
+        stopDanmaku();
+      }
+    }) as EventListener;
+
+    window.addEventListener('toggle-danmaku', handleToggleDanmaku);
+
+    document.addEventListener('astro:before-swap', () => {
+      stopDanmaku();
+      window.removeEventListener('toggle-danmaku', handleToggleDanmaku);
+    }, { once: true });
+  }
+  const scrollBtn = document.getElementById('scroll-btn');
+  const features = document.getElementById('features');
+  if (scrollBtn && features) {
+    scrollBtn.addEventListener('click', () => {
+      features.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+  let isScrolling = false;
+  const mediaQuery = window.matchMedia('(min-width: 1024px)');
+  
+  function handleWheel(e: WheelEvent) {
+    if (!mediaQuery.matches) return;
+    if (window.scrollY < 10 && e.deltaY > 0 && !isScrolling && features) {
+      e.preventDefault();
+      isScrolling = true;
+      features.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        isScrolling = false;
+      }, 1000);
+    }
+  }
+
+  window.addEventListener('wheel', handleWheel, { passive: false });
+
+  document.addEventListener('astro:before-swap', () => {
+    window.removeEventListener('wheel', handleWheel);
+  }, { once: true });
+
+</script>
+<div class="relative min-h-screen lg:-mt-18 overflow-hidden flex flex-col justify-center">
+  <div id="danmaku_container" class="absolute inset-0 w-full h-full pt-12 lg:py-32"></div>
+  <div class="relative m-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center bg-surface-base/20 py-5 rounded-md">
+    <div class="w-full lg:w-1/2 lg:pr-12 text-center lg:text-left z-10">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-text-main mb-6 leading-tight">
+        <span class="block text-accent">Animeko</span>
+        <span class="block text-2xl sm:text-3xl lg:text-4xl mt-2 font-medium text-text-muted">
+          一站式在线<span class="text-text-main underline decoration-accent decoration-4 underline-offset-4">弹幕</span>追番平台
+        </span>
+      </h1>
+      
+      <ul class="space-y-2.5 max-w-100 mx-auto lg:mx-0">
+        <li class="flex items-center gap-2">
+          <i class="mgc_server_line text-accent text-xl"></i>
+          <span>在线多数据源聚合</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <i class="mgc_download_line text-accent text-xl"></i>
+          <span>离线缓存支持</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <i class="mgc_flag_3_line text-accent text-xl"></i>
+          <span>Bangumi 收藏同步</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <i class="mgc_code_line text-accent text-xl"></i>
+          <span>
+            <a href="https://github.com/open-ani/animeko" class="text-text-main hover:text-accent underline decoration-border-subtle hover:decoration-accent transition-all">代码开源</a>
+            ，更多功能等你来PR！
+          </span>
+        </li>
+        <li class="flex items-center gap-2">
+          <i class="mgc_magnet_line text-accent text-xl"></i>
+          <span>全自动 BT，无需下载其他客户端</span>
+        </li>
+        <li class="flex items-center gap-2">
+          <i class="mgc_cellphone_line text-accent text-xl"></i>
+          <span>Compose Multiplatform 多平台客户端支持</span>
+        </li>
+      </ul>
+      <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-8">
+        <a 
+          data-astro-prefetch 
+          href="/downloads"
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-btn text-on-primary bg-primary hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md"
+        >
+          <i class="mgc_download_2_line mr-2 text-xl"></i>
+          下载 Animeko
+        </a>
+        <a 
+          target="_blank" 
+          href="https://github.com/open-ani/animeko/"
+          class="inline-flex items-center justify-center px-6 py-3 border border-surface-highlight text-base font-medium rounded-btn text-text-main bg-transparent hover:bg-surface-highlight transition-all duration-200"
+        >
+          <i class="mgc_github_line mr-2 text-xl"></i>
+          开源仓库
+        </a>
+      </div>
+    </div>
+    
+    <div class="w-full lg:w-1/2 mb-8 lg:mb-0 relative flex justify-center lg:justify-end">
+      <HeaderShowCase />
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer z-20 hidden lg:block" id="scroll-btn">
+    <i class="mgc_down_line text-3xl text-text-muted hover:text-primary transition-colors"></i>
+  </div>
+</div>

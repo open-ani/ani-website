@@ -1,10 +1,9 @@
 ---
 import Layout from './Layout.astro'
-import '../styles/markdown.css';
 ---
 
 <Layout title="更新日志">
-    <article class="px-4 pb-8 pt-12 w-full xl:w-3/5 !mx-auto !bg-transparent markdown-body !break-words">
+    <div class="pt-20 pb-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <slot />
-    </article>
+    </div>
 </Layout>

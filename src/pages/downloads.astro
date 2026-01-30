@@ -1,11 +1,16 @@
 ---
-import DownloadTab from '../components/downloads/downloadTab.vue'
-import Layout from '../layouts/Layout.astro';
+import DownloadList from '@/components/modules/DownloadList.tsx'
+import Layout from '@/layouts/Layout.astro';
 ---
 
 <Layout title="Animeko - 下载">
-    <div class="w-full xl:w-3/5 mx-auto py-6 px-4 space-y-3">
-        <h2 class="text-3xl mt-6 text-white font-bold">下载 Animeko</h2>
-        <DownloadTab client:load />
+    <div class="pt-28 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-5">
+            <h2 class="text-3xl md:text-4xl font-bold text-text-main mb-4">下载 Animeko</h2>
+            <p class="text-text-muted text-lg max-w-2xl mx-auto">
+                支持 Android, Windows, macOS, Linux 和 iOS 平台
+            </p>
+        </div>
+        <DownloadList client:load />
     </div>
 </Layout>
