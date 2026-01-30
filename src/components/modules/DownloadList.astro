@@ -1,6 +1,4 @@
 ---
-// DownloadList.astro - Client Side Fetching Version
-
 const PlatType = {
   'android-universal': '安卓 APK',
   'windows-x86_64': 'Windows',
@@ -31,40 +29,58 @@ const guidanceLink = {
 
 <div class="max-w-4xl mx-auto min-h-125 relative">
   <!-- Tabs -->
-  <div class="flex justify-center mb-8 bg-bg-card p-1 rounded-full w-fit mx-auto border border-border-subtle">
-    <button
-      class="tab-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-txt-main bg-border-subtle"
-      data-target="stable"
-      id="btn-stable"
-    >
-      稳定版本
-    </button>
-    <button
-      class="tab-btn px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 text-txt-muted hover:text-txt-main"
-      data-target="beta"
-      id="btn-beta"
-    >
-      测试版本
-    </button>
+  <div class="flex justify-center mb-4">
+    <div class="p-1.5 rounded-full border border-surface-highlight inline-flex shadow-lg shadow-black/20">
+      <button
+        class="tab-btn px-8 py-2.5 rounded-full text-sm font-medium transition-all duration-300 text-text-main bg-surface-highlight shadow-sm"
+        data-target="stable"
+        id="btn-stable"
+      >
+        稳定版本
+      </button>
+      <button
+        class="tab-btn px-8 py-2.5 rounded-full text-sm font-medium transition-all duration-300 text-text-muted hover:text-text-main"
+        data-target="beta"
+        id="btn-beta"
+      >
+        测试版本
+      </button>
+    </div>
   </div>
 
   <!-- Loading Spinner -->
-  <div id="loading-spinner" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-bg-base/50 backdrop-blur-sm transition-opacity duration-300">
-    <div class="spinner mb-4"></div>
-    <p class="text-txt-muted">正在获取最新版本信息...</p>
+  <div id="loading-spinner" class="absolute inset-0 z-50 flex flex-col items-center justify-start pt-20 bg-bg-base/50 backdrop-blur-sm transition-opacity duration-300">
+    <div class="w-10 h-10 border-4 border-surface-highlight border-t-primary rounded-full animate-spin mb-4"></div>
+    <p class="text-text-muted font-medium animate-pulse">正在获取最新版本信息...</p>
+  </div>
+
+  <!-- Error State -->
+  <div id="error-container" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-start pt-20 bg-bg-base/50 backdrop-blur-sm transition-opacity duration-300">
+    <div class="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mb-4 text-red-500">
+        <i class="mgc_alert_line text-3xl"></i>
+    </div>
+    <h3 class="text-lg font-bold text-text-main mb-2">获取版本信息失败</h3>
+    <p class="text-text-muted text-sm mb-6 text-center max-w-xs">
+        无法连接到更新服务器，请检查网络连接后重试或前往 <a href="https://github.com/open-ani/animeko/releases" class="underline text-primary">Github releases</a> 下载
+    </p>
+    <button id="retry-btn" class="px-6 py-2.5 rounded-full bg-surface-highlight hover:bg-surface-highlight/80 text-text-main font-medium transition-colors border border-surface-highlight cursor-pointer">
+        重试
+    </button>
   </div>
 
   <!-- Content Container -->
-  <div id="download-container" class="opacity-0 transition-opacity duration-300">
+  <div id="download-container" class="opacity-0 transition-opacity duration-500">
       <!-- Stable Section -->
-      <div id="content-stable" class="download-content space-y-4"></div>
+      <div id="content-stable" class="download-content space-y-4 transition-all duration-300"></div>
       <!-- Beta Section -->
-      <div id="content-beta" class="download-content hidden space-y-4"></div>
+      <div id="content-beta" class="download-content hidden space-y-4 transition-all duration-300 transform translate-y-4 opacity-0"></div>
   </div>
 </div>
 
 <script is:inline define:vars={{ PlatType, PlatformIcons, guidanceLink }}>
   const apiBase = 'https://danmaku-cn.myani.org/v1/updates/latest';
+
+  // --- Utilities ---
 
   function ts2str(ts) {
     const date = new Date(ts * 1000);
@@ -74,31 +90,16 @@ const guidanceLink = {
     return `${y}-${m}-${d}`;
   }
 
-  function replaceGhproxyLinks(downloadMap) {
-      const result = { ...downloadMap };
-      for (const platform in result) {
-        const urls = result[platform];
-        if (urls && urls.length >= 2) {
-          const secondUrl = urls[1];
-          if (secondUrl && secondUrl.startsWith('https://mirror.ghproxy.com/?q=https://github.com/open-ani/ani/releases/download/')) {
-            const githubUrl = secondUrl.replace('https://mirror.ghproxy.com/?q=', '');
-            urls[1] = `https://ghfast.top/${githubUrl}`;
-          }
-        }
-      }
-      return result;
-  }
-
   async function fetchData(type) {
     try {
       const res = await fetch(`${apiBase}?releaseClass=${type === 'beta' ? 'alpha' : 'stable'}`, {
         mode: 'cors'
       });
-      if (!res.ok) throw new Error('Network response was not ok');
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       return await res.json();
     } catch (e) {
-      console.error(e);
-      return null;
+      console.error(`[DownloadList] Fetch failed for ${type}.`, e);
+      throw e;
     }
   }
 
@@ -106,38 +107,58 @@ const guidanceLink = {
       const links = data.downloadUrlAlternativesMap[release] || [];
       if (links.length === 0) return '';
 
-      const buttonsHtml = links.map((link, idx) => `
-        <a href="${link}" class="inline-flex items-center px-4 py-2 rounded-btn text-sm font-medium transition-colors ${
-            idx === 0 
-            ? 'bg-accent text-on-accent hover:bg-accent/90' 
-            : 'bg-transparent border border-border-subtle text-txt-main hover:bg-border-subtle'
-        }">
-            <i class="${idx === 0 ? 'mgc_download_2_fill' : 'mgc_download_line'} mr-1.5"></i>
-            ${idx === 0 ? '下载' : '备用'}
+      // Primary download button
+      const primaryLink = links[0];
+      const primaryBtn = `
+        <a href="${primaryLink}" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-primary text-on-primary transition-all hover:brightness-110 active:scale-95 shadow-sm hover:shadow-md hover:shadow-primary/20">
+            <i class="mgc_download_line text-lg"></i>
+            <span>下载</span>
+        </a>
+      `;
+
+      // Dropdown or secondary links (simplified for UI)
+      const mirrorBtns = links.slice(1).map((link, idx) => `
+        <a href="${link}" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center gap-2 px-3 py-1.5 text-xs rounded-md text-text-muted hover:text-text-main hover:bg-surface-highlight transition-colors"
+           title="备用下载链接 ${idx + 1}">
+            <i class="mgc_link_line"></i>
+            <span>备用 ${idx + 1}</span>
         </a>
       `).join('');
 
-      const guideLink = guidanceLink[release] ? `
-        <a href="${guidanceLink[release]}" class="inline-flex items-center px-4 py-2 rounded-btn text-sm font-medium text-txt-muted hover:text-accent hover:bg-bg-base transition-colors">
-            <i class="mgc_book_2_line mr-1.5"></i>
-            教程
+      const guideUrl = guidanceLink[release];
+      const guideBtn = guideUrl ? `
+        <a href="${guideUrl}" 
+           class="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm text-text-muted hover:text-primary hover:bg-surface-highlight/50 transition-colors">
+            <i class="mgc_book_2_line text-lg"></i>
+            <span>安装教程</span>
         </a>
       ` : '';
 
+      const platformName = PlatType[release] || release;
+      const iconClass = PlatformIcons[release] || 'mgc_file_line';
+
       return `
-        <div class="flex flex-col sm:flex-row items-center justify-between p-6 bg-bg-card rounded-card border border-border-subtle hover:border-accent/30 transition-all duration-200 gap-4">
-            <div class="flex items-center gap-4 w-full sm:w-auto">
-                <div class="w-12 h-12 rounded-full bg-bg-base flex items-center justify-center border border-border-subtle text-accent shrink-0">
-                    <i class="${PlatformIcons[release] || 'mgc_file_line'} text-2xl"></i>
+        <div class="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-xl border border-surface-highlight hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-black/20 gap-6">
+            <div class="flex items-center gap-5">
+                <div class="w-14 h-14 rounded-2xl bg-surface-base flex items-center justify-center border border-surface-highlight text-primary group-hover:scale-105 transition-transform duration-300">
+                    <i class="${iconClass} text-3xl"></i>
                 </div>
-                <div class="text-left">
-                    <p class="font-medium text-lg text-txt-main">${PlatType[release] || release}</p>
-                    <small class="text-txt-muted">v${data.version}</small>
+                <div class="flex flex-col">
+                    <h3 class="text-lg text-text-main leading-tight">${platformName}</h3>
+                    <div class="flex items-center gap-2 text-sm text-text-muted mt-2">
+                        <span class="px-1.5 py-0.5 rounded text-xs border-surface-highlight border font-mono text-text-dim">v${data.version}</span>
+                        ${type === 'beta' ? '<span class="text-yellow-500 text-xs border border-yellow-500/30 px-1.5 py-0.5 rounded">Beta</span>' : ''}
+                    </div>
                 </div>
             </div>
-            <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
-                ${buttonsHtml}
-                ${guideLink}
+            <div class="flex flex-col items-end gap-3 w-full md:w-auto">
+                <div class="flex items-center gap-3 w-full md:w-auto justify-end">
+                    ${guideBtn}
+                    ${primaryBtn}
+                </div>
+                ${mirrorBtns ? `<div class="flex flex-wrap justify-end gap-2">${mirrorBtns}</div>` : ''}
             </div>
         </div>
       `;
@@ -145,107 +166,146 @@ const guidanceLink = {
 
   async function init() {
       const spinner = document.getElementById('loading-spinner');
+      const errorContainer = document.getElementById('error-container');
+      const retryBtn = document.getElementById('retry-btn');
       const container = document.getElementById('download-container');
       const stableContainer = document.getElementById('content-stable');
       const betaContainer = document.getElementById('content-beta');
 
-      const [stableData, betaData] = await Promise.all([
-          fetchData('stable'),
-          fetchData('beta')
-      ]);
-
-      // Render Stable
-      if (stableData) {
-        const fixedMap = replaceGhproxyLinks(stableData.downloadUrlAlternativesMap);
-        stableData.downloadUrlAlternativesMap = fixedMap;
+      const loadData = async () => {
+        // Reset states
+        spinner.classList.remove('opacity-0', 'pointer-events-none', 'hidden');
+        errorContainer.classList.add('hidden');
+        container.classList.add('opacity-0');
         
-        let html = `
-            <div class="text-center mb-6 text-txt-muted flex items-center justify-center gap-2">
-                <i class="mgc_time_line"></i>
-                <span>更新时间：${ts2str(stableData.publishTime)}</span>
-            </div>
-            <div class="grid gap-4">
-        `;
-        
-        Object.keys(PlatType).forEach(key => {
-            html += createReleaseCard(key, stableData, 'stable');
-        });
-        html += '</div>';
+        try {
+            // Fetch data in parallel
+            const [stableData, betaData] = await Promise.all([
+                fetchData('stable'),
+                fetchData('beta')
+            ]);
+            
+             // Render
+            renderSection(stableData, stableContainer, 'stable');
+            renderSection(betaData, betaContainer, 'beta');
 
-        if (stableData.qrcodeUrls && stableData.qrcodeUrls[0]) {
-            html += `
-                <div class="mt-8 p-6 bg-bg-card rounded-card border border-border-subtle flex flex-col items-center justify-center text-center">
-                    <span class="mb-4 text-txt-muted flex items-center gap-2">
-                        <i class="mgc_cellphone_line"></i>
-                        手机扫码下载
-                    </span>
-                    <div class="p-2 bg-white rounded-lg">
-                        <img alt="qrcode" src="${stableData.qrcodeUrls[0]}" class="w-48 h-48" />
-                    </div>
-                </div>
-            `;
+            // Finish Loading
+            spinner.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                spinner.classList.add('hidden');
+            }, 300);
+            container.classList.remove('opacity-0');
+
+        } catch (error) {
+            console.error('Failed to load release data:', error);
+            spinner.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                spinner.classList.add('hidden');
+                errorContainer.classList.remove('hidden');
+            }, 300);
         }
-        stableContainer.innerHTML = html;
-      } else {
-          stableContainer.innerHTML = '<div class="p-8 text-center text-txt-muted">加载失败</div>';
-      }
+      };
 
-      // Render Beta
-      if (betaData) {
-        const fixedMap = replaceGhproxyLinks(betaData.downloadUrlAlternativesMap);
-        betaData.downloadUrlAlternativesMap = fixedMap;
-
-        let html = `
-           <div class="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-card flex items-start gap-3 text-yellow-500 mb-6">
-             <i class="mgc_warning_line text-xl mt-0.5"></i>
-             <span class="text-sm">Alpha 测试版可能存在较多问题和不稳定因素，建议仅供尝鲜使用。</span>
-           </div>
-           <div class="text-center mb-6 text-txt-muted flex items-center justify-center gap-2">
-             <i class="mgc_time_line"></i>
-             <span>更新时间：${ts2str(betaData.publishTime)}</span>
-           </div>
-           <div class="grid gap-4">
-        `;
+      const renderSection = (data, containerEl, type) => {
+        if (!data || !containerEl) {
+             if(containerEl) containerEl.innerHTML = '<div class="p-8 text-center text-text-muted border border-dashed border-surface-highlight rounded-xl">暂无数据</div>';
+             return;
+        }
         
+        // Process links
+        if (type === 'stable') {
+             data.downloadUrlAlternativesMap = data.downloadUrlAlternativesMap;
+        }
+
+        let html = '';
+        
+        // Header Info
+        html += `
+            <div class="flex items-center justify-center gap-2 mb-6 text-sm text-text-muted">
+                <span class="bg-surface-highlight/20 px-3 py-1 rounded-full flex items-center gap-2">
+                    <i class="mgc_time_line"></i>
+                    更新时间: ${ts2str(data.publishTime)}
+                </span>
+            </div>
+        `;
+
+        // Warning for Beta
+        if (type === 'beta') {
+             html += `
+               <div class="mb-6 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex gap-3 text-yellow-500">
+                 <i class="mgc_warning_line text-xl shrink-0"></i>
+                 <p class="text-sm leading-relaxed">Alpha 测试版包含最新功能但可能不稳定。</p>
+               </div>
+             `;
+        }
+
+        // Grid of Cards
+        html += '<div class="grid grid-cols-1 gap-4">';
         Object.keys(PlatType).forEach(key => {
-            html += createReleaseCard(key, betaData, 'beta');
+            html += createReleaseCard(key, data, type);
         });
         html += '</div>';
-        betaContainer.innerHTML = html;
-      }
 
-      // Hide spinner, show content
-      spinner.classList.add('opacity-0', 'pointer-events-none');
-      container.classList.remove('opacity-0');
-      
-      // Tab Logic
+        // QR Code for Stable (Mobile)
+        if (type === 'stable' && data.qrcodeUrls && data.qrcodeUrls[0]) {
+             html += `
+                <div class="mt-8 flex flex-col items-center justify-center">
+                    <div class="p-4 bg-white rounded-xl shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
+                        <img alt="Mobile QR Code" src="${data.qrcodeUrls[0]}" class="w-40 h-40 object-contain" />
+                    </div>
+                    <span class="mt-3 text-sm text-text-muted flex items-center gap-1.5">
+                        <i class="mgc_cellphone_line"></i>
+                        手机扫码下载APK
+                    </span>
+                </div>
+             `;
+        }
+
+        containerEl.innerHTML = html;
+      };
+
+      // Tab Switching Logic
       const btns = document.querySelectorAll('.tab-btn');
       const contents = document.querySelectorAll('.download-content');
 
-      btns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const target = btn.getAttribute('data-target');
-          
+      const setActiveTab = (targetId) => {
           // Toggle Content
           contents.forEach(c => {
-              if(c.id === `content-${target}`) c.classList.remove('hidden');
-              else c.classList.add('hidden');
+              if (c.id === `content-${targetId}`) {
+                  c.classList.remove('hidden', 'opacity-0', 'translate-y-4');
+                  c.classList.add('opacity-100', 'translate-y-0');
+              } else {
+                  c.classList.add('hidden', 'opacity-0', 'translate-y-4');
+                  c.classList.remove('opacity-100', 'translate-y-0');
+              }
           });
 
           // Toggle Buttons
           btns.forEach(b => {
-              if(b === btn) {
-                  b.classList.remove('text-txt-muted', 'hover:text-txt-main');
-                  b.classList.add('bg-border-subtle', 'text-txt-main');
-              } else {
-                  b.classList.add('text-txt-muted', 'hover:text-txt-main');
-                  b.classList.remove('bg-border-subtle', 'text-txt-main');
-              }
+             const isTarget = b.getAttribute('data-target') === targetId;
+             if (isTarget) {
+                 b.classList.remove('text-text-muted', 'bg-transparent');
+                 b.classList.add('bg-surface-highlight', 'text-text-main', 'shadow-sm');
+             } else {
+                 b.classList.add('text-text-muted', 'bg-transparent');
+                 b.classList.remove('bg-surface-highlight', 'text-text-main', 'shadow-sm');
+             }
           });
+      };
+
+      btns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          setActiveTab(btn.getAttribute('data-target'));
         });
       });
+      
+      // Retry Logic
+      retryBtn.addEventListener('click', loadData);
+
+      // Initial Load
+      loadData();
   }
 
+  // Start
   init();
 </script>
-

@@ -30,7 +30,7 @@ const isActive = (href: string) => {
       <!-- Logo & Desktop Nav -->
       <div class="flex-1 flex items-center justify-center md:justify-start">
         <a href="/" class="shrink-0 flex items-center mx-2 group">
-          <img alt="logo" src="/logo.png" class="h-7 w-7 transition-transform group-hover:scale-105">
+          <img alt="logo" src="/logo.png" class:list={['h-7 w-7 transition-transform group-hover:scale-105', { '-translate-x-1/2': currentPath !== '/' }]}>
         </a>
         <div class="hidden md:block md:ml-10">
           <div class="flex space-x-1">
@@ -97,40 +97,11 @@ const isActive = (href: string) => {
     });
   }
   
-  // Danmaku Toggle Logic
   const danmakuToggle = document.getElementById('danmaku-toggle');
   const danmakuIcon = document.getElementById('danmaku-icon');
-  
-  // Check localStorage for saved preference, default to 'on' (showing danmaku)
-  // or 'off' if user wants it disabled by default?
-  // The prompt says "default to danmaku_off_fill", which implies the state is "off" or the icon represents "off"?
-  // Re-reading prompt: "默认为danmaku_off_fill，这个按钮控制Heder.astro中弹幕效果的开关"
-  // "Default is danmaku_off_fill". Usually "off" icon means "it is currently off" or "click to turn off"?
-  // Let's assume the prompt means the initial icon shown is `danmaku_off_fill`.
-  // If the icon is "off", does it mean the feature is disabled?
-  // Let's implement a standard toggle.
-  // State: isEnabled.
-  // If isEnabled -> Show danmaku, Icon should probably be "danmaku_fill" (or whatever represents ON).
-  // If !isEnabled -> Hide danmaku, Icon should be "danmaku_off_fill" (or whatever represents OFF).
-  // The prompt says "default to danmaku_off_fill". This might mean the default state is OFF.
-  // Or it simply describes the icon to use.
-  
-  // Let's assume:
-  // Default state: OFF (icon: danmaku_off_fill)
-  // Click -> ON (icon: danmaku_fill? or similar) -> Dispatch event to turn on.
-  
-  // Wait, `Header.astro` has the danmaku logic.
-  // I need to communicate between NavBar (common) and Header (home).
-  // Since they are Astro components and the script runs on client, I can use a CustomEvent on window.
-  
   const DANMAKU_EVENT = 'toggle-danmaku';
   
-  // Initialize state based on localStorage or default (false/off as per prompt implication of icon)
   let isDanmakuEnabled = localStorage.getItem('danmaku-enabled') === 'true';
-  
-  // However, the prompt says "default icon is danmaku_off_fill".
-  // If `danmaku_off_fill` means "Danmaku is OFF", then default is OFF.
-  // If I want to match the prompt exactly "default to danmaku_off_fill", I'll start there.
   
   function updateIcon() {
     if (danmakuIcon) {
@@ -145,18 +116,12 @@ const isActive = (href: string) => {
   }
 
   if (danmakuToggle) {
-    // Set initial icon
     updateIcon();
-    
-    // Dispatch initial state so Header knows what to do on load
-    // We might need to wait for Header to be ready, or Header checks localStorage too.
     
     danmakuToggle.addEventListener('click', () => {
       isDanmakuEnabled = !isDanmakuEnabled;
       localStorage.setItem('danmaku-enabled', String(isDanmakuEnabled));
       updateIcon();
-      
-      // Dispatch event for Header.astro to listen to
       window.dispatchEvent(new CustomEvent(DANMAKU_EVENT, { detail: { enabled: isDanmakuEnabled } }));
     });
   }
