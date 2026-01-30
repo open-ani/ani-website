@@ -5,7 +5,7 @@ This document provides context, conventions, and instructions for AI agents (and
 ## 1. Project Overview
 
 - **Framework:** [Astro](https://astro.build/) (v5.x)
-- **UI Framework:** [Vue.js](https://vuejs.org/) (v3.x)
+- **UI Framework:** [SolidJS](https://solidjs.com/) (v1.x)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/) (v4.x) using `@tailwindcss/vite`.
 - **Linter/Formatter:** [Biome](https://biomejs.dev/) (v2.x).
 - **Package Manager:** [pnpm](https://pnpm.io/) (v10.x).
