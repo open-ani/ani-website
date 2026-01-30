@@ -1,4 +1,5 @@
 import sitemap from "@astrojs/sitemap";
+import solid from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import rehypeCallouts from "rehype-callouts";
@@ -8,7 +9,7 @@ import remarkRehype from "remark-rehype";
 // https://astro.build/config
 export default defineConfig({
   site: "https://myani.org",
-  integrations: [sitemap()],
+  integrations: [sitemap(), solid()],
   output: "static",
   prefetch: true,
 

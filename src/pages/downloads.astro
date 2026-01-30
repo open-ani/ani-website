@@ -1,5 +1,5 @@
 ---
-import DownloadList from '@/components/modules/DownloadList.astro'
+import DownloadList from '@/components/modules/DownloadList.tsx'
 import Layout from '@/layouts/Layout.astro';
 ---
 
@@ -11,6 +11,6 @@ import Layout from '@/layouts/Layout.astro';
                 支持 Android, Windows, macOS, Linux 和 iOS 平台
             </p>
         </div>
-        <DownloadList />
+        <DownloadList client:load />
     </div>
 </Layout>
