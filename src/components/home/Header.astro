@@ -42,81 +42,74 @@ import HeaderShowCase from './HeaderShowCase.astro'
 
   if (container) {
     let danmakuInstance: any = null;
-    let danmakuInterval: any = null;
-    let isEnabled = localStorage.getItem('danmaku-enabled') === 'true'; // Default false to match NavBar default icon
+    let timeoutId: number | null = null;
+    let isEnabled = localStorage.getItem('danmaku-enabled') === 'true';
 
     function startDanmaku() {
       if (!danmakuInstance && container) {
         danmakuInstance = new Danmaku({ container: container, engine: 'dom', speed: 110 });
       }
-      // Clear existing interval if any to avoid duplicates
-      if (danmakuInterval) clearInterval(danmakuInterval);
+      if (timeoutId) clearTimeout(timeoutId);
       
       if (danmakuInstance) {
         danmakuInstance.show();
       }
       
-      danmakuInterval = setInterval(() => {
-        if (danmakuInstance) {
-            addDanmaku(danmakuInstance);
-        }
-      }, Math.random() * 800);
+      function loop() {
+        if (!danmakuInstance) return;
+        addDanmaku(danmakuInstance);
+        timeoutId = setTimeout(loop, Math.random() * 800) as unknown as number;
+      }
+      
+      loop();
     }
 
     function stopDanmaku() {
-      if (danmakuInterval) {
-        clearInterval(danmakuInterval);
-        danmakuInterval = null;
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
       }
       if (danmakuInstance) {
         danmakuInstance.hide();
         danmakuInstance.clear();
       }
     }
-
-    // Initialize based on current state
     if (isEnabled) {
       startDanmaku();
     }
-
-    // Listen for toggle events from NavBar
-    window.addEventListener('toggle-danmaku', ((e: CustomEvent) => {
+    
+    const handleToggleDanmaku = ((e: CustomEvent) => {
       isEnabled = e.detail.enabled;
       if (isEnabled) {
         startDanmaku();
       } else {
         stopDanmaku();
       }
-    }) as EventListener);
-  }
+    }) as EventListener;
 
-  // Scroll logic
+    window.addEventListener('toggle-danmaku', handleToggleDanmaku);
+
+    document.addEventListener('astro:before-swap', () => {
+      stopDanmaku();
+      window.removeEventListener('toggle-danmaku', handleToggleDanmaku);
+    }, { once: true });
+  }
   const scrollBtn = document.getElementById('scroll-btn');
   const features = document.getElementById('features');
-
-  // Button click scroll
   if (scrollBtn && features) {
     scrollBtn.addEventListener('click', () => {
       features.scrollIntoView({ behavior: 'smooth' });
     });
   }
-
-  // Wheel scroll effect
   let isScrolling = false;
-  
-  // Only enable on desktop
   const mediaQuery = window.matchMedia('(min-width: 1024px)');
   
   function handleWheel(e: WheelEvent) {
     if (!mediaQuery.matches) return;
-    
-    // Only handle if we are at the top of the page (in header)
     if (window.scrollY < 10 && e.deltaY > 0 && !isScrolling && features) {
       e.preventDefault();
       isScrolling = true;
       features.scrollIntoView({ behavior: 'smooth' });
-      
-      // Reset lock after animation
       setTimeout(() => {
         isScrolling = false;
       }, 1000);
@@ -124,6 +117,10 @@ import HeaderShowCase from './HeaderShowCase.astro'
   }
 
   window.addEventListener('wheel', handleWheel, { passive: false });
+
+  document.addEventListener('astro:before-swap', () => {
+    window.removeEventListener('wheel', handleWheel);
+  }, { once: true });
 
 </script>
 <div class="relative min-h-screen lg:-mt-18 overflow-hidden flex flex-col justify-center">
@@ -190,8 +187,6 @@ import HeaderShowCase from './HeaderShowCase.astro'
       <HeaderShowCase />
     </div>
   </div>
-
-  <!-- Scroll Down Indicator -->
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer z-20 hidden lg:block" id="scroll-btn">
     <i class="mgc_down_line text-3xl text-text-muted hover:text-primary transition-colors"></i>
   </div>

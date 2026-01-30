@@ -18,14 +18,13 @@ interface dataType {
     description: string
   }>
 }
-let response;
+
 let html = '';
-try {
-  response = await fetch(
-    'https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=4.0.0&clientPlatform=android&clientArch=x86_64&releaseClass=stable',
-  )
-} catch {}
-if(!response){ html = 'Error when generating changelog.'; return; }
+
+const response = await fetch(
+  'https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=4.0.0&clientPlatform=android&clientArch=x86_64&releaseClass=stable',
+)
+if(!response){ throw "Error when fetching changelogs." }
 const data: dataType = await response.json()
 const { updates } = data
 html += marked.parse(`# Changelog\n[![GitHub Release](https://img.shields.io/github/v/release/open-ani/animeko?sort=semver&display_name=tag&style=flat-square)](https://github.com/open-ani/animeko/releases/latest)\n\n> 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本。`);

@@ -11,16 +11,16 @@ const allPosts = Object.values(matches);
 <Layout title="Animeko - 常见问题">
     <main class="pt-28 pb-12">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-            <h1 class="text-3xl md:text-4xl font-bold text-txt-main mb-8 text-center">疑难杂症</h1>
+            <h1 class="text-3xl md:text-4xl font-bold text-text-main mb-8 text-center">疑难杂症</h1>
             <div class="grid gap-4 md:grid-cols-2">
                 {allPosts.map((post: any) => (
                     <a href={post.url} class="block group">
-                        <div class="bg-bg-card border border-border-subtle rounded-card p-6 h-full transition-all duration-300 hover:border-accent hover:bg-surface-highlight/30">
-                            <h2 class="text-xl font-semibold text-txt-main group-hover:text-accent mb-2 flex items-center justify-between">
+                        <div class="bg-bg-card border border-border-subtle rounded-card p-6 h-full transition-all duration-300 hover:border-primary hover:bg-surface-highlight/30">
+                            <h2 class="text-xl font-semibold text-text-main group-hover:text-primary mb-2 flex items-center justify-between">
                                 {post.frontmatter.title}
-                                <i class="mgc_right_line text-txt-muted group-hover:text-accent transition-colors"></i>
+                                <i class="mgc_right_line text-text-muted group-hover:text-primary transition-colors"></i>
                             </h2>
-                            <p class="text-txt-muted text-sm line-clamp-2">
+                            <p class="text-text-muted text-sm line-clamp-2">
                                 点击查看详细说明文档
                             </p>
                         </div>
