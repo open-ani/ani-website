@@ -113,7 +113,6 @@ Strictly adhere to the rules defined in `biome.json`.
 ## 6. Git & CI Workflow
 
 - **Pre-commit:** `husky` and `lint-staged` are configured.
-    - `*.vue`: Runs `biome lint --fix`.
     - `*.astro`: Runs `astro check`.
 - **CI Pipeline:** GitHub Actions (`pr_prew.yml`) runs on Pull Requests.
     - Installs dependencies with `pnpm`.
@@ -124,7 +123,6 @@ Strictly adhere to the rules defined in `biome.json`.
 
 - **File Modification:** When editing files, always read the file first to preserve existing structure.
 - **Dependencies:** Do NOT add new dependencies without explicit instruction. Use existing packages (`@headlessui/vue`, `@iconify/vue`, etc.).
-- **Vue Components:** Use the `<script setup>` syntax for Vue components.
 - **Astro Components:** Keep frontmatter (JavaScript fence `---`) clean and typed.
 - **Safety:** Do not bypass `lint-staged` hooks. Ensure your code passes `pnpm code:lint` and `pnpm build` before marking a task as complete.
 

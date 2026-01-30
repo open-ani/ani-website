@@ -94,6 +94,7 @@ const isActive = (href: string) => {
   if (btn && menu) {
     btn.addEventListener('click', () => {
       menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!menu.classList.contains('hidden')))
     });
   }
   

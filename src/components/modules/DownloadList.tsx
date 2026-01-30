@@ -188,7 +188,7 @@ export default function DownloadList() {
 
       {/* Loading Spinner */}
       <Show when={loading()}>
-        <div class="absolute inset-0 z-50 flex flex-col items-center justify-start pt-20 bg-bg-base/50 backdrop-blur-sm transition-opacity duration-300">
+        <div class="absolute inset-0 z-50 flex flex-col items-center justify-start pt-20 bg-surface-base/50 backdrop-blur-sm transition-opacity duration-300">
           <div class="w-10 h-10 border-4 border-surface-highlight border-t-primary rounded-full animate-spin mb-4"></div>
           <p class="text-text-muted font-medium animate-pulse">正在获取最新版本信息...</p>
         </div>
@@ -196,7 +196,7 @@ export default function DownloadList() {
 
       {/* Error State */}
       <Show when={error()}>
-        <div class="absolute inset-0 z-50 flex flex-col items-center justify-start pt-20 bg-bg-base/50 backdrop-blur-sm transition-opacity duration-300">
+        <div class="absolute inset-0 z-50 flex flex-col items-center justify-start pt-20 bg-surface-base/50 backdrop-blur-sm transition-opacity duration-300">
           <div class="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mb-4 text-red-500">
             <i class="mgc_alert_line text-3xl"></i>
           </div>
