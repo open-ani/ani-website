@@ -1,52 +1,156 @@
 ---
-import Buttons from './Buttons.astro'
 import HeaderShowCase from './HeaderShowCase.astro'
 ---
+<script>
+  import Danmaku from 'danmaku';
 
-<div class="relative overflow-hidden pt-12 pb-16 lg:pt-20 lg:pb-24">
-  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center">
+  const danmakuList = [
+    'animeko 太方便了导致经常摸鱼',
+    '好漂亮的客户端',
+    'elegant !',
+    '這種項目總是要支持的(bgm105)',
+    '支持，技术力贡献的美好世界',
+    '(bgm105)好东西啊',
+    '好厉害的软件啊！一条五毛记得删括号',
+    'Ciallo~ (∠・ω< )⌒☆',
+  ];
+
+  const container = document.getElementById('danmaku_container');
+
+  function getRandomColor() {
+    const r = Math.floor(Math.random() * 128) + 128;
+    const g = Math.floor(Math.random() * 128) + 128;
+    const b = Math.floor(Math.random() * 128) + 128;
+    return `rgb(${r}, ${g}, ${b})`;
+  }
+
+  function getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function addDanmaku(dmk: any) {
+    const len = danmakuList.length;
+    const idx = getRandomInt(0, len - 1);
+    dmk.emit({
+      text: danmakuList[idx],
+      style: {
+        fontSize: `${getRandomInt(22, 32)}px`,
+        color: getRandomColor(),
+      },
+    });
+  }
+
+  if (container) {
+    let danmakuInstance: any = null;
+    let danmakuInterval: any = null;
+    let isEnabled = localStorage.getItem('danmaku-enabled') === 'true'; // Default false to match NavBar default icon
+
+    function startDanmaku() {
+      if (!danmakuInstance && container) {
+        danmakuInstance = new Danmaku({ container: container, engine: 'dom', speed: 110 });
+      }
+      // Clear existing interval if any to avoid duplicates
+      if (danmakuInterval) clearInterval(danmakuInterval);
+      
+      if (danmakuInstance) {
+        danmakuInstance.show();
+      }
+      
+      danmakuInterval = setInterval(() => {
+        if (danmakuInstance) {
+            addDanmaku(danmakuInstance);
+        }
+      }, Math.random() * 800);
+    }
+
+    function stopDanmaku() {
+      if (danmakuInterval) {
+        clearInterval(danmakuInterval);
+        danmakuInterval = null;
+      }
+      if (danmakuInstance) {
+        danmakuInstance.hide();
+        danmakuInstance.clear();
+      }
+    }
+
+    // Initialize based on current state
+    if (isEnabled) {
+      startDanmaku();
+    }
+
+    // Listen for toggle events from NavBar
+    window.addEventListener('toggle-danmaku', ((e: CustomEvent) => {
+      isEnabled = e.detail.enabled;
+      if (isEnabled) {
+        startDanmaku();
+      } else {
+        stopDanmaku();
+      }
+    }) as EventListener);
+  }
+</script>
+<div class="relative min-h-screen lg:-mt-18 overflow-hidden flex">
+  <div id="danmaku_container" class="absolute inset-0 w-full h-full pt-12 lg:py-32"></div>
+  <div class="relative m-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center bg-surface-base/20 py-5 rounded-md">
     <div class="w-full lg:w-1/2 lg:pr-12 text-center lg:text-left z-10">
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-txt-main mb-6 leading-tight">
         <span class="block text-accent">Animeko</span>
-        <span class="block text-2xl sm:text-3xl lg:text-4xl mt-2 font-medium text-txt-muted">
+        <span class="block text-2xl sm:text-3xl lg:text-4xl mt-2 font-medium text-text-muted">
           一站式在线<span class="text-txt-main underline decoration-accent decoration-4 underline-offset-4">弹幕</span>追番平台
         </span>
       </h1>
       
-      <ul class="space-y-3 text-lg text-txt-muted max-w-2xl mx-auto lg:mx-0">
-        <li class="flex items-center justify-center lg:justify-start gap-2">
+      <ul class="space-y-2.5 max-w-100 mx-auto lg:mx-0">
+        <li class="flex items-center gap-2">
           <i class="mgc_server_line text-accent text-xl"></i>
           <span>在线多数据源聚合</span>
         </li>
-        <li class="flex items-center justify-center lg:justify-start gap-2">
+        <li class="flex items-center gap-2">
           <i class="mgc_download_line text-accent text-xl"></i>
           <span>离线缓存支持</span>
         </li>
-        <li class="flex items-center justify-center lg:justify-start gap-2">
+        <li class="flex items-center gap-2">
           <i class="mgc_flag_3_line text-accent text-xl"></i>
           <span>Bangumi 收藏同步</span>
         </li>
-        <li class="flex items-center justify-center lg:justify-start gap-2">
+        <li class="flex items-center gap-2">
           <i class="mgc_code_line text-accent text-xl"></i>
           <span>
             <a href="https://github.com/open-ani/animeko" class="text-txt-main hover:text-accent underline decoration-border-subtle hover:decoration-accent transition-all">代码开源</a>
             ，更多功能等你来PR！
           </span>
         </li>
-        <li class="flex items-center justify-center lg:justify-start gap-2">
+        <li class="flex items-center gap-2">
           <i class="mgc_magnet_line text-accent text-xl"></i>
           <span>全自动 BT，无需下载其他客户端</span>
         </li>
-        <li class="flex items-center justify-center lg:justify-start gap-2">
+        <li class="flex items-center gap-2">
           <i class="mgc_cellphone_line text-accent text-xl"></i>
           <span>Compose Multiplatform 多平台客户端支持</span>
         </li>
       </ul>
-      
-      <Buttons />
+      <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-8">
+        <a 
+          data-astro-prefetch 
+          href="/downloads"
+          class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-btn text-on-primary bg-primary hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md"
+        >
+          <i class="mgc_download_2_line mr-2 text-xl"></i>
+          下载 Animeko
+        </a>
+        <a 
+          target="_blank" 
+          href="https://github.com/open-ani/animeko/"
+          class="inline-flex items-center justify-center px-6 py-3 border border-surface-highlight text-base font-medium rounded-btn text-text-main bg-transparent hover:bg-surface-highlight transition-all duration-200"
+        >
+          <i class="mgc_github_line mr-2 text-xl"></i>
+          开源仓库
+        </a>
+      </div>
     </div>
     
-    <div class="w-full lg:w-1/2 mt-16 lg:mt-0 relative flex justify-center lg:justify-end">
+    <div class="w-full lg:w-1/2 mb-8 lg:mb-0 relative flex justify-center lg:justify-end">
       <HeaderShowCase />
     </div>
   </div>

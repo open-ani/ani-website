@@ -21,7 +21,7 @@ const isActive = (href: string) => {
     <div class="flex items-center justify-between h-16">
       <!-- Mobile Menu Button -->
       <div class="flex items-center md:hidden">
-        <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-txt-muted hover:text-accent hover:bg-surface-highlight focus:outline-none transition-colors">
+        <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md hover:text-primary hover:bg-surface-highlight focus:outline-none transition-colors">
           <span class="sr-only">Open main menu</span>
           <i class="mgc_menu_line text-lg"></i>
         </button>
@@ -29,9 +29,8 @@ const isActive = (href: string) => {
 
       <!-- Logo & Desktop Nav -->
       <div class="flex-1 flex items-center justify-center md:justify-start">
-        <a href="/" class="shrink-0 flex items-center -translate-x-1/2 gap-2 group">
+        <a href="/" class="shrink-0 flex items-center mx-2 group">
           <img alt="logo" src="/logo.png" class="h-7 w-7 transition-transform group-hover:scale-105">
-          <span class="font-bold text-lg tracking-tight hidden sm:block">Animeko</span>
         </a>
         <div class="hidden md:block md:ml-10">
           <div class="flex space-x-1">
@@ -40,9 +39,9 @@ const isActive = (href: string) => {
                 href={item.href}
                 class:list={[
                   'px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200',
-                  isActive(item.href) 
-                    ? 'bg-border-subtle text-accent' 
-                    : 'text-txt-muted hover:text-txt-main hover:bg-border-subtle/50'
+                  isActive(item.href)
+                    ? 'bg-surface-highlight text-primary' 
+                    : 'text-text-muted hover:text-text-main hover:bg-surface-highlight/50'
                 ]}
                 aria-current={isActive(item.href) ? 'page' : undefined}
               >
@@ -52,20 +51,32 @@ const isActive = (href: string) => {
           </div>
         </div>
       </div>
+      
+      <!-- Right Side Actions -->
+      <div class:list={['flex items-center', { 'hidden': currentPath !== '/' }]}>
+        <button
+          type="button"
+          id="danmaku-toggle"
+          class="inline-flex items-center justify-center p-2 rounded-md hover:text-primary hover:bg-surface-highlight focus:outline-none transition-colors"
+          aria-label="Toggle Danmaku"
+        >
+          <i id="danmaku-icon" class="mgc_danmaku_fill text-lg"></i>
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Mobile Menu -->
-  <div class="hidden md:hidden border-t border-surface-highlight bg-bg-base" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+  <div class="hidden md:hidden border-t border-surface-highlight bg-surface-base" id="mobile-menu">
+    <div class="px-2 pt-3 pb-5 space-y-1 sm:px-3">
       {navigation.map((item) => (
         <a
           href={item.href}
           class:list={[
             'block px-3 py-2 rounded-md transition-colors',
             isActive(item.href)
-              ? 'bg-border-subtle text-primary'
-              : 'text-text-muted hover:text-text-main hover:bg-border-subtle/50'
+              ? 'bg-surface-highlight text-primary'
+              : 'text-text-muted hover:text-text-main hover:bg-surface-highlight/50'
           ]}
           aria-current={isActive(item.href) ? 'page' : undefined}
         >
@@ -83,6 +94,70 @@ const isActive = (href: string) => {
   if (btn && menu) {
     btn.addEventListener('click', () => {
       menu.classList.toggle('hidden');
+    });
+  }
+  
+  // Danmaku Toggle Logic
+  const danmakuToggle = document.getElementById('danmaku-toggle');
+  const danmakuIcon = document.getElementById('danmaku-icon');
+  
+  // Check localStorage for saved preference, default to 'on' (showing danmaku)
+  // or 'off' if user wants it disabled by default?
+  // The prompt says "default to danmaku_off_fill", which implies the state is "off" or the icon represents "off"?
+  // Re-reading prompt: "默认为danmaku_off_fill，这个按钮控制Heder.astro中弹幕效果的开关"
+  // "Default is danmaku_off_fill". Usually "off" icon means "it is currently off" or "click to turn off"?
+  // Let's assume the prompt means the initial icon shown is `danmaku_off_fill`.
+  // If the icon is "off", does it mean the feature is disabled?
+  // Let's implement a standard toggle.
+  // State: isEnabled.
+  // If isEnabled -> Show danmaku, Icon should probably be "danmaku_fill" (or whatever represents ON).
+  // If !isEnabled -> Hide danmaku, Icon should be "danmaku_off_fill" (or whatever represents OFF).
+  // The prompt says "default to danmaku_off_fill". This might mean the default state is OFF.
+  // Or it simply describes the icon to use.
+  
+  // Let's assume:
+  // Default state: OFF (icon: danmaku_off_fill)
+  // Click -> ON (icon: danmaku_fill? or similar) -> Dispatch event to turn on.
+  
+  // Wait, `Header.astro` has the danmaku logic.
+  // I need to communicate between NavBar (common) and Header (home).
+  // Since they are Astro components and the script runs on client, I can use a CustomEvent on window.
+  
+  const DANMAKU_EVENT = 'toggle-danmaku';
+  
+  // Initialize state based on localStorage or default (false/off as per prompt implication of icon)
+  let isDanmakuEnabled = localStorage.getItem('danmaku-enabled') === 'true';
+  
+  // However, the prompt says "default icon is danmaku_off_fill".
+  // If `danmaku_off_fill` means "Danmaku is OFF", then default is OFF.
+  // If I want to match the prompt exactly "default to danmaku_off_fill", I'll start there.
+  
+  function updateIcon() {
+    if (danmakuIcon) {
+       if (isDanmakuEnabled) {
+         danmakuIcon.className = 'mgc_danmaku_fill text-xl';
+         danmakuIcon.style.color = 'var(--color-primary)'; // Optional: highlight when active
+       } else {
+         danmakuIcon.className = 'mgc_danmaku_off_fill text-xl';
+         danmakuIcon.style.color = ''; // Reset color
+       }
+    }
+  }
+
+  if (danmakuToggle) {
+    // Set initial icon
+    updateIcon();
+    
+    // Dispatch initial state so Header knows what to do on load
+    // We might need to wait for Header to be ready, or Header checks localStorage too.
+    
+    danmakuToggle.addEventListener('click', () => {
+      isDanmakuEnabled = !isDanmakuEnabled;
+      localStorage.setItem('danmaku-enabled', String(isDanmakuEnabled));
+      updateIcon();
+      
+      // Dispatch event for Header.astro to listen to
+      window.dispatchEvent(new CustomEvent(DANMAKU_EVENT, { detail: { enabled: isDanmakuEnabled } }));
     });
   }
 </script>
