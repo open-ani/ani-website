@@ -143,7 +143,7 @@ export default function DownloadList() {
       const [sData, bData] = await Promise.all([fetchData("stable"), fetchData("beta")]);
       setStableData(sData);
       setBetaData(bData);
-    } catch (e) {
+    } catch (_e) {
       setError(true);
     } finally {
       setLoading(false);
