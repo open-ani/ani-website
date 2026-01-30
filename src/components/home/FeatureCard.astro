@@ -7,18 +7,18 @@ interface Props {
 const { title, desc } = Astro.props
 ---
 
-<div class="relative group p-6 bg-bg-card rounded-card border border-border-subtle hover:border-accent/50 transition-all duration-300 h-full flex flex-col">
-  <div class="mb-4 text-accent text-3xl p-3 bg-bg-base rounded-full w-fit group-hover:bg-accent/10 transition-colors flex items-center justify-center">
+<div class="relative group p-6 rounded-card border border-surface-highlight hover:border-primary/50 transition-all duration-300 h-full flex flex-col">
+  <div class="mb-4 text-primary text-3xl p-3 bg-surface-base rounded-full w-fit group-hover:bg-primary/10 transition-colors flex items-center justify-center">
     <slot />
   </div>
   
-  <h3 class="text-xl font-semibold text-txt-main mb-3 group-hover:text-accent transition-colors">
+  <h3 class="text-xl font-semibold text-etxt-main mb-3 group-hover:text-primary transition-colors">
     <slot name="title">
       {title ?? ''}
     </slot>
   </h3>
   
-  <p class="text-txt-muted text-base leading-relaxed flex-grow">
+  <p class="text-text-muted text-base leading-relaxed grow">
     <slot name="desc">
       {desc ?? ''}
     </slot>

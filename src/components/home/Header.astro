@@ -89,8 +89,44 @@ import HeaderShowCase from './HeaderShowCase.astro'
       }
     }) as EventListener);
   }
+
+  // Scroll logic
+  const scrollBtn = document.getElementById('scroll-btn');
+  const features = document.getElementById('features');
+
+  // Button click scroll
+  if (scrollBtn && features) {
+    scrollBtn.addEventListener('click', () => {
+      features.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  // Wheel scroll effect
+  let isScrolling = false;
+  
+  // Only enable on desktop
+  const mediaQuery = window.matchMedia('(min-width: 1024px)');
+  
+  function handleWheel(e: WheelEvent) {
+    if (!mediaQuery.matches) return;
+    
+    // Only handle if we are at the top of the page (in header)
+    if (window.scrollY < 10 && e.deltaY > 0 && !isScrolling && features) {
+      e.preventDefault();
+      isScrolling = true;
+      features.scrollIntoView({ behavior: 'smooth' });
+      
+      // Reset lock after animation
+      setTimeout(() => {
+        isScrolling = false;
+      }, 1000);
+    }
+  }
+
+  window.addEventListener('wheel', handleWheel, { passive: false });
+
 </script>
-<div class="relative min-h-screen lg:-mt-18 overflow-hidden flex">
+<div class="relative min-h-screen lg:-mt-18 overflow-hidden flex flex-col justify-center">
   <div id="danmaku_container" class="absolute inset-0 w-full h-full pt-12 lg:py-32"></div>
   <div class="relative m-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center bg-surface-base/20 py-5 rounded-md">
     <div class="w-full lg:w-1/2 lg:pr-12 text-center lg:text-left z-10">
@@ -153,5 +189,10 @@ import HeaderShowCase from './HeaderShowCase.astro'
     <div class="w-full lg:w-1/2 mb-8 lg:mb-0 relative flex justify-center lg:justify-end">
       <HeaderShowCase />
     </div>
+  </div>
+
+  <!-- Scroll Down Indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer z-20 hidden lg:block" id="scroll-btn">
+    <i class="mgc_down_line text-3xl text-text-muted hover:text-primary transition-colors"></i>
   </div>
 </div>
