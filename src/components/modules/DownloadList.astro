@@ -29,7 +29,7 @@ const guidanceLink = {
 };
 ---
 
-<div class="max-w-4xl mx-auto min-h-[500px] relative">
+<div class="max-w-4xl mx-auto min-h-125 relative">
   <!-- Tabs -->
   <div class="flex justify-center mb-8 bg-bg-card p-1 rounded-full w-fit mx-auto border border-border-subtle">
     <button
@@ -91,7 +91,9 @@ const guidanceLink = {
 
   async function fetchData(type) {
     try {
-      const res = await fetch(`${apiBase}?releaseClass=${type === 'beta' ? 'alpha' : 'stable'}`);
+      const res = await fetch(`${apiBase}?releaseClass=${type === 'beta' ? 'alpha' : 'stable'}`, {
+        mode: 'cors'
+      });
       if (!res.ok) throw new Error('Network response was not ok');
       return await res.json();
     } catch (e) {

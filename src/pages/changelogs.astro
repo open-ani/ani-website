@@ -1,6 +1,7 @@
 ---
 import { marked } from 'marked'
 import Layout from '@/layouts/Changelog.astro'
+import '@/styles/markdown.css'
 
 function ts2str(ts: number): string {
   const date = new Date(ts * 1000)
@@ -22,7 +23,7 @@ interface dataType {
 }
 const data: dataType = await response.json()
 const { updates } = data
-let html = marked.parse(`[![GitHub Release](https://img.shields.io/github/v/release/open-ani/animeko?sort=semver&display_name=tag&style=flat-square)](https://github.com/open-ani/animeko/releases/latest)\n\n> 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本。`);
+let html = marked.parse(`# Changelog\n[![GitHub Release](https://img.shields.io/github/v/release/open-ani/animeko?sort=semver&display_name=tag&style=flat-square)](https://github.com/open-ani/animeko/releases/latest)\n\n> 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本。`);
 [...updates].reverse().forEach((update) => {
   if (update.version.includes('beta') || update.version.includes('alpha')) {
     return
@@ -34,7 +35,5 @@ let html = marked.parse(`[![GitHub Release](https://img.shields.io/github/v/rele
 ---
 
 <Layout>
-  <h1 class="text-4xl font-bold text-txt-main mb-8">Changelog</h1>
-  <article set:html={html} />
-
+  <article class="markdown-body" set:html={html} />
 </Layout>

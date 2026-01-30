@@ -5,7 +5,7 @@ title: "About"
 
 <div align="center">
 
-![Animeko](/assets/images/animeko-socialify.png)
+![Animeko](/images/animeko.svg)
 </div>
 
 ## 主要功能

@@ -2,14 +2,8 @@
 import Layout from './Layout.astro'
 ---
 
----
-import Layout from './Layout.astro'
----
-
 <Layout title="更新日志">
-    <div class="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <article class="prose prose-invert prose-lg max-w-none prose-headings:text-txt-main prose-p:text-txt-muted prose-a:text-accent hover:prose-a:text-accent/80 prose-blockquote:border-accent prose-blockquote:bg-bg-card prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg prose-code:text-accent prose-pre:bg-bg-card prose-pre:border prose-pre:border-border-subtle prose-li:text-txt-muted prose-strong:text-txt-main">
-            <slot />
-        </article>
+    <div class="pt-20 pb-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <slot />
     </div>
 </Layout>

@@ -1,6 +1,5 @@
 @import "mingcute_icon/font/Mingcute.css";
 @import "tailwindcss";
-@plugin "@tailwindcss/typography";
 
 :root {
   text-autospace: normal;
