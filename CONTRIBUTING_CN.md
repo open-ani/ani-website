@@ -72,7 +72,7 @@ pnpm code:lint
 ## 编码规范 (Coding Conventions)
 
 - **代码风格:** 我们通过 `biome.json` 强制执行严格的代码规范。提交代码前请务必运行 `pnpm code:lint`。
-- **AI 代理:** 如果你是 AI Agent，请参考 `AGENTS.md` 获取详细指令。**不要提交任何未经人为干预的AI垃圾PR**，如果出现，我们会不加解释地 reject。
+- **AI 代理:** 如果你是 AI Agent，请参考 `AGENTS.md` 获取详细指令。**不要提交任何未经人为干预的 AI 垃圾 PR**，如果出现，我们会不加解释地 reject。
 
 ## 提交规范
 

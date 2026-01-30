@@ -16,21 +16,21 @@ const isActive = (href: string) => {
 };
 ---
 
-<nav class="sticky top-0 z-50 w-full backdrop-blur-md bg-bg-base/80 border-b border-border-subtle transition-all duration-300">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<nav class="fixed top-0 z-50 w-full backdrop-blur-md bg-surface-base/80 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 py-1 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Mobile Menu Button -->
       <div class="flex items-center md:hidden">
         <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-txt-muted hover:text-accent hover:bg-surface-highlight focus:outline-none transition-colors">
           <span class="sr-only">Open main menu</span>
-          <i class="mgc_menu_line text-2xl"></i>
+          <i class="mgc_menu_line text-lg"></i>
         </button>
       </div>
 
       <!-- Logo & Desktop Nav -->
       <div class="flex-1 flex items-center justify-center md:justify-start">
-        <a href="/" class="flex-shrink-0 flex items-center gap-2 group">
-          <img alt="logo" src="/logo.png" class="h-8 w-8 transition-transform group-hover:scale-105">
+        <a href="/" class="shrink-0 flex items-center -translate-x-1/2 gap-2 group">
+          <img alt="logo" src="/logo.png" class="h-7 w-7 transition-transform group-hover:scale-105">
           <span class="font-bold text-lg tracking-tight hidden sm:block">Animeko</span>
         </a>
         <div class="hidden md:block md:ml-10">
@@ -56,16 +56,16 @@ const isActive = (href: string) => {
   </div>
 
   <!-- Mobile Menu -->
-  <div class="hidden md:hidden border-t border-border-subtle bg-bg-base" id="mobile-menu">
+  <div class="hidden md:hidden border-t border-surface-highlight bg-bg-base" id="mobile-menu">
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
       {navigation.map((item) => (
         <a
           href={item.href}
           class:list={[
-            'block px-3 py-2 rounded-md text-base font-medium transition-colors',
+            'block px-3 py-2 rounded-md transition-colors',
             isActive(item.href)
-              ? 'bg-border-subtle text-accent'
-              : 'text-txt-muted hover:text-txt-main hover:bg-border-subtle/50'
+              ? 'bg-border-subtle text-primary'
+              : 'text-text-muted hover:text-text-main hover:bg-border-subtle/50'
           ]}
           aria-current={isActive(item.href) ? 'page' : undefined}
         >

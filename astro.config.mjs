@@ -1,5 +1,4 @@
 import sitemap from "@astrojs/sitemap";
-// import vue from "@astrojs/vue";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import rehypeCallouts from "rehype-callouts";
