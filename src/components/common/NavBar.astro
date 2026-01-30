@@ -30,7 +30,7 @@ const isActive = (href: string) => {
       <!-- Logo & Desktop Nav -->
       <div class="flex-1 flex items-center justify-center md:justify-start">
         <a href="/" class="shrink-0 flex items-center mx-2 group">
-          <img alt="logo" src="/logo.png" class:list={['h-7 w-7 transition-transform group-hover:scale-105', { '-translate-x-1/2': currentPath !== '/' }]}>
+          <img alt="logo" src="/logo.png" class:list={['h-7 w-7 transition-transform group-hover:scale-105', { '-translate-x-1/2 md:translate-0': currentPath !== '/' }]}>
         </a>
         <div class="hidden md:block md:ml-10">
           <div class="flex space-x-1">
