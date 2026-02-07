@@ -23,6 +23,7 @@ const pageTitle = `Animeko - ${title}`;
             const button = document.createElement('button');
             button.className = 'copy-button';
             button.innerText = 'Copy';
+            button.type = 'button';
             
             // Insert wrapper before block
             block.parentNode?.insertBefore(wrapper, block);
@@ -42,4 +43,3 @@ const pageTitle = `Animeko - ${title}`;
         });
     </script>
 </Layout>
-

@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: ../../layouts/Doc.astro
 title: "iOS 安装教程 (自签名)"
 ---
 

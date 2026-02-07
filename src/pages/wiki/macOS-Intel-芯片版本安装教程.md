@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: ../../layouts/Doc.astro
 title: "macOS Intel 芯片安装教程"
 ---
 

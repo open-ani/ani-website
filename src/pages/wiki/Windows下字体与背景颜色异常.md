@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: ../../layouts/Doc.astro
 title: "Windows 下字体与背景颜色异常"
 ---
 
