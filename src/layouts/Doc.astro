@@ -25,10 +25,12 @@ const leftNavItems: NavItem[] = [
 
 <Layout title={pageTitle}>
   <div class="pt-20 pb-12 min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8">
-      <div class="flex flex-col lg:flex-row gap-8">
-        <!-- 左侧导航栏 -->
-        <aside class="lg:w-64 shrink-0 order-2 lg:order-1">
+    <!-- 修改外层容器宽度为80% -->
+    <div class="w-full max-w-350 mx-auto px-4 lg:px-8">
+      <!-- 使用flex布局，确保三栏撑满容器 -->
+      <div class="flex flex-row gap-6 min-w-0">
+        <!-- 左侧导航栏 - 固定宽度 -->
+        <aside class="w-64 shrink-0">
           <div class="sticky top-24">
             <div class="rounded-card border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-4">
               <h3 class="text-lg font-semibold text-text-main mb-4 pb-2 border-b border-surface-highlight">导航</h3>
@@ -86,15 +88,15 @@ const leftNavItems: NavItem[] = [
           </div>
         </aside>
 
-        <!-- 主要内容 -->
-        <main class="flex-1 order-1 lg:order-2 min-w-0">
+        <!-- 主要内容 - 自适应宽度 -->
+        <main class="flex-1 min-w-0">
           <article class="markdown-body bg-surface-base/50 backdrop-blur-sm rounded-card border border-surface-highlight p-6 lg:p-8">
             <slot />
           </article>
         </main>
 
-        <!-- 右侧目录 -->
-        <aside class="lg:w-64 shrink-0 order-3">
+        <!-- 右侧目录 - 固定宽度 -->
+        <aside class="w-64 shrink-0">
           <div class="sticky top-24">
             <!-- 使用 JavaScript 动态生成 TOC -->
             <div id="toc-container" class="rounded-card border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-4">
@@ -186,6 +188,20 @@ const leftNavItems: NavItem[] = [
       article h4 {
         padding-left: 0 !important;
         margin-left: 0 !important;
+      }
+      
+      /* 移动端改为单栏布局 */
+      .w-\[80\%\] {
+        width: 100% !important;
+      }
+      
+      .flex-row {
+        flex-direction: column !important;
+      }
+      
+      .w-64 {
+        width: 100% !important;
+        margin-bottom: 1rem;
       }
     }
     
