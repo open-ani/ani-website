@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: ../../layouts/Doc.astro
 title: "Linux 安装说明"
 ---
 

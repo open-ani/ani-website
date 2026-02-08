@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: ../../layouts/Doc.astro
 title: "macOS 无法打开解决方案"
 ---
 

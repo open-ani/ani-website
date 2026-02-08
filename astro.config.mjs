@@ -2,9 +2,8 @@ import sitemap from "@astrojs/sitemap";
 import solid from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
-import rehypeCallouts from "rehype-callouts";
-import { rehypeGithubAlerts } from "rehype-github-alerts";
-import remarkRehype from "remark-rehype";
+import { remarkAnchorLink } from "remark-anchor-link";
+import { remarkAlert } from "remark-github-blockquote-alert";
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,7 +21,6 @@ export default defineConfig({
   },
 
   markdown: {
-    remarkPlugins: [remarkRehype],
-    rehypePlugins: [rehypeGithubAlerts, rehypeCallouts],
+    remarkPlugins: [remarkAlert, remarkAnchorLink],
   },
 });

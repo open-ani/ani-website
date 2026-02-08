@@ -1,9 +1,14 @@
 ---
-layout: ../../layouts/Post.astro
+layout: ../../layouts/Doc.astro
 title: "iOS 安装教程 (自签名)"
 ---
 
 # iOS 安装教程
+
+感谢本教程贡献者
+
+- [maxchang3](https://github.com/maxchang3) 贡献了 AltStore 源和文档
+- [WingChunWong](https://github.com/WingChunWong) 贡献了文档
 
 在 iOS 设备上安装 Animeko 需要使用“侧载”（Sideload）工具。本教程将详细介绍两种安装方案：**Sideloadly** 和 **AltStore**。
 
@@ -35,7 +40,7 @@ title: "iOS 安装教程 (自签名)"
 
 ### 2. 安装 IPA
 
-![sideloadly.png](https://free.picui.cn/free/2026/01/22/697224c1b2c95.png)
+![sideloadly.png](/images/iOS-sideloadly.png)
 
 1. 打开 Sideloadly，在 `Apple ID` 栏输入你的 Apple 账号邮箱。
 
@@ -47,13 +52,13 @@ title: "iOS 安装教程 (自签名)"
     > [!TIP]
     > `Start` 按钮左侧的“刷新图标”建议保持开启状态（默认即开启）。这允许设备在同一 Wi-Fi 环境下每 7 天自动续签。
 
-    ![ready.png](https://free.picui.cn/free/2026/01/22/697225d66f994.png)
+    ![ready.png](/images/iOS-ready.png)
 
 4. 首次使用时，需输入 Apple ID 密码。若开启了双重认证，请在弹窗中输入手机收到的 6 位验证码。
 
 5. 等待进度条跑完，当显示 `Done.` 时即表示安装成功。
 
-   ![done.png](https://free.picui.cn/free/2026/01/22/6972260219689.png)
+   ![done.png](/images/iOS-done.png)
 
 ## 方法二：使用 AltStore 安装
 
@@ -84,6 +89,7 @@ Windows 用户除 iTunes 外，还需安装 [iCloud for Windows](https://support
 1. 点击电脑端的 AltServer 图标，选择 *“Install AltStore”* -> 选择你的设备。
 2. 输入 Apple ID 和密码。
 3. 等待数秒，直到电脑弹出通知“AltStore 已安装到设备”。
+
     > [!TIP]
     > 如果手机桌面未出现图标，请尝试重启设备。
 
@@ -111,13 +117,17 @@ Windows 用户除 iTunes 外，还需安装 [iCloud for Windows](https://support
 
 - **通过源安装（更新更方便）**：
   1. 打开 AltStore，切换到 **Sources** 标签页，点击右上角 **“+”**。
-  2. 添加源地址：`https://raw.githubusercontent.com/maxchang3/ani-altstore-source/main/generated/apps.json`
+  2. 添加源地址：
+  ```
+  https://ghfast.top/https://raw.githubusercontent.com/maxchang3/ani-altstore-source/main/generated/apps.json
+  ```
   3. 添加后点击 **OpenAni** 源，找到 Animeko 点击安装。
 
 ### 进阶工具推荐
 
 - **[SideStore](https://sidestore.app/)**：AltStore 的分支，支持无电脑续签，但安装相对复杂，适合进阶用户。
 - **[LiveContainer](https://github.com/LiveContainer/LiveContainer)**：无需安装即可运行 IPA，可通过内置 SideStore 版本扩展功能。
+- **[iloader](https://github.com/nab138/iloader)**: 一个用于安装 [SideStore](https://sidestore.app/) 和 [LiveContainer](https://github.com/LiveContainer/LiveContainer) 二合一版本的工具
 
 ## 常见问题：不受信任的开发者
 
