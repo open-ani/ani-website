@@ -1,0 +1,63 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "timezone": "Asia/Shanghai",
+  "schedule": ["* 10,11,12,13,14,15,16,17,18,19,20,21 7,8,9,10,11,12,13,21,22,23,24,25,26,27 * 0,6"],
+  "prConcurrentLimit": 3,
+  "separateMajorMinor": true,
+  "extends": [
+    ":dependencyDashboard",
+    ":enableVulnerabilityAlerts",
+    ":ignoreModulesAndTests",
+    ":autodetectRangeStrategy",
+    ":rebaseStalePrs",
+    ":renovatePrefix",
+    ":semanticCommits",
+    ":semanticCommitType(chore)",
+    ":automergeBranch",
+    ":automergeRequireAllStatusChecks",
+    ":automergeTesters",
+    "group:monorepos",
+    "group:recommended",
+    "workarounds:all",
+    "github>shinGangan/renovate-config-hono"
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "pin": {
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "groupName": "vueuse",
+      "matchSourceUrls": ["https://github.com/vueuse/vueuse"]
+    },
+    {
+      "groupName": "unocss",
+      "matchSourceUrls": ["https://github.com/unocss/unocss", "https://github.com/antfu/unocss"]
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    },
+    {
+      "matchPackagePrefixes": ["@types/"],
+      "matchPackageNames": ["@cloudflare/workers-types"],
+      "automerge": true
+    },
+    {
+      "groupName": "linters",
+      "automerge": true,
+      "extends": ["packages:linters"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "matchCategories": ["ci", "docker"],
+      "dependencyDashboardApproval": false
+    }
+  ]
+}
