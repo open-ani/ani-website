@@ -117,13 +117,17 @@ Windows 用户除 iTunes 外，还需安装 [iCloud for Windows](https://support
 
 - **通过源安装（更新更方便）**：
   1. 打开 AltStore，切换到 **Sources** 标签页，点击右上角 **“+”**。
-  2. 添加源地址：`https://ghfast.top/https://raw.githubusercontent.com/maxchang3/ani-altstore-source/main/generated/apps.json`
+  2. 添加源地址：
+  ```
+  https://ghfast.top/https://raw.githubusercontent.com/maxchang3/ani-altstore-source/main/generated/apps.json
+  ```
   3. 添加后点击 **OpenAni** 源，找到 Animeko 点击安装。
 
 ### 进阶工具推荐
 
 - **[SideStore](https://sidestore.app/)**：AltStore 的分支，支持无电脑续签，但安装相对复杂，适合进阶用户。
 - **[LiveContainer](https://github.com/LiveContainer/LiveContainer)**：无需安装即可运行 IPA，可通过内置 SideStore 版本扩展功能。
+- **[iloader](https://github.com/nab138/iloader)**: 一个用于安装 [SideStore](https://sidestore.app/) 和 [LiveContainer](https://github.com/LiveContainer/LiveContainer) 二合一版本的工具
 
 ## 常见问题：不受信任的开发者
 
