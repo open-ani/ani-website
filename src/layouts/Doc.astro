@@ -253,6 +253,146 @@ const leftNavItems: NavItem[] = [
       padding-left: 0.25rem;
       padding-right: 0.25rem;
     }
+
+    /* 1. 已移除的 h2 边框，用伪元素替代 */
+    .markdown-body h2 {
+      border-bottom: none;
+      position: relative;
+      padding-left: 1.5em;
+      margin-left: -1.5em;
+      display: inline-block;
+      width: calc(100% + 1.5em);
+    }
+
+    /* h2 下划线伪元素 */
+    .markdown-body h2::after {
+      content: "";
+      position: absolute;
+      left: 1.5em;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background-color: #3d444db3;
+    }
+
+    /* 2. h3、h4 的左侧锚点空间 */
+    .markdown-body h3,
+    .markdown-body h4 {
+      position: relative;
+      padding-left: 1.5em;
+      margin-left: -1.5em;
+    }
+
+    /* 3. 列表样式强制指定 */
+    .markdown-body ul {
+      list-style: disc !important;
+    }
+
+    .markdown-body ol {
+      list-style: decimal !important;
+    }
+
+    .markdown-body ol ol,
+    .markdown-body ul ol {
+      list-style: lower-roman !important;
+    }
+
+    .markdown-body ul ul ol,
+    .markdown-body ul ol ol,
+    .markdown-body ol ul ol,
+    .markdown-body ol ol ol {
+      list-style: lower-alpha !important;
+    }
+
+    .markdown-body ol[type="a s"] {
+      list-style: lower-alpha !important;
+    }
+
+    .markdown-body ol[type="A s"] {
+      list-style: upper-alpha !important;
+    }
+
+    .markdown-body ol[type="i s"] {
+      list-style: lower-roman !important;
+    }
+
+    .markdown-body ol[type="I s"] {
+      list-style: upper-roman !important;
+    }
+
+    .markdown-body ol[type="1"] {
+      list-style: decimal !important;
+    }
+
+    .markdown-body div > ol:not([type]) {
+      list-style: decimal !important;
+    }
+
+    /* 4. 标题锚点链接样式 */
+    .markdown-body .heading-anchor {
+      text-decoration: none !important;
+      color: var(--color-primary) !important;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1.5em;
+      text-align: center;
+    }
+
+    .markdown-body h2:hover .heading-anchor,
+    .markdown-body h3:hover .heading-anchor,
+    .markdown-body h4:hover .heading-anchor {
+      opacity: 0.5;
+    }
+
+    .markdown-body .heading-anchor:hover {
+      opacity: 1 !important;
+    }
+
+    .markdown-body h2:hover,
+    .markdown-body h3:hover,
+    .markdown-body h4:hover {
+      color: var(--color-primary) !important;
+      transition: color 0.2s ease;
+    }
+
+    .markdown-body .anchor-icon {
+      font-weight: normal;
+      font-size: 0.9em;
+    }
+
+    /* 5. 移动端响应式调整 */
+    @media (max-width: 1024px) {
+      .markdown-body .heading-anchor {
+        display: none;
+      }
+      
+      .markdown-body h2,
+      .markdown-body h3,
+      .markdown-body h4 {
+        padding-left: 0;
+        margin-left: 0;
+        display: block;
+        width: 100%;
+      }
+      
+      .markdown-body h2::after {
+        left: 0;
+      }
+    }
+
+    /* 6. 普通链接样式（确保不受锚点样式影响） */
+    .markdown-body a:not(.heading-anchor) {
+      color: #4493f8;
+      text-decoration: none;
+    }
+
+    .markdown-body a:not(.heading-anchor):hover {
+      text-decoration: underline;
+    }
   </style>
 
   <script>
