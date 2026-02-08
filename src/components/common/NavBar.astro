@@ -101,8 +101,14 @@ const isActive = (href: string) => {
   const danmakuToggle = document.getElementById('danmaku-toggle');
   const danmakuIcon = document.getElementById('danmaku-icon');
   const DANMAKU_EVENT = 'toggle-danmaku';
-  
-  let isDanmakuEnabled = localStorage.getItem('danmaku-enabled') === 'true';
+  const localIsEnabled = localStorage.getItem('danmaku-enabled');
+  let isDanmakuEnabled: boolean;
+  if(localIsEnabled) isDanmakuEnabled = localIsEnabled === 'true';
+  else {
+    localStorage.setItem('danmaku-enabled', 'true')
+    isDanmakuEnabled = true;
+    // enable by default
+  }
   
   function updateIcon() {
     if (danmakuIcon) {
