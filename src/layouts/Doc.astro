@@ -18,10 +18,11 @@ const leftNavItems: NavItem[] = [];
 const posts = Object.values(import.meta.glob<MarkdownInstance<Frontmatter>>('../pages/wiki/*.md', { eager: true }));
 
 posts.forEach((post)=>{
-  leftNavItems.push({
-    name: post.frontmatter.title,
-    href: post.url
-  })
+  if(post.frontmatter.title!=='index')
+    leftNavItems.push({
+      name: post.frontmatter.title,
+      href: post.url
+    })
 })
 ---
 
@@ -188,6 +189,7 @@ posts.forEach((post)=>{
   </style>
 
   <script>
+    // TODO: use post.getHeddings to simplify these slops
     document.addEventListener('DOMContentLoaded', () => {
       const headers = document.querySelectorAll('article h2, article h3, article h4');
       const tocContent = document.getElementById('toc-content');
