@@ -21,6 +21,6 @@ export default defineConfig({
   },
 
   markdown: {
-    remarkPlugins: [remarkAlert, remarkAnchorLink]
+    remarkPlugins: [remarkAlert, remarkAnchorLink],
   },
 });
