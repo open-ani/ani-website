@@ -1,38 +1,37 @@
 ---
 import Layout from './Layout.astro'
 import '@/styles/markdown.css'
-
+import type { MarkdownInstance } from 'astro';
+interface Frontmatter {
+  title: string;
+}
 const { title } = Astro.props.frontmatter
 const pageTitle = `Animeko - ${title}`;
 
-// 定义左侧导航项类型
 type NavItem = {
   name: string;
   href?: string;
   children?: Array<{name: string; href: string}>;
 }
 
-// 硬编码的左侧导航菜单
-const leftNavItems: NavItem[] = [
-      { name: 'iOS 自签教程', href: '/wiki/iOS-自签' },
-      { name: 'Linux 安装说明', href: '/wiki/Linux-安装说明' },
-      { name: 'macOS Intel 芯片', href: '/wiki/macOS-Intel-芯片版本安装教程' },
-      { name: 'macOS 无法打开', href: '/wiki/macOS-无法打开解决方案' },
-      { name: 'Windows 字体问题', href: '/wiki/Windows下字体与背景颜色异常' },
-      { name: '常见问题', href: '/wiki/常见问题' },
-];
+const leftNavItems: NavItem[] = [];
+const posts = Object.values(import.meta.glob<MarkdownInstance<Frontmatter>>('../pages/wiki/*.md', { eager: true }));
+
+posts.forEach((post)=>{
+  leftNavItems.push({
+    name: post.frontmatter.title,
+    href: post.url
+  })
+})
 ---
 
 <Layout title={pageTitle}>
   <div class="pt-20 pb-12 min-h-screen">
-    <!-- 修改外层容器宽度为80% -->
     <div class="w-full max-w-350 mx-auto px-4 lg:px-8">
-      <!-- 使用flex布局，确保三栏撑满容器 -->
       <div class="flex flex-row gap-6 min-w-0">
-        <!-- 左侧导航栏 - 固定宽度 -->
         <aside class="w-64 shrink-0">
           <div class="sticky top-24">
-            <div class="rounded-card border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-4">
+            <div class="rounded-card max-h-150 overflow-y-scroll overflow-x-hidden border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-4">
               <h3 class="text-lg font-semibold text-text-main mb-4 pb-2 border-b border-surface-highlight">导航</h3>
               <nav class="space-y-2">
                 {leftNavItems.map((item) => (
@@ -44,7 +43,7 @@ const leftNavItems: NavItem[] = [
                           {item.children.map((child) => (
                             <a 
                               href={child.href} 
-                              class="block text-sm text-text-muted hover:text-primary hover:bg-surface-highlight/30 rounded px-2 py-1 transition-colors"
+                              class="block wrap-break-word text-sm text-text-muted hover:text-primary hover:bg-surface-highlight/30 rounded px-2 py-1 transition-colors"
                             >
                               {child.name}
                             </a>
@@ -54,7 +53,7 @@ const leftNavItems: NavItem[] = [
                     ) : (
                       <a 
                         href={item.href} 
-                        class="block text-sm text-text-muted hover:text-primary hover:bg-surface-highlight/30 rounded px-2 py-1 transition-colors"
+                        class="block text-sm wrap-break-word text-text-muted hover:text-primary hover:bg-surface-highlight/30 rounded px-2 py-1 transition-colors"
                       >
                         {item.name}
                       </a>
@@ -88,17 +87,13 @@ const leftNavItems: NavItem[] = [
           </div>
         </aside>
 
-        <!-- 主要内容 - 自适应宽度 -->
         <main class="flex-1 min-w-0">
           <article class="markdown-body bg-surface-base/50 backdrop-blur-sm rounded-card border border-surface-highlight p-6 lg:p-8">
             <slot />
           </article>
         </main>
-
-        <!-- 右侧目录 - 固定宽度 -->
         <aside class="w-64 shrink-0">
           <div class="sticky top-24">
-            <!-- 使用 JavaScript 动态生成 TOC -->
             <div id="toc-container" class="rounded-card border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-4">
               <div class="flex items-center justify-between mb-4 pb-2 border-b border-surface-highlight">
                 <h3 class="text-lg font-semibold text-text-main">目录</h3>
@@ -111,8 +106,7 @@ const leftNavItems: NavItem[] = [
                   <i class="mgc_arrow_up_line"></i>
                 </button>
               </div>
-              <nav id="toc-content" class="space-y-1">
-                <!-- TOC 将通过 JavaScript 动态生成 -->
+              <nav id="toc-content" class="space-y-1 max-h-150">
                 <div id="toc-placeholder" class="text-center py-4">
                   <div class="animate-pulse">
                     <div class="h-4 bg-surface-highlight rounded w-3/4 mx-auto mb-2"></div>
@@ -134,78 +128,17 @@ const leftNavItems: NavItem[] = [
   </div>
 
   <style>
-    /* 确保标题容器有相对定位和左侧空间 */
-    article h2,
-    article h3,
-    article h4 {
-      position: relative;
-      padding-left: 1.5em !important; /* 为左侧锚点留出空间 */
-      margin-left: -1.5em !important; /* 负外边距抵消内边距 */
-    }
-    
-    /* 标题锚点链接样式 - 绝对定位在标题左侧 */
-    article .heading-anchor {
-      position: absolute;
-      left: 0; /* 固定在左侧 */
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      color: var(--color-primary);
-      text-decoration: none;
-      width: 1.5em;
-      text-align: center;
-    }
-    
-    /* 悬停时显示锚点链接 */
-    article h2:hover .heading-anchor,
-    article h3:hover .heading-anchor,
-    article h4:hover .heading-anchor {
-      opacity: 0.5;
-    }
-    
-    /* 鼠标直接悬停在锚点上时完全显示 */
-    article .heading-anchor:hover {
-      opacity: 1 !important;
-    }
-    
-    /* 标题悬停效果 */
-    article h2:hover,
-    article h3:hover,
-    article h4:hover {
-      color: var(--color-primary) !important;
-      transition: color 0.2s ease;
-    }
-    
-    /* 移动端隐藏锚点并移除预留空间 */
     @media (max-width: 1024px) {
-      article .heading-anchor {
-        display: none;
-      }
-      
-      article h2,
-      article h3,
-      article h4 {
-        padding-left: 0 !important;
-        margin-left: 0 !important;
-      }
-      
-      /* 移动端改为单栏布局 */
-      .w-\[80\%\] {
-        width: 100% !important;
-      }
-      
       .flex-row {
-        flex-direction: column !important;
+        flex-direction: column-reverse !important;
       }
       
-      .w-64 {
+      aside {
         width: 100% !important;
         margin-bottom: 1rem;
       }
     }
     
-    /* 移动端目录响应式 */
     @media (max-width: 1024px) {
       #toc-content:not(.expanded) {
         display: none;
@@ -216,262 +149,101 @@ const leftNavItems: NavItem[] = [
       }
     }
     
-    /* TOC 项样式 - 拓宽高亮区域 */
-  .toc-item {
-    display: block;
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    border-radius: 0.375rem;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    padding-left: calc(0.5rem + var(--toc-level, 0px)) !important;
-    padding-right: 0.5rem !important;
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-  }
     
-    /* TOC 项悬停样式 - 更宽的高亮 */
-  .toc-item:hover {
-    color: var(--color-primary) !important;
-    background-color: var(--color-surface-highlight);
-    /* 确保悬停时背景延伸到容器边缘 */
-    margin-left: -0.25rem;
-    margin-right: -0.25rem;
-    padding-left: calc(0.75rem + var(--toc-level, 0px)) !important;
-    padding-right: 0.75rem !important;
-  }
+    .toc-item {
+      display: block;
+      color: var(--color-text-muted);
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      border-radius: 0.375rem;
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 150ms;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+      padding-left: calc(0.5rem + var(--toc-level, 0px)) !important;
+      padding-right: 0.5rem !important;
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+    }
     
-    /* 为TOC容器添加内边距，让内容有呼吸空间 */
+      
+    .toc-item:hover {
+      color: var(--color-primary) !important;
+      background-color: var(--color-surface-highlight);
+      margin-left: -0.25rem;
+      margin-right: -0.25rem;
+      padding-left: calc(0.75rem + var(--toc-level, 0px)) !important;
+      padding-right: 0.75rem !important;
+    }
+    
+    
     #toc-content {
       padding-left: 0.25rem;
       padding-right: 0.25rem;
     }
-
-    /* 1. 已移除的 h2 边框，用伪元素替代 */
-    .markdown-body h2 {
-      border-bottom: none;
-      position: relative;
-      padding-left: 1.5em;
-      margin-left: -1.5em;
-      display: inline-block;
-      width: calc(100% + 1.5em);
-    }
-
-    /* h2 下划线伪元素 */
-    .markdown-body h2::after {
-      content: "";
-      position: absolute;
-      left: 1.5em;
-      right: 0;
-      bottom: 0;
-      height: 1px;
-      background-color: #3d444db3;
-    }
-
-    /* 2. h3、h4 的左侧锚点空间 */
-    .markdown-body h3,
-    .markdown-body h4 {
-      position: relative;
-      padding-left: 1.5em;
-      margin-left: -1.5em;
-    }
-
-    /* 3. 列表样式强制指定 */
-    .markdown-body ul {
-      list-style: disc !important;
-    }
-
-    .markdown-body ol {
-      list-style: decimal !important;
-    }
-
-    .markdown-body ol ol,
-    .markdown-body ul ol {
-      list-style: lower-roman !important;
-    }
-
-    .markdown-body ul ul ol,
-    .markdown-body ul ol ol,
-    .markdown-body ol ul ol,
-    .markdown-body ol ol ol {
-      list-style: lower-alpha !important;
-    }
-
-    .markdown-body ol[type="a s"] {
-      list-style: lower-alpha !important;
-    }
-
-    .markdown-body ol[type="A s"] {
-      list-style: upper-alpha !important;
-    }
-
-    .markdown-body ol[type="i s"] {
-      list-style: lower-roman !important;
-    }
-
-    .markdown-body ol[type="I s"] {
-      list-style: upper-roman !important;
-    }
-
-    .markdown-body ol[type="1"] {
-      list-style: decimal !important;
-    }
-
-    .markdown-body div > ol:not([type]) {
-      list-style: decimal !important;
-    }
-
-    /* 4. 标题锚点链接样式 */
-    .markdown-body .heading-anchor {
-      text-decoration: none !important;
-      color: var(--color-primary) !important;
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 1.5em;
-      text-align: center;
-    }
-
-    .markdown-body h2:hover .heading-anchor,
-    .markdown-body h3:hover .heading-anchor,
-    .markdown-body h4:hover .heading-anchor {
-      opacity: 0.5;
-    }
-
-    .markdown-body .heading-anchor:hover {
-      opacity: 1 !important;
-    }
-
-    .markdown-body h2:hover,
-    .markdown-body h3:hover,
-    .markdown-body h4:hover {
-      color: var(--color-primary) !important;
-      transition: color 0.2s ease;
-    }
-
-    .markdown-body .anchor-icon {
-      font-weight: normal;
-      font-size: 0.9em;
-    }
-
-    /* 5. 移动端响应式调整 */
-    @media (max-width: 1024px) {
-      .markdown-body .heading-anchor {
-        display: none;
-      }
-      
-      .markdown-body h2,
-      .markdown-body h3,
-      .markdown-body h4 {
-        padding-left: 0;
-        margin-left: 0;
-        display: block;
-        width: 100%;
-      }
-      
-      .markdown-body h2::after {
-        left: 0;
-      }
-    }
-
-    /* 6. 普通链接样式（确保不受锚点样式影响） */
-    .markdown-body a:not(.heading-anchor) {
-      color: #4493f8;
-      text-decoration: none;
-    }
-
-    .markdown-body a:not(.heading-anchor):hover {
-      text-decoration: underline;
-    }
   </style>
 
   <script>
-    // 在页面加载完成后动态生成 TOC
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. 获取页面中的所有标题 (h1-h4)
-      const headers = document.querySelectorAll('article h1, article h2, article h3, article h4');
+      const headers = document.querySelectorAll('article h2, article h3, article h4');
       const tocContent = document.getElementById('toc-content');
       const tocPlaceholder = document.getElementById('toc-placeholder');
       const tocEmpty = document.getElementById('toc-empty');
       
       if (headers.length === 0) {
-        // 没有标题，显示空状态
         if (tocPlaceholder) tocPlaceholder.classList.add('hidden');
         if (tocEmpty) tocEmpty.classList.remove('hidden');
         return;
       }
       
-      // 2. 移除占位符
       if (tocPlaceholder) {
         tocPlaceholder.remove();
       }
       
-      // 3. 生成 TOC 链接
       const fragment = document.createDocumentFragment();
       
       headers.forEach((header, index) => {
-        // 确保标题有 id
         if (!header.id) {
-          // 使用标题文本生成 id（与 rehype-slug 类似，但更简单）
           const text = header.textContent || `heading-${index}`;
           header.id = text.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, '-').replace(/^-+|-+$/g, '');
         }
         
-        // 从标题文本中移除锚点链接的 "#" 符号
         let titleText = header.textContent || '';
-        // 移除开头可能出现的 # 符号
         titleText = titleText.replace(/^\s*#\s*/g, '').trim();
-        // 移除末尾可能出现的 # 符号
         titleText = titleText.replace(/\s*#\s*$/g, '').trim();
         
         const level = parseInt(header.tagName.substring(1));
-        // 调整层级缩进：h1=0, h2=12, h3=24, h4=36
-        const paddingLeft = (level - 1) * 12;
+        const paddingLeft = (level - 2) * 12;
         
         const link = document.createElement('a');
         link.href = `#${header.id}`;
-        link.className = 'toc-item block text-sm text-text-muted hover:text-primary hover:bg-surface-highlight/30 rounded px-2 py-1 transition-colors truncate';
+        link.className = 'toc-item block wrap-break-word text-sm text-text-muted hover:text-primary hover:bg-surface-highlight/30 rounded px-2 py-1 transition-colors truncate';
         
-        // 使用CSS变量设置层级缩进
         link.style.setProperty('--toc-level', `${paddingLeft}px`);
         
-        // 设置内边距
         link.style.paddingLeft = `calc(0.5rem + ${paddingLeft}px)`;
         link.style.paddingRight = '0.5rem';
         
         link.title = titleText;
         link.textContent = titleText;
         
-        // 添加点击事件处理
         link.addEventListener('click', (e) => {
           e.preventDefault();
-          
-          // 获取目标元素
           const target = document.getElementById(header.id);
           if (target) {
-            const offset = 100; // 导航栏高度 + 一些间距
+            const offset = 100;
             const targetPosition = (target as HTMLElement).offsetTop - offset;
-            
-            // 平滑滚动
             window.scrollTo({
               top: targetPosition,
               behavior: 'smooth'
             });
             
-            // 更新 URL
             history.pushState(null, '', `#${header.id}`);
             
-            // 移动端点击后收起目录
             if (window.innerWidth < 1024) {
               const tocContent = document.getElementById('toc-content');
               const tocToggle = document.getElementById('toc-toggle');
@@ -489,7 +261,6 @@ const leftNavItems: NavItem[] = [
         fragment.appendChild(link);
       });
       
-      // 4. 将 TOC 添加到页面
       if (tocContent) {
         tocContent.appendChild(fragment);
       }
@@ -506,7 +277,6 @@ const leftNavItems: NavItem[] = [
       button.innerText = 'Copy';
       button.type = 'button';
       
-      // Insert wrapper before block
       block.parentNode?.insertBefore(wrapper, block);
       wrapper.appendChild(block);
       wrapper.appendChild(button);
@@ -523,7 +293,6 @@ const leftNavItems: NavItem[] = [
       });
     });
     
-    // TOC 移动端切换
     const tocToggle = document.getElementById('toc-toggle');
     const tocContent = document.getElementById('toc-content');
     
@@ -539,7 +308,6 @@ const leftNavItems: NavItem[] = [
       });
     }
     
-    // 移动端点击目录项后自动收起目录
     if (window.innerWidth < 1024) {
       document.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
