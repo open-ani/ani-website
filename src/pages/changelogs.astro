@@ -1,44 +1,36 @@
 ---
-import { marked } from 'marked'
-import Layout from '@/layouts/Changelog.astro'
-import '@/styles/markdown.css'
+import { getCollection, render } from "astro:content";
+import Layout from "@/layouts/Changelog.astro";
+import "@/styles/markdown.css";
 
-function ts2str(ts: number): string {
-  const date = new Date(ts * 1000)
-  const y = date.getFullYear().toString()
-  const m = (date.getMonth() + 1).toString().padStart(2, '0')
-  const d = date.getDate().toString().padStart(2, '0')
-  return `${y}-${m}-${d}`
-}
-interface dataType {
-  updates: Array<{
-    version: string
-    downloadUrlAlternatives: string[]
-    publishTime: number
-    description: string
-  }>
-}
-
-let html = '';
-
-const response = await fetch(
-  'https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=4.0.0&clientPlatform=android&clientArch=x86_64&releaseClass=stable',
-)
-if(!response){ throw "Error when fetching changelogs." }
-const data: dataType = await response.json()
-const { updates } = data
-html += marked.parse(`# Changelog\n[![GitHub Release](https://img.shields.io/github/v/release/open-ani/animeko?sort=semver&display_name=tag&style=flat-square)](https://github.com/open-ani/animeko/releases/latest)\n\n> 本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本。`);
-[...updates].reverse().forEach((update) => {
-  if (update.version.includes('beta') || update.version.includes('alpha')) {
-    return
-  }
-  // @ts-ignore
-  html += marked.parse(`## v${update.version} \n\n更新时间: ${ts2str(update.publishTime)}\n\n${update.description}`)
-  html += `\n`
-});
-
+const changelogs = await getCollection("changelogs");
 ---
 
 <Layout>
-  <article class="markdown-body" set:html={html} />
+  <article class="markdown-body">
+    <h1>Changelog</h1>
+    <p>
+      <a href="https://github.com/open-ani/animeko/releases/latest" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/github/v/release/open-ani/animeko?sort=semver&display_name=tag&style=flat-square" alt="GitHub Release"/>
+      </a>
+    </p>
+    <blockquote>
+      <p>
+        本页面仅展示 v4.x.x 版本的更新日志, 且不包括 Beta 与 Pre-release 版本。
+      </p>
+    </blockquote>
+
+    {
+      changelogs.map(async (changelog) => {
+        const { Content } = await render(changelog);
+        return (
+          <section>
+            <h2>v{changelog.data.version}</h2>
+            <p>更新时间: {changelog.data.publishTime}</p>
+            <Content />
+          </section>
+        );
+      })
+    }
+  </article>
 </Layout>

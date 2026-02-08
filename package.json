@@ -18,7 +18,6 @@
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
     "danmaku": "^2.0.9",
-    "marked": "^17.0.1",
     "mingcute_icon": "^2.9.71",
     "remark-anchor-link": "^0.1.16",
     "remark-github-blockquote-alert": "^2.0.1",
