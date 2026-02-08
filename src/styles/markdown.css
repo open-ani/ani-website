@@ -287,39 +287,17 @@
   font-weight: 600;
   padding-bottom: 0.3em;
   font-size: 1.5em;
-  border-bottom: none; /* 移除原有边框，使用伪元素替代 */
-  position: relative;
-  padding-left: 1.5em; /* 为左侧锚点留出空间 */
-  margin-left: -1.5em; /* 负外边距抵消内边距 */
-  display: inline-block; /* 让伪元素下划线只包裹文本 */
-  width: calc(100% + 1.5em); /* 计算宽度，包括负边距 */
-}
-
-/* h2 下划线伪元素 */
-.markdown-body h2::after {
-  content: "";
-  position: absolute;
-  left: 1.5em; /* 从文本开始处开始 */
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background-color: #3d444db3;
+  border-bottom: 1px solid #3d444db3;
 }
 
 .markdown-body h3 {
   font-weight: 600;
   font-size: 1.25em;
-  position: relative;
-  padding-left: 1.5em;
-  margin-left: -1.5em;
 }
 
 .markdown-body h4 {
   font-weight: 600;
   font-size: 1em;
-  position: relative;
-  padding-left: 1.5em;
-  margin-left: -1.5em;
 }
 
 .markdown-body h5 {
@@ -1154,76 +1132,4 @@
 
 .markdown-body .highlight pre:has(+ .zeroclipboard-container) {
   min-height: 52px;
-}
-
-/* 标题锚点链接样式 - 绝对定位在标题左侧 */
-.markdown-body .heading-anchor {
-  text-decoration: none !important;
-  color: var(--color-primary) !important;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  position: absolute;
-  left: 0; /* 固定在左侧 */
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1.5em; /* 固定宽度 */
-  text-align: center;
-}
-
-/* 悬停时显示锚点链接 - 鼠标在标题区域内时显示 */
-.markdown-body h2:hover .heading-anchor,
-.markdown-body h3:hover .heading-anchor,
-.markdown-body h4:hover .heading-anchor {
-  opacity: 0.5;
-}
-
-/* 鼠标直接悬停在锚点上时完全显示 */
-.markdown-body .heading-anchor:hover {
-  opacity: 1 !important;
-}
-
-/* 标题本身的悬停效果 */
-.markdown-body h2:hover,
-.markdown-body h3:hover,
-.markdown-body h4:hover {
-  color: var(--color-primary) !important;
-  transition: color 0.2s ease;
-}
-
-/* 锚点图标样式 */
-.markdown-body .anchor-icon {
-  font-weight: normal;
-  font-size: 0.9em;
-}
-
-/* 移动端隐藏锚点 */
-@media (max-width: 1024px) {
-  .markdown-body .heading-anchor {
-    display: none;
-  }
-
-  /* 移动端移除为锚点预留的空间 */
-  .markdown-body h2,
-  .markdown-body h3,
-  .markdown-body h4 {
-    padding-left: 0;
-    margin-left: 0;
-    display: block; /* 恢复默认显示 */
-    width: 100%; /* 恢复全宽 */
-  }
-
-  /* 移动端移除 h2 下划线伪元素 */
-  .markdown-body h2::after {
-    left: 0;
-  }
-}
-
-/* 确保普通链接样式不受影响 */
-.markdown-body a:not(.heading-anchor) {
-  color: #4493f8;
-  text-decoration: none;
-}
-
-.markdown-body a:not(.heading-anchor):hover {
-  text-decoration: underline;
 }
