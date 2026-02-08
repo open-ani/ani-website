@@ -84,6 +84,7 @@ Windows 用户除 iTunes 外，还需安装 [iCloud for Windows](https://support
 1. 点击电脑端的 AltServer 图标，选择 *“Install AltStore”* -> 选择你的设备。
 2. 输入 Apple ID 和密码。
 3. 等待数秒，直到电脑弹出通知“AltStore 已安装到设备”。
+
     > [!TIP]
     > 如果手机桌面未出现图标，请尝试重启设备。
 

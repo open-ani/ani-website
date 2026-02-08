@@ -20,6 +20,8 @@
     "danmaku": "^2.0.9",
     "marked": "^17.0.1",
     "mingcute_icon": "^2.9.71",
+    "remark-anchor-link": "^0.1.16",
+    "remark-github-blockquote-alert": "^2.0.1",
     "solid-js": "^1.9.11",
     "tailwindcss": "^4.1.18"
   },
@@ -28,8 +30,8 @@
     "@biomejs/biome": "^2.3.14",
     "@typescript/native-preview": "7.0.0-dev.20250821.1",
     "@zeabur/cli": "^0.2.9",
-    "lint-staged": "^16.2.7",
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7"
   },
   "lint-staged": {
     "*.astro": "astro check"
