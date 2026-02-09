@@ -1,9 +1,7 @@
 ---
-layout: ../../layouts/Doc.astro
 title: "macOS Intel 芯片安装教程"
+order: 4
 ---
-
-# macOS Intel 芯片安装教程
 
 1. 下载压缩包 zip
 2. 下载完成后，在 Finder 中双击压缩包即可解压

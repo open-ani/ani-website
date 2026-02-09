@@ -1,10 +1,7 @@
 ---
-layout: ../../layouts/Doc.astro
 title: "macOS 无法打开解决方案"
+order: 3
 ---
-
-# macOS 无法打开解决方案
-
 ## 未打开 “Ani”
 
 ![image](/images/macos-security.png)

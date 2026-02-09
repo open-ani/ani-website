@@ -13,13 +13,14 @@
     "postinstall": "husky"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^6.3.10",
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/solid-js": "^5.1.3",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
     "danmaku": "^2.0.9",
     "mingcute_icon": "^2.9.71",
-    "remark-anchor-link": "^0.1.16",
+    "rehype-autolink-headings": "^7.1.0",
     "remark-github-blockquote-alert": "^2.0.1",
     "solid-js": "^1.9.11",
     "tailwindcss": "^4.1.18"

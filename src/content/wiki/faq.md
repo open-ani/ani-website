@@ -1,10 +1,7 @@
 ---
-layout: ../../layouts/Doc.astro
 title: "常见问题 (FAQ)"
+order: 1
 ---
-
-# 常见问题 (FAQ)
-
 ## 注册/登录跳转显示 "已停止访问该网页"
 
 这通常发生在内置浏览器中。请下载并使用第三方浏览器（例如 Chrome、Via、Firefox），并在系统设置中将其设置为默认浏览器，然后再尝试操作。
@@ -56,6 +53,6 @@ Bangumi 不提供播放功能，请使用能正常接受邮件的邮箱注册 Ba
 反馈问题前请先将 Animeko 更新至最新版，否则不予解答。如需反馈 Bug 请附带日志（设置-关于-分享日志）。
 
 ### 获取更多帮助
-- 查看完整的 [Wiki 文档](/wiki/iOS-自签)
+- 查看完整的 [Wiki 文档](/wiki/)
 - 在 [Github Issues](https://github.com/open-ani/animeko/issues/new/choose) 中反馈问题
 - 加入 [Telegram 群组](https://t.me/openani) 讨论

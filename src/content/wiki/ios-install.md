@@ -1,14 +1,12 @@
 ---
-layout: ../../layouts/Doc.astro
-title: "iOS 安装教程 (自签名)"
+title: "iOS 安装说明"
+order: 5
 ---
 
-# iOS 安装教程
-
-感谢本教程贡献者
-
-- [maxchang3](https://github.com/maxchang3) 贡献了 AltStore 源和文档
-- [WingChunWong](https://github.com/WingChunWong) 贡献了文档
+> 感谢本教程贡献者
+> 
+> - [maxchang3](https://github.com/maxchang3) 贡献了 AltStore 源和文档
+> - [WingChunWong](https://github.com/WingChunWong) 贡献了文档
 
 在 iOS 设备上安装 Animeko 需要使用“侧载”（Sideload）工具。本教程将详细介绍两种安装方案：**Sideloadly** 和 **AltStore**。
 

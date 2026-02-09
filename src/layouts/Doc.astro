@@ -1,29 +1,36 @@
 ---
-import Layout from './Layout.astro'
-import '@/styles/markdown.css'
-import type { MarkdownInstance } from 'astro';
-interface Frontmatter {
-  title: string;
+import Layout from './Layout.astro';
+import '@/styles/markdown.css';
+import type { MarkdownHeading } from 'astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<"wiki">;
+  headings: MarkdownHeading[];
 }
-const { title } = Astro.props.frontmatter
-const pageTitle = `Animeko - ${title}`;
 
 type NavItem = {
   name: string;
   href?: string;
-  children?: Array<{name: string; href: string}>;
-}
+  children?: Array<{ name: string; href: string }>;
+};
 
-const leftNavItems: NavItem[] = [];
-const posts = Object.values(import.meta.glob<MarkdownInstance<Frontmatter>>('../pages/wiki/*.md', { eager: true }));
+const { post, headings } = Astro.props;
+const pageTitle = `Animeko - ${post.data.title}`;
 
-posts.forEach((post)=>{
-  if(post.frontmatter.title!=='index')
-    leftNavItems.push({
-      name: post.frontmatter.title,
-      href: post.url
-    })
-})
+const wiki = await getCollection("wiki");
+const leftNavItems: NavItem[] = wiki
+  .filter((post) => post.id != "index")
+  .sort((a, b) => {
+    const orderA = a.data.order ?? Number.MAX_SAFE_INTEGER;
+    const orderB = b.data.order ?? Number.MAX_SAFE_INTEGER;
+    return orderA - orderB;
+  })
+  .map((post) => ({
+    name: post.data.title,
+    href: `/wiki/${post.id}`,
+  }))
 ---
 
 <Layout title={pageTitle}>
@@ -31,8 +38,8 @@ posts.forEach((post)=>{
     <div class="w-full max-w-350 mx-auto px-4 lg:px-8">
       <div class="flex flex-row gap-6 min-w-0">
         <aside class="w-64 shrink-0">
-          <div class="sticky top-24">
-            <div class="rounded-card max-h-150 overflow-y-scroll overflow-x-hidden border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-4">
+          <div class="sticky top-20">
+            <div class="rounded-card max-h-150 overflow-y-scroll overflow-x-hidden border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-3">
               <h3 class="text-lg font-semibold text-text-main mb-4 pb-2 border-b border-surface-highlight">导航</h3>
               <nav class="space-y-2">
                 {leftNavItems.map((item) => (
@@ -90,11 +97,12 @@ posts.forEach((post)=>{
 
         <main class="flex-1 min-w-0">
           <article class="markdown-body bg-surface-base/50 backdrop-blur-sm rounded-card border border-surface-highlight p-6 lg:p-8">
+            <h1>{post.data.title}</h1>
             <slot />
           </article>
         </main>
         <aside class="w-64 shrink-0">
-          <div class="sticky top-24">
+          <div class="sticky top-20">
             <div id="toc-container" class="rounded-card border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-4">
               <div class="flex items-center justify-between mb-4 pb-2 border-b border-surface-highlight">
                 <h3 class="text-lg font-semibold text-text-main">目录</h3>
@@ -108,19 +116,33 @@ posts.forEach((post)=>{
                 </button>
               </div>
               <nav id="toc-content" class="space-y-1 max-h-150">
-                <div id="toc-placeholder" class="text-center py-4">
-                  <div class="animate-pulse">
-                    <div class="h-4 bg-surface-highlight rounded w-3/4 mx-auto mb-2"></div>
-                    <div class="h-4 bg-surface-highlight rounded w-1/2 mx-auto"></div>
-                  </div>
-                </div>
+                {
+                  headings.length === 0 ? (
+                    <div id="toc-empty">
+                      <p class="text-sm text-text-muted italic text-center py-4">
+                        此页面暂无标题
+                      </p>
+                    </div>
+                  ) : (
+                    headings.map((heading) => {
+                      const level = heading.depth;
+                      const paddingLeft = Math.max(0, (level - 2) * 12);
+                      return (
+                        <a
+                          href={`#${heading.slug}`}
+                          class="toc-item block wrap-break-word text-sm text-text-muted hover:text-primary hover:bg-surface-highlight/30 rounded px-2 py-1 transition-colors truncate"
+                          style={{
+                            "--toc-level": `${paddingLeft}px`,
+                          }}
+                          title={heading.text}
+                        >
+                          {heading.text}
+                        </a>
+                      );
+                    })
+                  )
+                }
               </nav>
-              
-              <div id="toc-empty" class="hidden">
-                <p class="text-sm text-text-muted italic text-center py-4">
-                  此页面暂无标题
-                </p>
-              </div>
             </div>
           </div>
         </aside>
@@ -133,24 +155,23 @@ posts.forEach((post)=>{
       .flex-row {
         flex-direction: column-reverse !important;
       }
-      
+
       aside {
         width: 100% !important;
         margin-bottom: 1rem;
       }
     }
-    
+
     @media (max-width: 1024px) {
       #toc-content:not(.expanded) {
         display: none;
       }
-      
+
       #toc-content.expanded {
         display: block;
       }
     }
-    
-    
+
     .toc-item {
       display: block;
       color: var(--color-text-muted);
@@ -163,15 +184,11 @@ posts.forEach((post)=>{
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      margin-left: 0.5rem;
-      margin-right: 0.5rem;
       padding-left: calc(0.5rem + var(--toc-level, 0px)) !important;
-      padding-right: 0.5rem !important;
       padding-top: 0.25rem;
       padding-bottom: 0.25rem;
     }
-    
-      
+
     .toc-item:hover {
       color: var(--color-primary) !important;
       background-color: var(--color-surface-highlight);
@@ -180,8 +197,7 @@ posts.forEach((post)=>{
       padding-left: calc(0.75rem + var(--toc-level, 0px)) !important;
       padding-right: 0.75rem !important;
     }
-    
-    
+
     #toc-content {
       padding-left: 0.25rem;
       padding-right: 0.25rem;
@@ -189,136 +205,100 @@ posts.forEach((post)=>{
   </style>
 
   <script>
-    // TODO: use post.getHeddings to simplify these slops
-    document.addEventListener('DOMContentLoaded', () => {
-      const headers = document.querySelectorAll('article h2, article h3, article h4');
-      const tocContent = document.getElementById('toc-content');
-      const tocPlaceholder = document.getElementById('toc-placeholder');
-      const tocEmpty = document.getElementById('toc-empty');
-      
-      if (headers.length === 0) {
-        if (tocPlaceholder) tocPlaceholder.classList.add('hidden');
-        if (tocEmpty) tocEmpty.classList.remove('hidden');
-        return;
-      }
-      
-      if (tocPlaceholder) {
-        tocPlaceholder.remove();
-      }
-      
-      const fragment = document.createDocumentFragment();
-      
-      headers.forEach((header, index) => {
-        if (!header.id) {
-          const text = header.textContent || `heading-${index}`;
-          header.id = text.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, '-').replace(/^-+|-+$/g, '');
-        }
-        
-        let titleText = header.textContent || '';
-        titleText = titleText.replace(/^\s*#\s*/g, '').trim();
-        titleText = titleText.replace(/\s*#\s*$/g, '').trim();
-        
-        const level = parseInt(header.tagName.substring(1));
-        const paddingLeft = (level - 2) * 12;
-        
-        const link = document.createElement('a');
-        link.href = `#${header.id}`;
-        link.className = 'toc-item block wrap-break-word text-sm text-text-muted hover:text-primary hover:bg-surface-highlight/30 rounded px-2 py-1 transition-colors truncate';
-        
-        link.style.setProperty('--toc-level', `${paddingLeft}px`);
-        
-        link.style.paddingLeft = `calc(0.5rem + ${paddingLeft}px)`;
-        link.style.paddingRight = '0.5rem';
-        
-        link.title = titleText;
-        link.textContent = titleText;
-        
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = document.getElementById(header.id);
-          if (target) {
-            const offset = 100;
-            const targetPosition = (target as HTMLElement).offsetTop - offset;
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
-            
-            history.pushState(null, '', `#${header.id}`);
-            
-            if (window.innerWidth < 1024) {
-              const tocContent = document.getElementById('toc-content');
-              const tocToggle = document.getElementById('toc-toggle');
-              if (tocContent) {
-                tocContent.classList.remove('expanded');
-                const icon = tocToggle?.querySelector('i');
-                if (icon) {
-                  icon.className = 'mgc_arrow_up_line';
-                }
-              }
-            }
-          }
-        });
-        
-        fragment.appendChild(link);
+    function scrollToAnchor(
+      target: HTMLElement,
+      options?: {
+        offset?: number;
+        closeTocOnMobile?: boolean;
+        mobileBreakpoint?: number;
+      },
+    ) {
+      const { offset = 100, closeTocOnMobile = true, mobileBreakpoint = 1024, } = options ?? {};
+
+      const href = target.getAttribute("href");
+      if (!href || !href.startsWith("#")) return;
+
+      const id = href.slice(1);
+      const element = document.getElementById(id);
+      if (!element) return;
+
+      const top = element.getBoundingClientRect().top + window.scrollY - offset;
+
+      window.scrollTo({
+        top,
+        behavior: "smooth",
       });
-      
-      if (tocContent) {
-        tocContent.appendChild(fragment);
+
+
+      if (closeTocOnMobile && window.innerWidth < mobileBreakpoint) {
+        const tocContent = document.getElementById("toc-content");
+        const tocToggle = document.getElementById("toc-toggle");
+        const icon = tocToggle?.querySelector("i");
+
+        tocContent?.classList.remove("expanded");
+        if (icon) icon.className = "mgc_arrow_up_line";
       }
+    }
+
+    document.addEventListener("click", (e) => {
+      if (!(e.target instanceof HTMLElement)) return;
+      const tocItem = e.target.closest(".toc-item");
+      if (!tocItem || !(tocItem instanceof HTMLElement)) return;
+      e.preventDefault();
+      scrollToAnchor(tocItem);
     });
-    
+
     // Copy Button Logic
-    const codeBlocks = document.querySelectorAll('pre');
-    codeBlocks.forEach(block => {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'code-block-wrapper';
-      
-      const button = document.createElement('button');
-      button.className = 'copy-button';
-      button.innerText = 'Copy';
-      button.type = 'button';
-      
+    const codeBlocks = document.querySelectorAll("pre");
+    codeBlocks.forEach((block) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "code-block-wrapper";
+
+      const button = document.createElement("button");
+      button.className = "copy-button";
+      button.innerText = "Copy";
+      button.type = "button";
+
       block.parentNode?.insertBefore(wrapper, block);
       wrapper.appendChild(block);
       wrapper.appendChild(button);
-      
-      button.addEventListener('click', async () => {
-        const code = block.querySelector('code')?.innerText;
+
+      button.addEventListener("click", async () => {
+        const code = block.querySelector("code")?.innerText;
         if (code) {
           await navigator.clipboard.writeText(code);
-          button.innerText = 'Copied!';
+          button.innerText = "Copied!";
           setTimeout(() => {
-            button.innerText = 'Copy';
+            button.innerText = "Copy";
           }, 2000);
         }
       });
     });
-    
-    const tocToggle = document.getElementById('toc-toggle');
-    const tocContent = document.getElementById('toc-content');
-    
+
+    const tocToggle = document.getElementById("toc-toggle");
+    const tocContent = document.getElementById("toc-content");
+
     if (tocToggle && tocContent) {
-      tocToggle.addEventListener('click', () => {
-        tocContent.classList.toggle('expanded');
-        const icon = tocToggle.querySelector('i');
+      tocToggle.addEventListener("click", () => {
+        tocContent.classList.toggle("expanded");
+        const icon = tocToggle.querySelector("i");
         if (icon) {
-          icon.className = tocContent.classList.contains('expanded') 
-            ? 'mgc_arrow_down_line' 
-            : 'mgc_arrow_up_line';
+          icon.className = tocContent.classList.contains("expanded")
+            ? "mgc_arrow_down_line"
+            : "mgc_arrow_up_line";
         }
       });
     }
-    
+
     if (window.innerWidth < 1024) {
-      document.addEventListener('click', (e) => {
+      document.addEventListener("click", (e) => {
         const target = e.target as HTMLElement;
-        if (target.classList.contains('toc-item')) {
+        if (target.classList.contains("toc-item")) {
           if (tocContent) {
-            tocContent.classList.remove('expanded');
-            const icon = tocToggle?.querySelector('i');
+            tocContent.classList.remove("expanded");
+            const icon = tocToggle?.querySelector("i");
             if (icon) {
-              icon.className = 'mgc_arrow_up_line';
+              icon.className = "mgc_arrow_up_line";
             }
           }
         }
