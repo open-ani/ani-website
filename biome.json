@@ -10,19 +10,13 @@
     "lineWidth": 120,
     "attributePosition": "auto"
   },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
   "files": {
-    "includes": [
-      "**/*.{ts,tsx,js,mts,mjs,cjs,jsx,css,scss,json,yml,yaml}",
-      "!**/.DS_Store",
-      "!.astro/**/*",
-      "!**/node_modules",
-      "!**/.env",
-      "!**/.env.*",
-      "!**/dist",
-      "!**/pnpm-lock.yaml",
-      "!**/package-lock.json",
-      "!**/yarn.lock"
-    ]
+    "includes": ["**", "!**/.astro", "!**/dist"]
   },
   "assist": {
     "actions": {
@@ -72,9 +66,31 @@
       "attributePosition": "auto"
     }
   },
+  "json": {
+    "parser": {
+      "allowTrailingCommas": true
+    }
+  },
   "css": {
     "parser": {
       "tailwindDirectives": true
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          }
+        }
+      }
+    }
+  ]
 }
