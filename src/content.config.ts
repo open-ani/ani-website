@@ -1,5 +1,5 @@
 import { defineCollection } from "astro:content";
-import type { Loader } from "astro/loaders";
+import { glob, type Loader } from "astro/loaders";
 import { z } from "astro/zod";
 
 const changelogSchema = z.object({
@@ -48,9 +48,20 @@ const changelogLoader: Loader = {
   schema: changelogSchema,
 };
 
-export const collections = {
-  changelogs: defineCollection({
-    loader: changelogLoader,
-    schema: changelogSchema,
+const changelogs = defineCollection({
+  loader: changelogLoader,
+  schema: changelogSchema,
+});
+
+const wiki = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/wiki" }),
+  schema: z.object({
+    title: z.string(),
+    order: z.number().optional(),
   }),
+});
+
+export const collections = {
+  changelogs,
+  wiki,
 };

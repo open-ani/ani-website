@@ -1,15 +1,13 @@
 ---
-layout: ../../layouts/Doc.astro
 title: "macOS Intel 芯片安装教程"
+order: 4
 ---
-
-# macOS Intel 芯片安装教程
 
 1. 下载压缩包 zip
 2. 下载完成后，在 Finder 中双击压缩包即可解压
 3. 打开另一个 Finder 窗口，进入 Applications
   ![image](/images/macos-intel.png)
-4. 将解压出来的 Animeko 拖到 Applications 内即可
+1. 将解压出来的 Animeko 拖到 Applications 内即可
 
 上述操作只需要进行一次，后续更新是应用内全自动更新的。
 

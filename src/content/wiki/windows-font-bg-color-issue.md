@@ -1,10 +1,7 @@
 ---
-layout: ../../layouts/Doc.astro
 title: "Windows 下字体与背景颜色异常"
+order: 2
 ---
-
-# Windows 下字体与背景颜色异常
-
 ## 字体与背景颜色渲染异常
 
 ![image](/images/win-font-1.png)
