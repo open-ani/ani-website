@@ -99,6 +99,10 @@ const leftNavItems: NavItem[] = wiki
           <article class="markdown-body bg-surface-base/50 backdrop-blur-sm rounded-card border border-surface-highlight p-6 lg:p-8">
             <h1>{post.data.title}</h1>
             <slot />
+            <a href={`https://github.com/open-ani/ani-website/edit/main/src/content/wiki/${post.id}.md`} target="_blank" class="mt-8 inline-flex items-center gap-2 text-sm text-text-muted! hover:text-primary! hover:no-underline!">
+              <i class="mgc_edit_line"></i>
+              编辑页面
+            </a>
           </article>
         </main>
         <aside class="w-full lg:w-64 shrink-0">
