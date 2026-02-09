@@ -58,6 +58,7 @@ const wiki = defineCollection({
   schema: z.object({
     title: z.string(),
     order: z.number().optional(),
+    authors: z.array(z.string()).optional(),
   }),
 });
 
