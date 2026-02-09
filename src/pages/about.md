@@ -34,7 +34,7 @@ title: "About"
 
 - 聚合视频数据源，全自动选择
   > 还支持 BitTorrent、Jellyfin、Emby、以及自定义源
-- 聚合全网弹幕源（[弹弹play][ddplay]），以及 Animeko 自己的[弹幕服务](https://danmaku-cn.myani.org/swagger/index.html)
+- 聚合全网弹幕源（[弹弹play](https://www.dandanplay.com/)），以及 Animeko 自己的[弹幕服务](https://danmaku-cn.myani.org/swagger/index.html)
 
 | <img src="/features/mediaselector-simple.png" alt="" width="200"/> | <img src="/features/mediaselector-detailed.png" alt="" width="200"/> |
 |:--------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------:|
