@@ -1,15 +1,15 @@
 ---
-import Doc from '@/layouts/Doc.astro'
-import { getCollection, render } from 'astro:content';
+import { getCollection, render } from "astro:content";
+import Doc from "@/layouts/Doc.astro";
 
 export async function getStaticPaths() {
-const wiki = await getCollection('wiki');
-  return wiki.map(post => {
-    const slug =  post.id === 'index' ? '/' :  post.id
+  const wiki = await getCollection("wiki");
+  return wiki.map((post) => {
+    const slug = post.id === "index" ? "/" : post.id;
     return {
       params: { slug },
       props: { post },
-    }
+    };
   });
 }
 const { post } = Astro.props;

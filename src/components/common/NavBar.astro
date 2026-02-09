@@ -1,18 +1,18 @@
 ---
 const navigation = [
-  { name: '主页', href: '/' },
-  { name: '下载', href: '/downloads' },
-  { name: '功能截图', href: '/about' },
-  { name: '更新日志', href: '/changelogs' },
-  { name: '文档', href: '/wiki' },
+  { name: "主页", href: "/" },
+  { name: "下载", href: "/downloads" },
+  { name: "功能截图", href: "/about" },
+  { name: "更新日志", href: "/changelogs" },
+  { name: "文档", href: "/wiki" },
 ];
 
 const currentPath = Astro.url.pathname;
 const isActive = (href: string) => {
-    if (href === '/') {
-        return currentPath === '/';
-    }
-    return currentPath.startsWith(href);
+  if (href === "/") {
+    return currentPath === "/";
+  }
+  return currentPath.startsWith(href);
 };
 ---
 

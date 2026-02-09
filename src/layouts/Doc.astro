@@ -1,9 +1,9 @@
 ---
-import Layout from './Layout.astro';
-import '@/styles/markdown.css';
-import type { MarkdownHeading } from 'astro';
-import { getCollection } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
+import Layout from "./Layout.astro";
+import "@/styles/markdown.css";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import type { MarkdownHeading } from "astro";
 
 interface Props {
   post: CollectionEntry<"wiki">;
@@ -21,7 +21,7 @@ const pageTitle = `Animeko - ${post.data.title}`;
 
 const wiki = await getCollection("wiki");
 const leftNavItems: NavItem[] = wiki
-  .filter((post) => post.id != "index")
+  .filter((post) => post.id !== "index")
   .sort((a, b) => {
     const orderA = a.data.order ?? Number.MAX_SAFE_INTEGER;
     const orderB = b.data.order ?? Number.MAX_SAFE_INTEGER;
@@ -30,7 +30,7 @@ const leftNavItems: NavItem[] = wiki
   .map((post) => ({
     name: post.data.title,
     href: `/wiki/${post.id}`,
-  }))
+  }));
 ---
 
 <Layout title={pageTitle}>
