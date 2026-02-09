@@ -1,8 +1,9 @@
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import sitemap from "@astrojs/sitemap";
 import solid from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
-import { remarkAnchorLink } from "remark-anchor-link";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkAlert } from "remark-github-blockquote-alert";
 
 // https://astro.build/config
@@ -21,6 +22,20 @@ export default defineConfig({
   },
 
   markdown: {
-    remarkPlugins: [remarkAlert, remarkAnchorLink],
+    remarkPlugins: [remarkAlert],
+    rehypePlugins: [
+      // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
+      [rehypeHeadingIds, { headingIdCompat: true }],
+      [
+        rehypeAutolinkHeadings,
+        {
+          properties: { class: "anchor", ariaHidden: true, tabIndex: -1 },
+          content: {
+            type: "text",
+            value: "#",
+          },
+        },
+      ],
+    ],
   },
 });
