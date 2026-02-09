@@ -30,9 +30,9 @@ const GUIDANCE_LINK: Record<string, string> = {
   "android-universal": "",
   "windows-x86_64": "",
   "macos-aarch64": "",
-  "linux-x86_64": "/wiki/Linux-安装说明",
-  "ios-aarch64": "/wiki/iOS-自签",
-  "macos-x86_64": "/wiki/macOS-Intel-芯片版本安装教程",
+  "linux-x86_64": "/wiki/linux-install",
+  "ios-aarch64": "/wiki/ios-install",
+  "macos-x86_64": "/wiki/macos-intel-install",
 };
 
 const API_BASE = "https://danmaku-cn.myani.org/v1/updates/latest";
