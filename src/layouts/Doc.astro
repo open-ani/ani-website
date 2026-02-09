@@ -36,10 +36,10 @@ const leftNavItems: NavItem[] = wiki
 <Layout title={pageTitle}>
   <div class="pt-20 pb-12 min-h-screen">
     <div class="w-full max-w-350 mx-auto px-4 lg:px-8">
-      <div class="flex flex-row gap-6 min-w-0">
-        <aside class="w-64 shrink-0">
+      <div class="flex lg:flex-row flex-col-reverse gap-6 min-w-0">
+        <aside class="w-full lg:w-64 shrink-0">
           <div class="sticky top-20">
-            <div class="rounded-card max-h-150 overflow-y-scroll overflow-x-hidden border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-3">
+            <div class="rounded-card max-h-150 overflow-y-scroll overflow-x-hidden border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-4">
               <h3 class="text-lg font-semibold text-text-main mb-4 pb-2 border-b border-surface-highlight">导航</h3>
               <nav class="space-y-2">
                 {leftNavItems.map((item) => (
@@ -101,10 +101,10 @@ const leftNavItems: NavItem[] = wiki
             <slot />
           </article>
         </main>
-        <aside class="w-64 shrink-0">
+        <aside class="w-full lg:w-64 shrink-0">
           <div class="sticky top-20">
             <div id="toc-container" class="rounded-card border border-surface-highlight bg-surface-base/50 backdrop-blur-sm p-4">
-              <div class="flex items-center justify-between mb-4 pb-2 border-b border-surface-highlight">
+              <div class="flex items-center justify-between mb-0 lg:mb-4 pb-0 lg:pb-2 border-0 sm:border-b border-surface-highlight">
                 <h3 class="text-lg font-semibold text-text-main">目录</h3>
                 <button 
                   id="toc-toggle" 
@@ -112,10 +112,10 @@ const leftNavItems: NavItem[] = wiki
                   aria-label="切换目录"
                   type="button"
                 >
-                  <i class="mgc_arrow_up_line"></i>
+                  <i class="mgc_up_line"></i>
                 </button>
               </div>
-              <nav id="toc-content" class="space-y-1 max-h-150">
+              <nav id="toc-content" class="space-y-1 max-h-150 mt-2 lg:mt-0 px-1">
                 {
                   headings.length === 0 ? (
                     <div id="toc-empty">
@@ -152,17 +152,6 @@ const leftNavItems: NavItem[] = wiki
 
   <style>
     @media (max-width: 1024px) {
-      .flex-row {
-        flex-direction: column-reverse !important;
-      }
-
-      aside {
-        width: 100% !important;
-        margin-bottom: 1rem;
-      }
-    }
-
-    @media (max-width: 1024px) {
       #toc-content:not(.expanded) {
         display: none;
       }
@@ -196,11 +185,6 @@ const leftNavItems: NavItem[] = wiki
       margin-right: -0.25rem;
       padding-left: calc(0.75rem + var(--toc-level, 0px)) !important;
       padding-right: 0.75rem !important;
-    }
-
-    #toc-content {
-      padding-left: 0.25rem;
-      padding-right: 0.25rem;
     }
   </style>
 
@@ -256,7 +240,7 @@ const leftNavItems: NavItem[] = wiki
 
       const button = document.createElement("button");
       button.className = "copy-button";
-      button.innerText = "Copy";
+      button.innerText = "复制";
       button.type = "button";
 
       block.parentNode?.insertBefore(wrapper, block);
@@ -267,9 +251,9 @@ const leftNavItems: NavItem[] = wiki
         const code = block.querySelector("code")?.innerText;
         if (code) {
           await navigator.clipboard.writeText(code);
-          button.innerText = "Copied!";
+          button.innerText = "已复制";
           setTimeout(() => {
-            button.innerText = "Copy";
+            button.innerText = "复制";
           }, 2000);
         }
       });
@@ -284,8 +268,8 @@ const leftNavItems: NavItem[] = wiki
         const icon = tocToggle.querySelector("i");
         if (icon) {
           icon.className = tocContent.classList.contains("expanded")
-            ? "mgc_arrow_down_line"
-            : "mgc_arrow_up_line";
+            ? "mgc_down_line"
+            : "mgc_up_line";
         }
       });
     }
@@ -298,7 +282,7 @@ const leftNavItems: NavItem[] = wiki
             tocContent.classList.remove("expanded");
             const icon = tocToggle?.querySelector("i");
             if (icon) {
-              icon.className = "mgc_arrow_up_line";
+              icon.className = "mgc_up_line";
             }
           }
         }

@@ -22,6 +22,9 @@ export default defineConfig({
   },
 
   markdown: {
+    shikiConfig: {
+      theme: "github-dark-dimmed",
+    },
     remarkPlugins: [remarkAlert],
     rehypePlugins: [
       // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins

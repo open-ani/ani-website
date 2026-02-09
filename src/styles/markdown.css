@@ -125,6 +125,7 @@ details .anchor {
   border-style: none;
   max-width: 100%;
   box-sizing: content-box;
+  margin: 8px 0;
 }
 
 .markdown-body code,
