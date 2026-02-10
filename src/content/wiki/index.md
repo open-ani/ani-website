@@ -39,7 +39,7 @@ Animeko 的官网采取了 Astro.js 的技术栈，贡献时请参考 [CONTRIBUT
 
 - [Kotlin 多平台](https://kotlinlang.org/docs/multiplatform.html) 架构；
 - 使用新一代响应式 UI 框架 [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 构建 UI；
-- 内置专为 Animeko 打造的“基于 [libtorrent](https://github.com/arvidn/libtorrent) 的 BitTorrent 引擎，优化边下边播的体验；
+- 内置专为 Animeko 打造的“基于 [libtorrent](https://github.com/arvidn/libtorrent) 的 BitTorrent 引擎”，优化边下边播的体验；
 - 高性能弹幕引擎，公益弹幕服务器 + 网络弹幕源；
 - 适配多平台的[视频播放器](https://github.com/open-ani/mediamp)，Android 底层为 [ExoPlayer](https://github.com/google/ExoPlayer)，PC 底层为 [VLC](https://www.videolan.org/)；
 - 多类型数据源适配，内置 [动漫花园](https://share.dmhy.org/)、[Mikan](https://mikanani.me/)，拥有强大的自定义数据源编辑器和自动数据源选择器。
