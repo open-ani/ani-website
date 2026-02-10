@@ -2,7 +2,7 @@
 title: "macOS Intel 芯片安装教程"
 order: 4
 authors:
-  - nick-cjyx9
+  - Him188
 ---
 
 1. 下载压缩包 zip

@@ -2,7 +2,7 @@
 title: "Windows 下字体与背景颜色异常"
 order: 2
 authors:
-  - nick-cjyx9
+  - StageGuard
 ---
 ## 字体与背景颜色渲染异常
 

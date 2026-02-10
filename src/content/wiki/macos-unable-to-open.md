@@ -2,7 +2,8 @@
 title: "macOS 无法打开解决方案"
 order: 3
 authors:
-  - nick-cjyx9
+  - MisakaTAT
+  - Him188
 ---
 ## 未打开 “Ani”
 

@@ -2,7 +2,7 @@
 title: "Linux 安装说明"
 order: 6
 authors:
-  - nick-cjyx9
+  - Him188
 ---
 ## 安装依赖
 
