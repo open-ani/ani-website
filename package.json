@@ -8,7 +8,7 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "code:lint": "biome lint . --fix",
+    "code:lint": "biome check --write .",
     "astro": "astro",
     "postinstall": "husky"
   },
