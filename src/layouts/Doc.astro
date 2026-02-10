@@ -98,6 +98,32 @@ const leftNavItems: NavItem[] = wiki
         <main class="flex-1 min-w-0">
           <article class="markdown-body bg-surface-base/50 backdrop-blur-sm rounded-card border border-surface-highlight p-6 lg:p-8">
             <h1>{post.data.title}</h1>
+            {post.data.authors && post.data.authors.length > 0 && (
+              <div class="flex items-center gap-3 mb-6">
+                <span class="text-sm text-text-muted">作者</span>
+                <div class="flex -space-x-2 group">
+                  {post.data.authors.map((author: string, index: number) => (
+                    <a
+                      href={`https://github.com/${author}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="relative inline-block rounded-full transition-all duration-300"
+                      title={author}
+                      style={{
+                        "--index": index + 1,
+                      }}
+                    >
+                      <img
+                        src={`https://github.com/${author}.png`}
+                        alt={author}
+                        class="w-8 h-8 rounded-full bg-gray-600"
+                        loading="lazy"
+                      />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
             <slot />
             <a href={`https://github.com/open-ani/ani-website/edit/main/src/content/wiki/${post.id}.md`} target="_blank" class="mt-8 inline-flex items-center gap-2 text-sm text-text-muted! hover:text-primary! hover:no-underline!">
               <i class="mgc_edit_line"></i>
@@ -189,6 +215,11 @@ const leftNavItems: NavItem[] = wiki
       margin-right: -0.25rem;
       padding-left: calc(0.75rem + var(--toc-level, 0px)) !important;
       padding-right: 0.75rem !important;
+    }
+
+    .group:hover .relative {
+      transition-all: transform 0.3s ease;
+      transform: translateX(calc(10px * (var(--index) - 1)));
     }
   </style>
 

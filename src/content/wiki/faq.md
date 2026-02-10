@@ -1,6 +1,8 @@
 ---
 title: "常见问题 (FAQ)"
 order: 1
+authors:
+  - nick-cjyx9
 ---
 ## 注册/登录跳转显示 "已停止访问该网页"
 
