@@ -8,7 +8,7 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "code:lint": "biome check --write .",
+    "code:fix": "biome check --write .",
     "astro": "astro",
     "postinstall": "husky"
   },
@@ -34,6 +34,9 @@
     "lint-staged": "^16.2.7"
   },
   "lint-staged": {
-    "*.astro": "astro check"
+    "*.astro": "astro check",
+    "*": [
+      "biome check --no-errors-on-unmatched --files-ignore-unknown=true"
+    ]
   }
 }

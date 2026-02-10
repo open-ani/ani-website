@@ -11,15 +11,12 @@
     ":autodetectRangeStrategy",
     ":rebaseStalePrs",
     ":renovatePrefix",
-    ":semanticCommits",
-    ":semanticCommitType(chore)",
     ":automergeBranch",
     ":automergeRequireAllStatusChecks",
     ":automergeTesters",
-    "group:monorepos",
-    "group:recommended",
     "workarounds:all",
-    "github>shinGangan/renovate-config-hono"
+    "customManagers:biomeVersions",
+    "gitmoji"
   ],
   "lockFileMaintenance": {
     "enabled": true,
@@ -30,20 +27,7 @@
   },
   "packageRules": [
     {
-      "groupName": "vueuse",
-      "matchSourceUrls": ["https://github.com/vueuse/vueuse"]
-    },
-    {
-      "groupName": "unocss",
-      "matchSourceUrls": ["https://github.com/unocss/unocss", "https://github.com/antfu/unocss"]
-    },
-    {
       "matchUpdateTypes": ["patch"],
-      "automerge": true
-    },
-    {
-      "matchPackagePrefixes": ["@types/"],
-      "matchPackageNames": ["@cloudflare/workers-types"],
       "automerge": true
     },
     {
@@ -54,10 +38,6 @@
     {
       "matchUpdateTypes": ["major"],
       "dependencyDashboardApproval": true
-    },
-    {
-      "matchCategories": ["ci", "docker"],
-      "dependencyDashboardApproval": false
     }
   ]
 }

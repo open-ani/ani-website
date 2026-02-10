@@ -1,4 +1,4 @@
-name: PullRequest Preview
+name: Pull Requests Check
 
 on:
   pull_request:
