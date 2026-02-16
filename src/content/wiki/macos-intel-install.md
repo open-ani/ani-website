@@ -5,14 +5,16 @@ authors:
   - Him188
 ---
 
-1. 下载压缩包 zip
-2. 下载完成后，在 Finder 中双击压缩包即可解压
-3. 打开另一个 Finder 窗口，进入 Applications
-  ![image](/images/macos-intel.png)
-4. 将解压出来的 Animeko 拖到 Applications 内即可
+1. 下载 ZIP 压缩包。
+2. 下载完成后，在 Finder 中双击压缩包进行解压。
+  <img src="/images/macos-intel.png" width="20%" align="right" />
+3. 打开新的 Finder 窗口，进入 `/Applications/` 目录：
+   - 可在侧边栏直接选择（中文系统中显示为「应用程序」）；
+   - 或使用快捷键 <kbd>⌘</kbd>  <kbd>Shift</kbd>  <kbd>G</kbd>，输入 `/Applications/` 后回车。
+4. 将解压得到的 `Ani.app` 拖拽到 `/Applications/` 目录中即可完成安装。
 
-上述操作只需要进行一次，后续更新是应用内全自动更新的。
+> 以上步骤仅需执行一次。后续版本更新将由应用内自动完成。
 
 ## 常见问题
 
-- [安装后打不开](https://myani.org/wiki/macOS-%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88)
+- [安装后打不开](/wiki/macos-unable-to-open)
