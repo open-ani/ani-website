@@ -45,8 +45,7 @@ authors:
 1. 安装 [VLC](https://www.videolan.org/vlc/#download) 和 `gvfs`
 
      ```bash
-     sudo dnf install vlc
-     sudo dnf install gvfs
+     sudo dnf install vlc gvfs
      ```
 
 2. 如果你的应用启动后闪退，并且报错类似于 [#2940](https://github.com/open-ani/animeko/issues/2940)，可以尝试在启动项前加 `LD_PRELOAD=/usr/lib64/libsqlite3.so.0`，替换为你自己的 sqlite 路径。
