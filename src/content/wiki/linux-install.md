@@ -33,11 +33,23 @@ authors:
      ```
 
      注意: 使用 Snappy 安装可能会没有效果，建议使用 Aptitude。
-3. 安装 `gvfs-libs`，用于打开浏览器登录
+
+4. 安装 `gvfs-libs`，用于打开浏览器登录
 
      ```bash
      sudo apt-get install gvfs-libs
      ```
+
+### Fedora
+
+1. 安装 [VLC](https://www.videolan.org/vlc/#download) 和 `gvfs`
+
+     ```bash
+     sudo dnf install vlc
+     sudo dnf install gvfs
+     ```
+
+2. 如果你的应用启动后闪退，并且报错类似于 [这个 issue](https://github.com/open-ani/animeko/issues/2940)，可以尝试在启动项前加 `LD_PRELOAD=/usr/lib64/libsqlite3.so.0`，替换为你自己的 sqlite 路径。
 
 ## 启动 Animeko
 
