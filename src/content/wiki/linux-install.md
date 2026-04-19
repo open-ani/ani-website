@@ -3,6 +3,7 @@ title: "Linux 安装说明"
 order: 6
 authors:
   - Him188
+  - Aliorpse
 ---
 ## 安装依赖
 
