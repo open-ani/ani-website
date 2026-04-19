@@ -41,8 +41,4 @@ export default defineConfig({
       ],
     ],
   },
-
-  security: {
-    csp: true,
-  },
 });
