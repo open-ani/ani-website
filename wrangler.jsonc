@@ -1,0 +1,12 @@
+{
+  "name": "ani-website",
+  "compatibility_date": "2026-05-10",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
