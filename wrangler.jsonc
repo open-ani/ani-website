@@ -7,6 +7,6 @@
     "html_handling": "auto-trailing-slash"
   },
   "observability": {
-    "enabled": true
+    "enabled": false
   }
 }
