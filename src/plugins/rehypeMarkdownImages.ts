@@ -21,7 +21,16 @@ interface HastParent {
   children: HastNode[];
 }
 
-type HastNode = HastElement | HastParent;
+interface HastRaw {
+  type: "raw";
+  value: string;
+}
+
+type HastNode = HastElement | HastParent | HastRaw;
+
+function isRawNode(node: HastNode): node is HastRaw {
+  return node.type === "raw" && "value" in node;
+}
 
 const imageDimensions: Record<string, { width: number; height: number }> = {
   "/images/animeko.svg": { width: 1280, height: 640 },
@@ -56,13 +65,79 @@ const imageDimensions: Record<string, { width: number; height: number }> = {
   "/images/win-font-3.png": { width: 942, height: 557 },
 };
 
-function visitElements(node: HastNode, visitor: (element: HastElement) => void): void {
+function titleCase(value: string): string {
+  return value.replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function inferAltFromSrc(src: string): string | null {
+  const cleaned = src.split(/[?#]/)[0];
+  const filename = cleaned.split("/").pop();
+  if (!filename) return null;
+
+  const base = filename.replace(/\.[a-z0-9]+$/i, "");
+  const spaced = base.replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
+  if (!spaced) return null;
+
+  return titleCase(spaced);
+}
+
+function parseImgFromRaw(value: string): HastElement | null {
+  const trimmed = value.trim();
+  const match = trimmed.match(/^<img\s+([^>]*?)\s*\/?>$/i);
+  if (!match) return null;
+
+  const props: HastProperties = {};
+  const attrs = match[1];
+  const attrRegex = /([^\s=]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))/g;
+
+  for (let attrMatch = attrRegex.exec(attrs); attrMatch; attrMatch = attrRegex.exec(attrs)) {
+    const key = attrMatch[1];
+    const rawValue = attrMatch[2] ?? attrMatch[3] ?? attrMatch[4] ?? "";
+
+    if (key === "class") {
+      props.className = rawValue.split(/\s+/).filter(Boolean);
+      continue;
+    }
+
+    if (key === "width" || key === "height") {
+      const numeric = Number(rawValue);
+      props[key] = Number.isNaN(numeric) ? rawValue : numeric;
+      continue;
+    }
+
+    props[key] = rawValue;
+  }
+
+  return {
+    type: "element",
+    tagName: "img",
+    properties: props,
+    children: [],
+  };
+}
+
+function visitElements(
+  node: HastNode,
+  visitor: (element: HastElement) => void,
+  parent?: HastParent,
+  index?: number
+): void {
+  if (isRawNode(node)) {
+    const parsed = parseImgFromRaw(node.value);
+    if (parsed && parent && typeof index === "number") {
+      parent.children[index] = parsed;
+      visitor(parsed);
+      return;
+    }
+  }
+
   if (node.type === "element") {
     visitor(node as HastElement);
   }
+
   if ("children" in node && Array.isArray(node.children)) {
-    for (const child of node.children) {
-      visitElements(child, visitor);
+    for (let i = 0; i < node.children.length; i += 1) {
+      visitElements(node.children[i], visitor, node, i);
     }
   }
 }
@@ -84,15 +159,22 @@ export default function rehypeMarkdownImages() {
     visitElements(tree, (node) => {
       if (node.tagName !== "img") return;
 
-      const props = node.properties;
+      const props = node.properties ?? {};
+      node.properties = props;
       const src = typeof props.src === "string" ? props.src : undefined;
-      const isSvg = src?.toLowerCase().endsWith(".svg") === true;
 
       // Add loading="lazy" and decoding="async" to all images
       if (!props.loading) {
         props.loading = "lazy";
       }
       props.decoding = "async";
+
+      if (!props.alt && src) {
+        const inferredAlt = inferAltFromSrc(src);
+        if (inferredAlt) {
+          props.alt = inferredAlt;
+        }
+      }
 
       // Inject width/height for ALL known images (including SVGs).
       // When only one dimension is supplied (e.g. width="200" in about.md inline HTML)
@@ -118,9 +200,6 @@ export default function rehypeMarkdownImages() {
           }
         }
       }
-
-      // SVGs don't need skeleton treatment — they render immediately.
-      if (isSvg) return;
 
       // Add lazy-image and is-loading classes for skeleton animation
       const existing = Array.isArray(props.className)

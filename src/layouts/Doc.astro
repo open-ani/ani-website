@@ -118,6 +118,7 @@ const leftNavItems: NavItem[] = wiki
                         alt={author}
                         class="w-8 h-8 rounded-full bg-gray-600"
                         loading="lazy"
+                        onerror="this.onerror=null;this.src='/images/default-avatar.jpg';"
                       />
                     </a>
                   ))}
