@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkAlert } from "remark-github-blockquote-alert";
+import rehypeMarkdownImages from "./src/plugins/rehypeMarkdownImages.ts";
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,6 +28,7 @@ export default defineConfig({
     },
     remarkPlugins: [remarkAlert],
     rehypePlugins: [
+      rehypeMarkdownImages,
       // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
       [rehypeHeadingIds, { headingIdCompat: true }],
       [

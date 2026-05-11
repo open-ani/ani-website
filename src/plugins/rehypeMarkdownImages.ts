@@ -1,0 +1,129 @@
+/** Minimal inline types for hast nodes (avoids external type dependency). */
+interface HastProperties {
+  [key: string]: unknown;
+  src?: string;
+  loading?: string;
+  decoding?: string;
+  width?: number | string;
+  height?: number | string;
+  className?: string | string[];
+}
+
+interface HastElement {
+  type: "element";
+  tagName: string;
+  properties: HastProperties;
+  children: HastNode[];
+}
+
+interface HastParent {
+  type: string;
+  children: HastNode[];
+}
+
+type HastNode = HastElement | HastParent;
+
+const imageDimensions: Record<string, { width: number; height: number }> = {
+  "/features/subject-details.png": { width: 575, height: 1280 },
+  "/features/subject-rating.png": { width: 575, height: 1280 },
+  "/features/anime-schedule.png": { width: 575, height: 1280 },
+  "/features/search-by-tag.png": { width: 575, height: 1280 },
+  "/features/subject-collection.png": { width: 575, height: 1280 },
+  "/features/home.png": { width: 575, height: 1280 },
+  "/features/mediaselector-simple.png": { width: 1080, height: 2400 },
+  "/features/mediaselector-detailed.png": { width: 1080, height: 2400 },
+  "/features/episode.png": { width: 575, height: 1280 },
+  "/features/episode-scrolled.png": { width: 575, height: 1280 },
+  "/features/cache-episode.png": { width: 575, height: 1280 },
+  "/features/cache-list.png": { width: 575, height: 1280 },
+  "/features/player-fullscreen.png": { width: 2400, height: 1080 },
+  "/features/pc-home.png": { width: 2966, height: 1576 },
+  "/features/pc-search.png": { width: 2722, height: 1742 },
+  "/features/pc-search-detail.png": { width: 2528, height: 1742 },
+  "/features/danmaku-settings.png": { width: 2400, height: 1080 },
+  "/features/theme-settings.png": { width: 1080, height: 2400 },
+  "/features/media-preferences.png": { width: 575, height: 1280 },
+  "/images/iOS-sideloadly.png": { width: 1053, height: 374 },
+  "/images/iOS-ready.png": { width: 1053, height: 374 },
+  "/images/iOS-done.png": { width: 1053, height: 374 },
+  "/images/macos-intel.png": { width: 332, height: 440 },
+  "/images/macos-security.png": { width: 504, height: 418 },
+  "/images/macos-xattr.png": { width: 1400, height: 1326 },
+  "/images/macos-open.png": { width: 500, height: 582 },
+  "/images/win-font-1.png": { width: 1689, height: 951 },
+  "/images/win-font-2.png": { width: 956, height: 571 },
+  "/images/win-font-3.png": { width: 942, height: 557 },
+};
+
+function visitElements(node: HastNode, visitor: (element: HastElement) => void): void {
+  if (node.type === "element") {
+    visitor(node as HastElement);
+  }
+  if ("children" in node && Array.isArray(node.children)) {
+    for (const child of node.children) {
+      visitElements(child, visitor);
+    }
+  }
+}
+
+/**
+ * Rehype plugin that enhances markdown `<img>` elements at build time:
+ * - Adds `loading="lazy"` and `decoding="async"`
+ * - Injects missing `width`/`height` (and infers the missing side for known images)
+ * - Adds `lazy-image is-loading` CSS classes so the skeleton is server-rendered
+ *
+ * SVG images are skipped for the skeleton treatment (loading/decoding still added).
+ */
+export default function rehypeMarkdownImages() {
+  return (tree: HastNode) => {
+    visitElements(tree, (node) => {
+      if (node.tagName !== "img") return;
+
+      const props = node.properties;
+      const src = typeof props.src === "string" ? props.src : undefined;
+      const isSvg = src?.toLowerCase().endsWith(".svg") === true;
+
+      // Add loading="lazy" and decoding="async" to all images
+      if (!props.loading) {
+        props.loading = "lazy";
+      }
+      props.decoding = "async";
+
+      // SVGs don't need skeleton treatment
+      if (isSvg) return;
+
+      // Add/infer width and height for known images
+      const dims = src ? imageDimensions[src] : undefined;
+      if (dims) {
+        const hasWidth = props.width != null && props.width !== "";
+        const hasHeight = props.height != null && props.height !== "";
+
+        if (!hasWidth && !hasHeight) {
+          props.width = dims.width;
+          props.height = dims.height;
+        } else if (hasWidth && !hasHeight) {
+          const w = Number(props.width);
+          if (!Number.isNaN(w) && w > 0) {
+            props.height = Math.round((w * dims.height) / dims.width);
+          }
+        } else if (!hasWidth && hasHeight) {
+          const h = Number(props.height);
+          if (!Number.isNaN(h) && h > 0) {
+            props.width = Math.round((h * dims.width) / dims.height);
+          }
+        }
+      }
+
+      // Add lazy-image and is-loading classes for skeleton animation
+      const existing = Array.isArray(props.className)
+        ? (props.className as string[]).filter((c) => typeof c === "string")
+        : props.className
+          ? [String(props.className)]
+          : [];
+
+      if (!existing.includes("lazy-image")) {
+        props.className = [...existing, "lazy-image", "is-loading"];
+      }
+    });
+  };
+}

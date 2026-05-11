@@ -139,6 +139,8 @@ details .anchor {
 
 .markdown-body img.lazy-image.is-loading {
   animation: markdown-image-pulse 1.4s ease-in-out infinite;
+  /* Ensure a visible skeleton area even when intrinsic dimensions are unknown. */
+  min-height: 120px;
 }
 
 .markdown-body img.lazy-image.is-loaded {
