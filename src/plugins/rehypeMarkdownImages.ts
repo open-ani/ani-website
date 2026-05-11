@@ -24,6 +24,7 @@ interface HastParent {
 type HastNode = HastElement | HastParent;
 
 const imageDimensions: Record<string, { width: number; height: number }> = {
+  "/images/animeko.svg": { width: 1280, height: 640 },
   "/features/subject-details.png": { width: 575, height: 1280 },
   "/features/subject-rating.png": { width: 575, height: 1280 },
   "/features/anime-schedule.png": { width: 575, height: 1280 },
@@ -69,10 +70,14 @@ function visitElements(node: HastNode, visitor: (element: HastElement) => void):
 /**
  * Rehype plugin that enhances markdown `<img>` elements at build time:
  * - Adds `loading="lazy"` and `decoding="async"`
- * - Injects missing `width`/`height` (and infers the missing side for known images)
+ * - Injects missing `width`/`height` for known images (including SVGs).
+ *   When only one dimension is already present the other is inferred from the
+ *   known aspect ratio — this covers the inline `<img width="200">` elements
+ *   in about.md where the browser needs both values to reserve space (CLS).
  * - Adds `lazy-image is-loading` CSS classes so the skeleton is server-rendered
  *
- * SVG images are skipped for the skeleton treatment (loading/decoding still added).
+ * SVG images are skipped only for the skeleton class treatment; they still
+ * receive `loading`, `decoding`, and dimension attributes.
  */
 export default function rehypeMarkdownImages() {
   return (tree: HastNode) => {
@@ -89,10 +94,10 @@ export default function rehypeMarkdownImages() {
       }
       props.decoding = "async";
 
-      // SVGs don't need skeleton treatment
-      if (isSvg) return;
-
-      // Add/infer width and height for known images
+      // Inject width/height for ALL known images (including SVGs).
+      // When only one dimension is supplied (e.g. width="200" in about.md inline HTML)
+      // the missing value is inferred from the known aspect ratio so the browser can
+      // reserve the correct amount of space before the image loads (prevents CLS).
       const dims = src ? imageDimensions[src] : undefined;
       if (dims) {
         const hasWidth = props.width != null && props.width !== "";
@@ -113,6 +118,9 @@ export default function rehypeMarkdownImages() {
           }
         }
       }
+
+      // SVGs don't need skeleton treatment — they render immediately.
+      if (isSvg) return;
 
       // Add lazy-image and is-loading classes for skeleton animation
       const existing = Array.isArray(props.className)
