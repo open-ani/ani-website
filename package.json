@@ -29,7 +29,6 @@
     "@astrojs/check": "^0.9.8",
     "@biomejs/biome": "^2.4.12",
     "@typescript/native-preview": "7.0.0-dev.20250821.1",
-    "@zeabur/cli": "^0.2.9",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0"
   },

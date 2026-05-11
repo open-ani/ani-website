@@ -17,7 +17,7 @@ const changelogLoader: Loader = {
   name: "changelog-loader",
   async load({ renderMarkdown, store, parseData }) {
     const response = await fetch(
-      "https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=4.0.0&clientPlatform=android&clientArch=x86_64&releaseClass=stable"
+      "https://danmaku-cn.myani.org/v1/updates/incremental/details?clientVersion=5.0.0&clientPlatform=android&clientArch=x86_64&releaseClass=stable"
     );
 
     if (!response.ok) {
