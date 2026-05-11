@@ -130,7 +130,6 @@ details .anchor {
 
 .markdown-body img.lazy-image {
   display: block;
-  border-radius: 10px;
   background: #1f2937;
   transition:
     opacity 0.3s ease,
