@@ -224,6 +224,9 @@ const leftNavItems: NavItem[] = wiki
   </style>
 
   <script>
+    import { enhanceMarkdownImages } from "@/scripts/enhanceMarkdownImages";
+    enhanceMarkdownImages();
+
     function scrollToAnchor(
       target: HTMLElement,
       options?: {

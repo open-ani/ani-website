@@ -7,7 +7,7 @@ authors:
 
 1. 下载 ZIP 压缩包。
 2. 下载完成后，在 Finder 中双击压缩包进行解压。
-  <img src="/images/macos-intel.png" width="20%" align="right" />
+  <img src="/images/macos-intel.png" width="332" height="440" style="width:20%;" align="right" />
 3. 打开新的 Finder 窗口，进入 `/Applications/` 目录：
    - 可在侧边栏直接选择（中文系统中显示为「应用程序」）；
    - 或使用快捷键 <kbd>⌘</kbd>  <kbd>Shift</kbd>  <kbd>G</kbd>，输入 `/Applications/` 后回车。

@@ -128,6 +128,41 @@ details .anchor {
   margin: 8px 0;
 }
 
+.markdown-body img.lazy-image {
+  display: block;
+  border-radius: 10px;
+  background: #1f2937;
+  transition:
+    opacity 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.markdown-body img.lazy-image.is-loading {
+  animation: markdown-image-pulse 1.4s ease-in-out infinite;
+}
+
+.markdown-body img.lazy-image.is-loaded {
+  animation: none;
+  background: transparent;
+}
+
+.markdown-body img.lazy-image.is-error {
+  animation: none;
+  opacity: 0.6;
+  background: #111827;
+}
+
+@keyframes markdown-image-pulse {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
 .markdown-body code,
 .markdown-body kbd,
 .markdown-body pre,

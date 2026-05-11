@@ -14,6 +14,9 @@ const pageTitle = `Animeko - ${title}`;
     </div>
 
     <script>
+        import { enhanceMarkdownImages } from "@/scripts/enhanceMarkdownImages";
+        enhanceMarkdownImages();
+
         // Copy Button Logic
         const codeBlocks = document.querySelectorAll('pre');
         codeBlocks.forEach(block => {
