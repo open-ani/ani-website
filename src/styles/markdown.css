@@ -131,9 +131,6 @@ details .anchor {
 .markdown-body img.lazy-image {
   display: block;
   background: #1f2937;
-  transition:
-    opacity 0.3s ease,
-    background-color 0.3s ease;
 }
 
 .markdown-body img.lazy-image.is-loading {
@@ -143,8 +140,8 @@ details .anchor {
 }
 
 .markdown-body img.lazy-image.is-loaded {
-  animation: none;
   background: transparent;
+  animation: markdown-image-fade-in 0.35s ease forwards;
 }
 
 .markdown-body img.lazy-image.is-error {
@@ -160,6 +157,16 @@ details .anchor {
   }
 
   50% {
+    opacity: 1;
+  }
+}
+
+@keyframes markdown-image-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
     opacity: 1;
   }
 }
