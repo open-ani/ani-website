@@ -1,3 +1,5 @@
+const enhanced = new WeakSet<HTMLImageElement>();
+
 /**
  * Attaches load/error listeners to markdown images that were given the
  * `lazy-image is-loading` classes by the server-side rehype plugin, so the
@@ -7,10 +9,10 @@ export function enhanceMarkdownImages() {
   const images = document.querySelectorAll<HTMLImageElement>(".markdown-body img.lazy-image");
 
   images.forEach((img) => {
-    if (img.dataset.enhancedImage === "true") {
+    if (enhanced.has(img)) {
       return;
     }
-    img.dataset.enhancedImage = "true";
+    enhanced.add(img);
 
     const markLoaded = (hasError = false) => {
       img.classList.remove("is-loading");
