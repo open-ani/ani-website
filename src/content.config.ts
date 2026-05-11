@@ -27,8 +27,8 @@ const changelogLoader: Loader = {
     const { updates } = (await response.json()) as { updates: Changelog[] };
 
     const stableUpdates = updates
-      .toReversed()
-      .filter((update) => !update.version.includes("beta") && !update.version.includes("alpha"));
+      .filter((update) => !update.version.includes("beta") && !update.version.includes("alpha"))
+      .toReversed();
 
     store.clear();
 

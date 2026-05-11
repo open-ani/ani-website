@@ -51,9 +51,6 @@ importers:
       '@typescript/native-preview':
         specifier: 7.0.0-dev.20250821.1
         version: 7.0.0-dev.20250821.1
-      '@zeabur/cli':
-        specifier: ^0.2.9
-        version: 0.2.9
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -966,10 +963,6 @@ packages:
 
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
-
-  '@zeabur/cli@0.2.9':
-    resolution: {integrity: sha512-iM2DdQ2kBzzg8BeEClvsshZh7DwdnbBuEuUyDFHAVSZ88G6vAzpx60mXWk2AOo5snri2maAD/Ok+DGxNL+jRBA==}
-    hasBin: true
 
   ajv-draft-04@1.0.0:
     resolution: {integrity: sha512-mv00Te6nmYbRp5DCwclxtt7yV/joXJPGS7nM+97GdxvuttCOfgI3K4U25zboyeX0O+myI8ERluxQe5wljMmVIw==}
@@ -3217,8 +3210,6 @@ snapshots:
       vscode-uri: 3.1.0
 
   '@vscode/l10n@0.0.18': {}
-
-  '@zeabur/cli@0.2.9': {}
 
   ajv-draft-04@1.0.0(ajv@8.18.0):
     optionalDependencies:
