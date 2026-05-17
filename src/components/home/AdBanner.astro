@@ -1,0 +1,31 @@
+---
+import { homeAdConfig } from "@/config/ads";
+
+interface Props {
+  class?: string;
+  href?: string;
+}
+
+const { class: className = "", href = homeAdConfig.href } = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={`relative block overflow-hidden rounded-sm ${className}`}
+  aria-label="广告"
+>
+  <img
+    src="/images/admedia/1.png"
+    alt="广告"
+    class="block h-auto w-full"
+    decoding="async"
+  >
+  <span
+    class="absolute right-1.5 bottom-1.5 inline-flex items-center gap-1 rounded-full bg-surface-base/75 px-1.5 py-0.5 text-[10px] leading-none font-medium text-text-main ring-1 ring-white/15 backdrop-blur-sm"
+  >
+    <i class="mgc_information_line text-xs" aria-hidden="true"></i>
+    广告
+  </span>
+</a>

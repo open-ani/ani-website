@@ -1,4 +1,5 @@
 ---
+import AdBanner from "./AdBanner.astro";
 import HeaderShowCase from "./HeaderShowCase.astro";
 ---
 <script>
@@ -126,7 +127,7 @@ import HeaderShowCase from "./HeaderShowCase.astro";
 <div class="relative min-h-screen lg:-mt-18 overflow-hidden flex flex-col justify-center">
   <div id="danmaku_container" class="absolute inset-0 w-full h-full pt-12 lg:py-32"></div>
   <div class="relative m-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center bg-surface-base/20 py-5 rounded-md">
-    <div class="w-full lg:w-1/2 lg:pr-12 text-center lg:text-left z-10">
+    <div class="w-full lg:w-1/2 lg:pr-12 lg:pt-28 text-center lg:text-left z-10">
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-text-main mb-6 leading-tight">
         <span class="block text-accent">Animeko</span>
         <span class="block text-2xl sm:text-3xl lg:text-4xl mt-2 font-medium text-text-muted">
@@ -164,26 +165,28 @@ import HeaderShowCase from "./HeaderShowCase.astro";
         </li>
       </ul>
       <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-8">
-        <a 
-          data-astro-prefetch 
+        <a
+          data-astro-prefetch
           href="/downloads"
           class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-btn text-on-primary bg-primary hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md"
         >
           <i class="mgc_download_2_line mr-2 text-xl"></i>
           下载 Animeko
         </a>
-        <a 
-          target="_blank" 
+        <a
+          target="_blank"
           href="https://github.com/open-ani/animeko/"
           class="inline-flex items-center justify-center px-6 py-3 border border-surface-highlight text-base font-medium rounded-btn text-text-main bg-transparent hover:bg-surface-highlight transition-all duration-200"
         >
           <i class="mgc_github_line mr-2 text-xl"></i>
           开源仓库
         </a>
+        <AdBanner class="absolute top-full left-0 mt-8 hidden w-full max-w-xl lg:block" />
       </div>
     </div>
     
-    <div class="w-full lg:w-1/2 mb-8 lg:mb-0 relative flex justify-center lg:justify-end">
+    <div class="w-full lg:w-1/2 mb-8 lg:mb-0 relative flex flex-col items-center lg:flex-row lg:justify-end">
+      <AdBanner class="mb-4 w-full max-w-sm lg:hidden" />
       <HeaderShowCase />
     </div>
   </div>
