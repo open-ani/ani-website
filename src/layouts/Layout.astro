@@ -4,6 +4,7 @@ interface Props {
 }
 
 import Footer from "@/components/common/Footer.astro";
+import GoogleAnalytics from "@/components/common/GoogleAnalytics.astro";
 import NavBar from "@/components/common/NavBar.astro";
 import "@/styles/global.css";
 
@@ -25,11 +26,19 @@ const { title } = Astro.props;
     <link rel="sitemap" href="/sitemap-index.xml"/>
     <link rel="icon" type="image/svg+xml" href="/logo.png"/>
     <link rel="preload" href="/images/default-avatar.jpg" as="image" type="image/jpeg" />
+    <GoogleAnalytics />
     <title>{title}</title>
 </head>
 <body>
     <NavBar />
     <slot/>
     <Footer/>
+    <script>
+      import { setupAnalyticsClickTracking } from "@/scripts/analytics";
+
+      const cleanupAnalyticsClickTracking = setupAnalyticsClickTracking();
+
+      document.addEventListener("astro:before-swap", cleanupAnalyticsClickTracking, { once: true });
+    </script>
 </body>
 </html>
