@@ -151,7 +151,13 @@ import HeaderShowCase from "./HeaderShowCase.astro";
         <li class="flex items-center gap-2">
           <i class="mgc_code_line text-accent text-xl"></i>
           <span>
-            <a href="https://github.com/open-ani/animeko" class="text-text-main hover:text-accent underline decoration-border-subtle hover:decoration-accent transition-all">代码开源</a>
+            <a
+              data-analytics-event="outbound_click"
+              data-analytics-category="home"
+              data-analytics-label="feature_github"
+              href="https://github.com/open-ani/animeko"
+              class="text-text-main hover:text-accent underline decoration-border-subtle hover:decoration-accent transition-all"
+            >代码开源</a>
             ，更多功能等你来PR！
           </span>
         </li>
@@ -167,6 +173,9 @@ import HeaderShowCase from "./HeaderShowCase.astro";
       <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 mt-8">
         <a
           data-astro-prefetch
+          data-analytics-event="cta_click"
+          data-analytics-category="home"
+          data-analytics-label="hero_download"
           href="/downloads"
           class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-btn text-on-primary bg-primary hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md"
         >
@@ -174,6 +183,9 @@ import HeaderShowCase from "./HeaderShowCase.astro";
           下载 Animeko
         </a>
         <a
+          data-analytics-event="outbound_click"
+          data-analytics-category="home"
+          data-analytics-label="hero_github"
           target="_blank"
           href="https://github.com/open-ani/animeko/"
           class="inline-flex items-center justify-center px-6 py-3 border border-surface-highlight text-base font-medium rounded-btn text-text-main bg-transparent hover:bg-surface-highlight transition-all duration-200"
@@ -181,12 +193,12 @@ import HeaderShowCase from "./HeaderShowCase.astro";
           <i class="mgc_github_line mr-2 text-xl"></i>
           开源仓库
         </a>
-        <AdBanner class="absolute top-full left-0 mt-8 hidden w-full max-w-xl lg:block" />
+        <AdBanner class="absolute top-full left-0 mt-8 hidden w-full max-w-xl lg:block" placement="home_header_desktop" />
       </div>
     </div>
     
     <div class="w-full lg:w-1/2 mb-8 lg:mb-0 relative flex flex-col items-center lg:flex-row lg:justify-end">
-      <AdBanner class="mb-4 w-full max-w-sm lg:hidden" />
+      <AdBanner class="mb-4 w-full max-w-sm lg:hidden" placement="home_header_mobile" />
       <HeaderShowCase />
     </div>
   </div>

@@ -4,12 +4,21 @@ import { homeAdConfig } from "@/config/ads";
 interface Props {
   class?: string;
   href?: string;
+  placement?: string;
 }
 
-const { class: className = "", href = homeAdConfig.href } = Astro.props;
+const { class: className = "", href = homeAdConfig.href, placement = "home_header" } = Astro.props;
+const adId = "home-admedia-1";
 ---
 
 <a
+  data-ad-banner
+  data-ad-id={adId}
+  data-ad-placement={placement}
+  data-ad-href={href}
+  data-analytics-event="ad_click"
+  data-analytics-category="ad"
+  data-analytics-label={placement}
   href={href}
   target="_blank"
   rel="noopener noreferrer"
@@ -29,3 +38,46 @@ const { class: className = "", href = homeAdConfig.href } = Astro.props;
     广告
   </span>
 </a>
+
+<script>
+  import { trackEvent } from "@/scripts/analytics";
+
+  const observedAds = new WeakSet<Element>();
+  const exposedAds = new WeakSet<Element>();
+  const banners = document.querySelectorAll<HTMLElement>("[data-ad-banner]");
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting || exposedAds.has(entry.target)) {
+            continue;
+          }
+
+          exposedAds.add(entry.target);
+          observer.unobserve(entry.target);
+
+          if (entry.target instanceof HTMLElement) {
+            trackEvent("ad_exposure", {
+              event_category: "ad",
+              event_label: entry.target.dataset.adPlacement,
+              ad_id: entry.target.dataset.adId,
+              ad_placement: entry.target.dataset.adPlacement,
+              ad_href: entry.target.dataset.adHref,
+            });
+          }
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    for (const banner of banners) {
+      if (!observedAds.has(banner)) {
+        observedAds.add(banner);
+        observer.observe(banner);
+      }
+    }
+
+    document.addEventListener("astro:before-swap", () => observer.disconnect(), { once: true });
+  }
+</script>

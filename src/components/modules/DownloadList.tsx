@@ -75,6 +75,9 @@ const ReleaseCard: Component<{
           <div class="flex items-center gap-3 w-full md:w-auto justify-end">
             <Show when={GUIDANCE_LINK[props.releaseKey]}>
               <a
+                data-analytics-category="download"
+                data-analytics-event="install_guide_click"
+                data-analytics-label={`${props.releaseKey}_guide`}
                 href={GUIDANCE_LINK[props.releaseKey]}
                 class="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm text-text-muted hover:text-primary hover:bg-surface-highlight/50 transition-colors"
               >
@@ -83,6 +86,9 @@ const ReleaseCard: Component<{
               </a>
             </Show>
             <a
+              data-analytics-category="download"
+              data-analytics-event="download_click"
+              data-analytics-label={`${props.type}_${props.releaseKey}_primary`}
               href={links()[0]}
               target="_blank"
               rel="noopener noreferrer"
@@ -97,6 +103,9 @@ const ReleaseCard: Component<{
               <For each={links().slice(1)}>
                 {(link, idx) => (
                   <a
+                    data-analytics-category="download"
+                    data-analytics-event="download_click"
+                    data-analytics-label={`${props.type}_${props.releaseKey}_alternative_${idx() + 1}`}
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -163,6 +172,9 @@ export default function DownloadList() {
         <div class="p-1.5 rounded-full border border-surface-highlight inline-flex shadow-lg shadow-black/20">
           <button
             type="button"
+            data-analytics-event="release_tab_click"
+            data-analytics-category="download"
+            data-analytics-label="stable"
             class={`px-8 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
               activeTab() === "stable"
                 ? "text-text-main bg-surface-highlight shadow-sm"
@@ -174,6 +186,9 @@ export default function DownloadList() {
           </button>
           <button
             type="button"
+            data-analytics-event="release_tab_click"
+            data-analytics-category="download"
+            data-analytics-label="beta"
             class={`px-8 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
               activeTab() === "beta"
                 ? "text-text-main bg-surface-highlight shadow-sm"
@@ -203,13 +218,22 @@ export default function DownloadList() {
           <h3 class="text-lg font-bold text-text-main mb-2">获取版本信息失败</h3>
           <p class="text-text-muted text-sm mb-6 text-center max-w-xs">
             无法连接到更新服务器，请检查网络连接后重试或前往{" "}
-            <a href="https://github.com/open-ani/animeko/releases" class="underline text-primary">
+            <a
+              data-analytics-event="outbound_click"
+              data-analytics-category="download"
+              data-analytics-label="github_releases_fallback"
+              href="https://github.com/open-ani/animeko/releases"
+              class="underline text-primary"
+            >
               Github releases
             </a>{" "}
             下载
           </p>
           <button
             type="button"
+            data-analytics-event="retry_latest_release"
+            data-analytics-category="download"
+            data-analytics-label={activeTab()}
             onClick={loadAllData}
             class="px-6 py-2.5 rounded-full bg-surface-highlight hover:bg-surface-highlight/80 text-text-main font-medium transition-colors border border-surface-highlight cursor-pointer"
           >
