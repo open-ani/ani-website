@@ -8,6 +8,7 @@
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
+    "test:logic": "node --experimental-strip-types --test src/components/modules/*.test.ts",
     "code:fix": "biome check --write .",
     "astro": "astro",
     "postinstall": "husky"

@@ -1,11 +1,12 @@
-import { type Component, createSignal, For, onMount, Show } from "solid-js";
-
-interface ReleaseData {
-  publishTime: number;
-  version: string;
-  downloadUrlAlternativesMap: Record<string, string[]>;
-  qrcodeUrls?: string[];
-}
+import { type Component, createMemo, createSignal, For, onMount, Show } from "solid-js";
+import {
+  getCurrentReleaseData,
+  normalizeActiveReleaseType,
+  type ReleaseData,
+  type ReleaseType,
+  shouldShowTestRelease,
+  TEST_RELEASE_NOTICE,
+} from "./downloadRelease";
 
 // Constants
 const PLAT_TYPE: Record<string, string> = {
@@ -48,7 +49,7 @@ const ts2str = (ts: number) => {
 const ReleaseCard: Component<{
   releaseKey: string;
   data: ReleaseData;
-  type: "stable" | "beta";
+  type: ReleaseType;
 }> = (props) => {
   const links = () => props.data.downloadUrlAlternativesMap[props.releaseKey] || [];
 
@@ -126,13 +127,13 @@ const ReleaseCard: Component<{
 };
 
 export default function DownloadList() {
-  const [activeTab, setActiveTab] = createSignal<"stable" | "beta">("stable");
+  const [activeTab, setActiveTab] = createSignal<ReleaseType>("stable");
   const [loading, setLoading] = createSignal(true);
   const [error, setError] = createSignal(false);
   const [stableData, setStableData] = createSignal<ReleaseData | null>(null);
   const [betaData, setBetaData] = createSignal<ReleaseData | null>(null);
 
-  const fetchData = async (type: "stable" | "beta") => {
+  const fetchData = async (type: ReleaseType) => {
     try {
       const res = await fetch(`${API_BASE}?releaseClass=${type === "beta" ? "alpha" : "stable"}`, {
         mode: "cors",
@@ -163,7 +164,9 @@ export default function DownloadList() {
     loadAllData();
   });
 
-  const currentData = () => (activeTab() === "stable" ? stableData() : betaData());
+  const showTestRelease = createMemo(() => shouldShowTestRelease(stableData(), betaData()));
+  const currentTab = createMemo(() => normalizeActiveReleaseType(activeTab(), stableData(), betaData()));
+  const currentData = createMemo(() => getCurrentReleaseData(activeTab(), stableData(), betaData()));
 
   return (
     <div class="max-w-4xl mx-auto min-h-125 relative">
@@ -176,7 +179,7 @@ export default function DownloadList() {
             data-analytics-category="download"
             data-analytics-label="stable"
             class={`px-8 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
-              activeTab() === "stable"
+              currentTab() === "stable"
                 ? "text-text-main bg-surface-highlight shadow-sm"
                 : "text-text-muted hover:text-text-main bg-transparent"
             }`}
@@ -184,20 +187,22 @@ export default function DownloadList() {
           >
             稳定版本
           </button>
-          <button
-            type="button"
-            data-analytics-event="release_tab_click"
-            data-analytics-category="download"
-            data-analytics-label="beta"
-            class={`px-8 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
-              activeTab() === "beta"
-                ? "text-text-main bg-surface-highlight shadow-sm"
-                : "text-text-muted hover:text-text-main bg-transparent"
-            }`}
-            onClick={() => setActiveTab("beta")}
-          >
-            测试版本
-          </button>
+          <Show when={showTestRelease()}>
+            <button
+              type="button"
+              data-analytics-event="release_tab_click"
+              data-analytics-category="download"
+              data-analytics-label="beta"
+              class={`px-8 py-2.5 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer ${
+                currentTab() === "beta"
+                  ? "text-text-main bg-surface-highlight shadow-sm"
+                  : "text-text-muted hover:text-text-main bg-transparent"
+              }`}
+              onClick={() => setActiveTab("beta")}
+            >
+              预览测试版
+            </button>
+          </Show>
         </div>
       </div>
 
@@ -233,7 +238,7 @@ export default function DownloadList() {
             type="button"
             data-analytics-event="retry_latest_release"
             data-analytics-category="download"
-            data-analytics-label={activeTab()}
+            data-analytics-label={currentTab()}
             onClick={loadAllData}
             class="px-6 py-2.5 rounded-full bg-surface-highlight hover:bg-surface-highlight/80 text-text-main font-medium transition-colors border border-surface-highlight cursor-pointer"
           >
@@ -264,22 +269,22 @@ export default function DownloadList() {
             </div>
 
             {/* Warning for Beta */}
-            <Show when={activeTab() === "beta"}>
+            <Show when={currentTab() === "beta"}>
               <div class="mb-6 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex gap-3 text-yellow-500">
                 <i class="mgc_warning_line text-xl shrink-0"></i>
-                <p class="text-sm leading-relaxed">Alpha 测试版包含最新功能但可能不稳定。</p>
+                <p class="text-sm leading-relaxed">{TEST_RELEASE_NOTICE}</p>
               </div>
             </Show>
 
             {/* Grid of Cards */}
             <div class="grid grid-cols-1 gap-4">
               <For each={Object.keys(PLAT_TYPE)}>
-                {(key) => <ReleaseCard releaseKey={key} data={currentData()!} type={activeTab()} />}
+                {(key) => <ReleaseCard releaseKey={key} data={currentData()!} type={currentTab()} />}
               </For>
             </div>
 
             {/* QR Code for Stable (Mobile) */}
-            <Show when={activeTab() === "stable" && currentData()!.qrcodeUrls && currentData()!.qrcodeUrls![0]}>
+            <Show when={currentTab() === "stable" && currentData()!.qrcodeUrls && currentData()!.qrcodeUrls![0]}>
               <div class="mt-8 flex flex-col items-center justify-center">
                 <div class="p-4 bg-white rounded-xl shadow-lg transform hover:-translate-y-1 transition-transform duration-300">
                   <img alt="Mobile QR Code" src={currentData()!.qrcodeUrls![0]} class="w-40 h-40 object-contain" />
