@@ -3,7 +3,9 @@ import { getCollection, render } from "astro:content";
 import Layout from "@/layouts/Changelog.astro";
 import "@/styles/markdown.css";
 
-const changelogs = await getCollection("changelogs");
+const changelogs = (await getCollection("changelogs")).toSorted((changelogA, changelogB) => {
+  return changelogB.data.publishTime.localeCompare(changelogA.data.publishTime);
+});
 ---
 
 <Layout>

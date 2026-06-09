@@ -1,0 +1,79 @@
+name: Update Changelogs
+
+on:
+  schedule:
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-changelogs
+  cancel-in-progress: false
+
+jobs:
+  update-changelogs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 23.1.0
+          cache: pnpm
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Build changelogs
+        id: build
+        continue-on-error: true
+        env:
+          NODE_OPTIONS: --max_old_space_size=8192
+        run: pnpm run build
+
+      - name: Update changelog digest
+        if: steps.build.outcome == 'success'
+        run: |
+          set -euo pipefail
+
+          changelog_page="dist/changelogs/index.html"
+          if [ ! -f "$changelog_page" ]; then
+            changelog_page="dist/changelogs.html"
+          fi
+
+          if [ ! -f "$changelog_page" ]; then
+            echo "Changelog page was not generated. Skipping push."
+            exit 0
+          fi
+
+          mkdir -p .github/generated
+          sha256sum "$changelog_page" > .github/generated/changelogs.sha256
+
+      - name: Push updates
+        if: steps.build.outcome == 'success'
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- .github/generated/changelogs.sha256; then
+            echo "No changelog updates. Skipping push."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/generated/changelogs.sha256
+          git commit -m "📝 chore: update changelog digest"
+          git push
+
+      - name: Skip on build failure
+        if: steps.build.outcome != 'success'
+        run: echo "Build failed. Skipping changelog update push."
