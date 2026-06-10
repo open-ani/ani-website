@@ -2,7 +2,6 @@
   "name": "animeko-website",
   "type": "module",
   "version": "0.1.0",
-  "packageManager": "pnpm@11.5.2",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
