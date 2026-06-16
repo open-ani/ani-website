@@ -2,13 +2,26 @@
 import { homeAdConfig } from "@/config/ads";
 
 interface Props {
+  adId?: string;
+  alt?: string;
   class?: string;
   href?: string;
+  imageSrc?: string;
   placement?: string;
+  rounded?: boolean;
 }
 
-const { class: className = "", href = homeAdConfig.href, placement = "home_header" } = Astro.props;
-const adId = "home-admedia-1";
+const defaultAd = homeAdConfig.ads[0];
+const {
+  adId = defaultAd.id,
+  alt = defaultAd.alt,
+  class: className = "",
+  href = defaultAd.href,
+  imageSrc = defaultAd.imageSrc,
+  placement = "home_header",
+  rounded = true,
+} = Astro.props;
+const roundedClass = rounded ? "rounded-sm" : "";
 ---
 
 <a
@@ -22,12 +35,12 @@ const adId = "home-admedia-1";
   href={href}
   target="_blank"
   rel="noopener noreferrer"
-  class={`relative block overflow-hidden rounded-sm ${className}`}
+  class={`relative block overflow-hidden ${roundedClass} ${className}`}
   aria-label="广告"
 >
   <img
-    src="/images/admedia/1.png"
-    alt="广告"
+    src={imageSrc}
+    alt={alt}
     class="block h-auto w-full"
     decoding="async"
   >

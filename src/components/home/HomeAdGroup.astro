@@ -1,0 +1,46 @@
+---
+import { homeAdConfig } from "@/config/ads";
+import AdBanner from "./AdBanner.astro";
+
+interface Props {
+  class?: string;
+  placement?: string;
+}
+
+const { class: className = "", placement = "home_header" } = Astro.props;
+const landscapeColumns = homeAdConfig.ads.map((ad) => `${ad.width / ad.height}fr`).join(" ");
+---
+
+<div
+  class={`home-ad-group overflow-hidden rounded-sm ${className}`}
+  style={`--home-ad-landscape-columns: ${landscapeColumns};`}
+>
+  {
+    homeAdConfig.ads.map((ad) => (
+      <AdBanner
+        adId={ad.id}
+        alt={ad.alt}
+        href={ad.href}
+        imageSrc={ad.imageSrc}
+        placement={placement}
+        rounded={false}
+        class="min-w-0"
+      />
+    ))
+  }
+</div>
+
+<style>
+  .home-ad-group {
+    gap: 0;
+    grid-template-columns: 1fr;
+  }
+
+  @media (orientation: landscape) {
+    .home-ad-group {
+      width: 75%;
+      max-width: none;
+      grid-template-columns: var(--home-ad-landscape-columns);
+    }
+  }
+</style>
