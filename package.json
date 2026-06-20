@@ -13,24 +13,24 @@
     "postinstall": "husky"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "^7.1.0",
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/markdown-remark": "^7.2.0",
+    "@astrojs/sitemap": "^3.7.3",
     "@astrojs/solid-js": "^6.0.1",
-    "@tailwindcss/vite": "^4.2.2",
-    "astro": "^6.1.8",
+    "@tailwindcss/vite": "^4.3.1",
+    "astro": "^6.4.8",
     "danmaku": "^2.0.9",
-    "mingcute_icon": "^2.9.71",
+    "mingcute_icon": "^2.9.72",
     "rehype-autolink-headings": "^7.1.0",
     "remark-github-blockquote-alert": "^2.1.0",
-    "solid-js": "^1.9.12",
-    "tailwindcss": "^4.2.2"
+    "solid-js": "^1.9.13",
+    "tailwindcss": "^4.3.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
-    "@biomejs/biome": "^2.4.12",
-    "@typescript/native-preview": "7.0.0-dev.20250821.1",
+    "@astrojs/check": "^0.9.9",
+    "@biomejs/biome": "^2.5.0",
+    "@typescript/native-preview": "7.0.0-dev.20260619.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0"
+    "lint-staged": "^17.0.7"
   },
   "lint-staged": {
     "*.astro": "astro check",
