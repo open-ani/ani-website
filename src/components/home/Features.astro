@@ -2,33 +2,6 @@
 import FeatureCard from "./FeatureCard.astro";
 ---
 
-<script>
-  const features = document.getElementById('features');
-  const faq = document.getElementById('faq');
-  let isScrolling = false;
-
-  function handleWheel(e: WheelEvent) {
-    if (!features || !faq) return;
-    const rect = features.getBoundingClientRect();
-    const isAtBottom = rect.bottom <= window.innerHeight + 10;
-    
-    if (isAtBottom && e.deltaY > 0 && !isScrolling) {
-      e.preventDefault();
-      isScrolling = true;
-      faq.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => {
-        isScrolling = false;
-      }, 1000);
-    }
-  }
-
-  features?.addEventListener('wheel', handleWheel, { passive: false });
-
-  document.addEventListener('astro:before-swap', () => {
-    features?.removeEventListener('wheel', handleWheel);
-  }, { once: true });
-</script>
-
 <div id="features" class="min-h-screen flex flex-col justify-center py-24 relative overflow-hidden">
   <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
