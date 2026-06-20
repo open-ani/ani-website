@@ -1,6 +1,6 @@
 ---
+import AdSlidePanel from "./AdSlidePanel.astro";
 import HeaderShowCase from "./HeaderShowCase.astro";
-import HomeAdGroup from "./HomeAdGroup.astro";
 ---
 <script>
   import Danmaku from 'danmaku';
@@ -194,12 +194,10 @@ import HomeAdGroup from "./HomeAdGroup.astro";
           <i class="mgc_github_line mr-2 text-xl"></i>
           开源仓库
         </a>
-        <HomeAdGroup class="absolute top-full left-0 mt-8 hidden w-full max-w-xl lg:grid" placement="home_header_desktop" />
       </div>
     </div>
     
     <div class="w-full lg:w-1/2 mb-8 lg:mb-0 relative flex flex-col items-center lg:flex-row lg:justify-end">
-      <HomeAdGroup class="mb-4 grid w-full max-w-sm lg:hidden" placement="home_header_mobile" />
       <HeaderShowCase />
     </div>
   </div>
@@ -207,3 +205,5 @@ import HomeAdGroup from "./HomeAdGroup.astro";
     <i class="mgc_down_line text-3xl text-text-muted hover:text-primary transition-colors"></i>
   </div>
 </div>
+
+<AdSlidePanel />

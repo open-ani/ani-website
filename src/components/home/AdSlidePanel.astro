@@ -1,0 +1,168 @@
+---
+import { homeAdConfig } from "@/config/ads";
+import AdBanner from "./AdBanner.astro";
+
+const landscapeColumns = homeAdConfig.ads.map((ad) => `${ad.width / ad.height}fr`).join(" ");
+---
+
+<div
+  data-ad-slide-panel
+  class="fixed bottom-0 left-0 right-0 z-50 is-open"
+>
+  <div class="relative mx-auto max-w-4xl px-2 sm:px-4">
+    <button
+      data-ad-toggle
+      type="button"
+      aria-label="收起广告"
+      aria-expanded="true"
+      class="absolute -top-8 left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-t-md bg-surface-card px-3 py-1 text-xs text-text-muted ring-1 ring-white/10 ring-b-0 cursor-pointer hover:text-text-main transition-colors"
+    >
+      <span data-ad-toggle-label>收起</span>
+      <i data-ad-toggle-icon class="mgc_down_line text-sm"></i>
+    </button>
+
+    <div class="overflow-hidden rounded-t-lg bg-surface-card ring-1 ring-white/10 ring-b-0">
+      <div
+        class="ad-slide-content grid"
+        style={`--home-ad-landscape-columns: ${landscapeColumns};`}
+      >
+        {
+          homeAdConfig.ads.map((ad) => (
+            <AdBanner
+              adId={ad.id}
+              alt={ad.alt}
+              href={ad.href}
+              imageSrc={ad.imageSrc}
+              placement="home_slide_panel"
+              rounded={false}
+              class="min-w-0"
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  [data-ad-slide-panel] {
+    translate: 0 100%;
+    transition: translate 0.4s ease-out;
+  }
+
+  [data-ad-slide-panel].is-open {
+    translate: 0;
+  }
+
+  [data-ad-slide-panel].no-animate {
+    transition: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-ad-slide-panel] {
+      transition: none;
+    }
+  }
+
+  .ad-slide-content {
+    gap: 0;
+    grid-template-columns: 1fr;
+  }
+
+  @media (orientation: landscape) {
+    .ad-slide-content {
+      grid-template-columns: var(--home-ad-landscape-columns);
+    }
+  }
+</style>
+
+<script>
+  import { trackEvent } from "@/scripts/analytics";
+
+  const STORAGE_KEY = "ad-slide-panel-closed";
+
+  const panel = document.querySelector<HTMLElement>("[data-ad-slide-panel]");
+  const toggle = panel?.querySelector<HTMLElement>("[data-ad-toggle]");
+  const toggleLabel = panel?.querySelector<HTMLElement>("[data-ad-toggle-label]");
+  const toggleIcon = panel?.querySelector<HTMLElement>("[data-ad-toggle-icon]");
+
+  if (panel && toggle && toggleLabel && toggleIcon) {
+    const wasClosed = localStorage.getItem(STORAGE_KEY) === "true";
+
+    if (wasClosed) {
+      panel.classList.add("no-animate");
+      panel.classList.remove("is-open");
+      toggleLabel.textContent = "展开";
+      toggle.setAttribute("aria-expanded", "false");
+      toggleIcon.className = "mgc_up_line text-sm";
+      requestAnimationFrame(() => panel.classList.remove("no-animate"));
+    }
+
+    function setOpen(open: boolean) {
+      if (open) {
+        panel!.classList.add("is-open");
+        toggleLabel!.textContent = "收起";
+        toggle!.setAttribute("aria-expanded", "true");
+        toggleIcon!.className = "mgc_down_line text-sm";
+        localStorage.removeItem(STORAGE_KEY);
+      } else {
+        panel!.classList.remove("is-open");
+        toggleLabel!.textContent = "展开";
+        toggle!.setAttribute("aria-expanded", "false");
+        toggleIcon!.className = "mgc_up_line text-sm";
+        localStorage.setItem(STORAGE_KEY, "true");
+      }
+    }
+
+    toggle.addEventListener("click", () => {
+      const isOpen = panel!.classList.contains("is-open");
+      setOpen(!isOpen);
+
+      if (!isOpen) {
+        trackEvent("ad_slide_open", {
+          event_category: "ad",
+          event_label: "home_slide_panel",
+        });
+      }
+    });
+
+    const observedAds = new WeakSet<Element>();
+    const exposedAds = new WeakSet<Element>();
+    const banners = panel.querySelectorAll<HTMLElement>("[data-ad-banner]");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting || exposedAds.has(entry.target)) {
+              continue;
+            }
+
+            exposedAds.add(entry.target);
+            observer.unobserve(entry.target);
+
+            if (entry.target instanceof HTMLElement) {
+              trackEvent("ad_exposure", {
+                event_category: "ad",
+                event_label: entry.target.dataset.adPlacement,
+                ad_id: entry.target.dataset.adId,
+                ad_placement: entry.target.dataset.adPlacement,
+                ad_href: entry.target.dataset.adHref,
+              });
+            }
+          }
+        },
+        { threshold: 0.5 }
+      );
+
+      for (const banner of banners) {
+        if (!observedAds.has(banner)) {
+          observedAds.add(banner);
+          observer.observe(banner);
+        }
+      }
+
+      document.addEventListener("astro:before-swap", () => observer.disconnect(), { once: true });
+    }
+  }
+</script>
