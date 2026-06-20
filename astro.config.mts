@@ -1,11 +1,11 @@
-import { rehypeHeadingIds } from "@astrojs/markdown-remark";
+import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
 import sitemap from "@astrojs/sitemap";
 import solid from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { remarkAlert } from "remark-github-blockquote-alert";
-import rehypeMarkdownImages from "./src/plugins/rehypeMarkdownImages.ts";
+import rehypeMarkdownImages from "./src/plugins/rehypeMarkdownImages.js";
 
 // https://astro.build/config
 export default defineConfig({
@@ -26,21 +26,23 @@ export default defineConfig({
     shikiConfig: {
       theme: "github-dark-dimmed",
     },
-    remarkPlugins: [remarkAlert],
-    rehypePlugins: [
-      rehypeMarkdownImages,
-      // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
-      [rehypeHeadingIds, { headingIdCompat: true }],
-      [
-        rehypeAutolinkHeadings,
-        {
-          properties: { class: "anchor", ariaHidden: true, tabIndex: -1 },
-          content: {
-            type: "text",
-            value: "#",
+    processor: unified({
+      remarkPlugins: [remarkAlert],
+      rehypePlugins: [
+        rehypeMarkdownImages,
+        // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
+        [rehypeHeadingIds, { headingIdCompat: true }],
+        [
+          rehypeAutolinkHeadings,
+          {
+            properties: { class: "anchor", ariaHidden: true, tabIndex: -1 },
+            content: {
+              type: "text",
+              value: "#",
+            },
           },
-        },
+        ],
       ],
-    ],
+    }),
   },
 });

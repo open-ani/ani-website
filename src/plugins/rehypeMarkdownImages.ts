@@ -155,8 +155,8 @@ function visitElements(
  * receive `loading`, `decoding`, and dimension attributes.
  */
 export default function rehypeMarkdownImages() {
-  return (tree: HastNode) => {
-    visitElements(tree, (node) => {
+  return (tree: unknown) => {
+    visitElements(tree as HastNode, (node) => {
       if (node.tagName !== "img") return;
 
       const props = node.properties ?? {};

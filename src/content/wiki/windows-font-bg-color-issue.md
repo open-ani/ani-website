@@ -14,7 +14,7 @@ authors:
 
 1. 打开 Windows 设置，依次点击 **系统设置** -> **显示** -> **显卡设置**
   ![image](/images/win-font-2.png)
-2. 选择 **桌面应用** 并点击 **浏览**，找到 **Animkeo.exe** 添加。
+2. 选择 **桌面应用** 并点击 **浏览**，找到 **Animeko.exe** 添加。
 3. 点击 **Animeko.exe** 选项，选择 **集成显卡**(省电)，保存。
   ![image](/images/win-font-3.png)
 4. 重新打开 `Animeko`
