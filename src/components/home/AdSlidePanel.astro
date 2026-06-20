@@ -94,6 +94,7 @@ const landscapeColumns = homeAdConfig.ads.map((ad) => `${ad.width / ad.height}fr
       panel.classList.remove("is-open");
       toggleLabel.textContent = "展开";
       toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "展开广告");
       toggleIcon.className = "mgc_up_line text-sm";
       requestAnimationFrame(() => panel.classList.remove("no-animate"));
     }
@@ -103,12 +104,14 @@ const landscapeColumns = homeAdConfig.ads.map((ad) => `${ad.width / ad.height}fr
         panel!.classList.add("is-open");
         toggleLabel!.textContent = "收起";
         toggle!.setAttribute("aria-expanded", "true");
+        toggle!.setAttribute("aria-label", "收起广告");
         toggleIcon!.className = "mgc_down_line text-sm";
         localStorage.removeItem(STORAGE_KEY);
       } else {
         panel!.classList.remove("is-open");
         toggleLabel!.textContent = "展开";
         toggle!.setAttribute("aria-expanded", "false");
+        toggle!.setAttribute("aria-label", "展开广告");
         toggleIcon!.className = "mgc_up_line text-sm";
         localStorage.setItem(STORAGE_KEY, "true");
       }
@@ -125,44 +128,5 @@ const landscapeColumns = homeAdConfig.ads.map((ad) => `${ad.width / ad.height}fr
         });
       }
     });
-
-    const observedAds = new WeakSet<Element>();
-    const exposedAds = new WeakSet<Element>();
-    const banners = panel.querySelectorAll<HTMLElement>("[data-ad-banner]");
-
-    if ("IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (!entry.isIntersecting || exposedAds.has(entry.target)) {
-              continue;
-            }
-
-            exposedAds.add(entry.target);
-            observer.unobserve(entry.target);
-
-            if (entry.target instanceof HTMLElement) {
-              trackEvent("ad_exposure", {
-                event_category: "ad",
-                event_label: entry.target.dataset.adPlacement,
-                ad_id: entry.target.dataset.adId,
-                ad_placement: entry.target.dataset.adPlacement,
-                ad_href: entry.target.dataset.adHref,
-              });
-            }
-          }
-        },
-        { threshold: 0.5 }
-      );
-
-      for (const banner of banners) {
-        if (!observedAds.has(banner)) {
-          observedAds.add(banner);
-          observer.observe(banner);
-        }
-      }
-
-      document.addEventListener("astro:before-swap", () => observer.disconnect(), { once: true });
-    }
   }
 </script>
