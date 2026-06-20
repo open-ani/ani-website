@@ -28,9 +28,9 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@biomejs/biome": "^2.5.0",
-    "@typescript/native-preview": "7.0.0-dev.20250821.1",
+    "@typescript/native-preview": "7.0.0-dev.20260619.1",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0"
+    "lint-staged": "^17.0.7"
   },
   "lint-staged": {
     "*.astro": "astro check",
