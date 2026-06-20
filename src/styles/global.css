@@ -18,7 +18,7 @@
   --radius-lg: 16px;
   --radius-md: 12px;
   --radius-sm: 8px;
-  --radius-card: var(--radius-lg);
+  --radius-card: 25px;
   --radius-btn: 9999px;
   --animate-spin-slow: spin 3s linear infinite;
 }
