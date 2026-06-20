@@ -23,13 +23,13 @@
     "rehype-autolink-headings": "^7.1.0",
     "remark-github-blockquote-alert": "^2.1.0",
     "solid-js": "^1.9.13",
-    "tailwindcss": "^4.3.1"
+    "tailwindcss": "^4.3.1",
+    "husky": "^9.1.7"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@biomejs/biome": "^2.5.0",
-    "@typescript/native-preview": "7.0.0-dev.20260619.1",
-    "husky": "^9.1.7",
+    "@typescript/native-preview": "^7.0.0-dev.20260619.1",
     "lint-staged": "^17.0.7"
   },
   "lint-staged": {
