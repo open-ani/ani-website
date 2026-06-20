@@ -8,19 +8,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v6
         with:
           run_install: true
+          version: 
 
       - name: Setup Nodejs
         uses: actions/setup-node@v4
         with:
-          node-version: 23.1.0
+          node-version: lts
           cache: pnpm
 
       - name: Install Deps
