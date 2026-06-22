@@ -1,4 +1,4 @@
-import { rehypeHeadingIds, unified } from "@astrojs/markdown-remark";
+import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import sitemap from "@astrojs/sitemap";
 import solid from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
@@ -26,23 +26,21 @@ export default defineConfig({
     shikiConfig: {
       theme: "github-dark-dimmed",
     },
-    processor: unified({
-      remarkPlugins: [remarkAlert],
-      rehypePlugins: [
-        rehypeMarkdownImages,
-        // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
-        [rehypeHeadingIds, { headingIdCompat: true }],
-        [
-          rehypeAutolinkHeadings,
-          {
-            properties: { class: "anchor", ariaHidden: true, tabIndex: -1 },
-            content: {
-              type: "text",
-              value: "#",
-            },
+    remarkPlugins: [remarkAlert],
+    rehypePlugins: [
+      rehypeMarkdownImages,
+      // https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins
+      [rehypeHeadingIds, { headingIdCompat: true }],
+      [
+        rehypeAutolinkHeadings,
+        {
+          properties: { class: "anchor", ariaHidden: true, tabIndex: -1 },
+          content: {
+            type: "text",
+            value: "#",
           },
-        ],
+        },
       ],
-    }),
+    ],
   },
 });
