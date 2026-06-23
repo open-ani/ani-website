@@ -3,7 +3,7 @@ title: "iOS 安装说明"
 order: 5
 authors:
   - nick-cjyx9
-  - WingChunWong
+  - ChouChiu
   - maxchang3
 ---
 
