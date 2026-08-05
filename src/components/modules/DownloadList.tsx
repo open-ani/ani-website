@@ -12,6 +12,7 @@ import {
 const PLAT_TYPE: Record<string, string> = {
   "android-universal": "安卓 APK",
   "windows-x86_64": "Windows",
+  "windows-aarch64": "Windows (ARM64)",
   "macos-aarch64": "macOS (M系列芯片)",
   "macos-x86_64": "macOS (Intel 芯片)",
   "linux-x86_64": "Linux AppImage",
@@ -21,6 +22,7 @@ const PLAT_TYPE: Record<string, string> = {
 const PLATFORM_ICONS: Record<string, string> = {
   "android-universal": "mgc_android_line",
   "windows-x86_64": "mgc_windows_line",
+  "windows-aarch64": "mgc_windows_line",
   "macos-aarch64": "mgc_apple_line",
   "macos-x86_64": "mgc_apple_line",
   "linux-x86_64": "mgc_linux_line",
@@ -30,6 +32,7 @@ const PLATFORM_ICONS: Record<string, string> = {
 const GUIDANCE_LINK: Record<string, string> = {
   "android-universal": "",
   "windows-x86_64": "",
+  "windows-aarch64": "",
   "macos-aarch64": "",
   "linux-x86_64": "/wiki/linux-install",
   "ios-aarch64": "/wiki/ios-install",
