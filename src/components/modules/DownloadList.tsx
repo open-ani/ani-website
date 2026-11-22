@@ -1,5 +1,6 @@
 import { type Component, createMemo, createSignal, For, onMount, Show } from "solid-js";
 import {
+  fetchLatestRelease,
   getCurrentReleaseData,
   normalizeActiveReleaseType,
   type ReleaseData,
@@ -34,12 +35,10 @@ const GUIDANCE_LINK: Record<string, string> = {
   "windows-x86_64": "",
   "windows-aarch64": "",
   "macos-aarch64": "",
-  "linux-x86_64": "/wiki/linux-install",
-  "ios-aarch64": "/wiki/ios-install",
-  "macos-x86_64": "/wiki/macos-intel-install",
+  "linux-x86_64": "/wiki/linux-install/",
+  "ios-aarch64": "/wiki/ios-install/",
+  "macos-x86_64": "/wiki/macos-intel-install/",
 };
-
-const API_BASE = "https://danmaku-cn.myani.org/v1/updates/latest";
 
 const ts2str = (ts: number) => {
   const date = new Date(ts * 1000);
@@ -129,20 +128,17 @@ const ReleaseCard: Component<{
   );
 };
 
-export default function DownloadList() {
+export default function DownloadList(props: { initialStable?: ReleaseData | null; initialBeta?: ReleaseData | null }) {
   const [activeTab, setActiveTab] = createSignal<ReleaseType>("stable");
-  const [loading, setLoading] = createSignal(true);
+  // With build-time data the list is usable right away; the fetch on mount only refreshes it.
+  const [loading, setLoading] = createSignal(!props.initialStable);
   const [error, setError] = createSignal(false);
-  const [stableData, setStableData] = createSignal<ReleaseData | null>(null);
-  const [betaData, setBetaData] = createSignal<ReleaseData | null>(null);
+  const [stableData, setStableData] = createSignal<ReleaseData | null>(props.initialStable ?? null);
+  const [betaData, setBetaData] = createSignal<ReleaseData | null>(props.initialBeta ?? null);
 
   const fetchData = async (type: ReleaseType) => {
     try {
-      const res = await fetch(`${API_BASE}?releaseClass=${type === "beta" ? "alpha" : "stable"}`, {
-        mode: "cors",
-      });
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-      return await res.json();
+      return await fetchLatestRelease(type);
     } catch (e) {
       console.error(`[DownloadList] Fetch failed for ${type}.`, e);
       throw e;
@@ -150,14 +146,18 @@ export default function DownloadList() {
   };
 
   const loadAllData = async () => {
-    setLoading(true);
-    setError(false);
+    // A failed refresh keeps showing the data that is already on screen instead of the error state.
+    const isRefresh = stableData() !== null;
+    if (!isRefresh) {
+      setLoading(true);
+      setError(false);
+    }
     try {
       const [sData, bData] = await Promise.all([fetchData("stable"), fetchData("beta")]);
       setStableData(sData);
       setBetaData(bData);
     } catch (_e) {
-      setError(true);
+      if (!isRefresh) setError(true);
     } finally {
       setLoading(false);
     }

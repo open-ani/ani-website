@@ -1,5 +1,6 @@
 ---
 title: "Windows 下字体与背景颜色异常"
+description: "Animeko 在 Windows 上字体或背景颜色渲染异常的解决办法：在双显卡电脑的显卡设置中，为 Animeko.exe 指定使用集成显卡。"
 order: 2
 authors:
   - StageGuard

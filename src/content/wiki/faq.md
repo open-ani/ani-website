@@ -1,5 +1,6 @@
 ---
 title: "常见问题 (FAQ)"
+description: "Animeko 常见问题解答：注册与登录异常、Bangumi 账号激活、在线源白框或加载失败、资源与弹幕来源、播放卡顿等问题的原因和解决办法。"
 order: 1
 authors:
   - BTMuli

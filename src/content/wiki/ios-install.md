@@ -1,5 +1,6 @@
 ---
 title: "iOS 安装说明"
+description: "在 iPhone 和 iPad 上安装 Animeko 的侧载教程：用 Sideloadly 或 AltStore 自签安装 IPA，包含准备工作、详细步骤、7 天续签限制和“不受信任的开发者”的处理方法。"
 order: 5
 authors:
   - nick-cjyx9
@@ -20,7 +21,7 @@ authors:
 
 - **硬件**：一台 macOS 或 Windows 电脑、一台 iPhone 或 iPad，请使用一根稳定的数据线，否则可能无法正确连接设备。
 - **账号**：一个使用邮箱注册的 [Apple ID](https://support.apple.com/zh-cn/apple-account)。
-- **安装包**：Animeko 的 IPA 文件（下载地址：[GitHub Release](https://github.com/open-ani/animeko/releases/latest) 或 [分流地址](https://myani.org/downloads)）。
+- **安装包**：Animeko 的 IPA 文件（下载地址：[GitHub Release](https://github.com/open-ani/animeko/releases/latest) 或 [分流地址](/downloads/)）。
 - 对于 Windows 用户，必须安装 [iTunes](https://www.apple.com.cn/itunes/)。
 
 > [!IMPORTANT]

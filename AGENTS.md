@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Compact instructions for AI agents working on `animeko-website` (https://myani.org).
+Compact instructions for AI agents working on `animeko-website` (https://animeko.org).
 
 ## Stack
 
@@ -32,7 +32,7 @@ Logic tests use Node's built-in test runner (`node:test` + `node:assert/strict`)
 Defined in `src/content.config.ts`:
 
 - **changelogs** — custom loader fetches release data from an external API at build time. Schema: `version`, `downloadUrlAlternatives`, `publishTime` (unix seconds → ISO date), `description` (rendered as markdown).
-- **wiki** — glob loader over `src/content/wiki/*.md`. Frontmatter: `title` (required), `order` (optional), `authors` (optional array).
+- **wiki** — glob loader over `src/content/wiki/*.md`. Frontmatter: `title` (required), `description` (optional, becomes the meta description), `order` (optional), `authors` (optional array).
 
 ## Key Source Layout
 
@@ -44,7 +44,7 @@ src/
     modules/      # Interactive components (DownloadList.tsx) + logic tests
   content/
     wiki/         # Wiki markdown files
-  config/         # ads.ts
+  config/         # seo.ts (default metadata, JSON-LD builders)
   layouts/        # Layout, Doc, Post, Changelog
   pages/          # File-based routes (index, downloads, changelogs, wiki/*, about, 404)
   plugins/        # rehypeMarkdownImages.ts (custom rehype plugin)
@@ -63,6 +63,14 @@ src/
 ## Deployment
 
 Cloudflare Pages static asset hosting. `wrangler.jsonc` points to `./dist` with auto-trailing-slash HTML handling. CI (`pr_check.yml`) runs on PRs: pnpm install → `pnpm build` with Node 23.x and `--max_old_space_size=8192`.
+
+## SEO
+
+- The canonical domain is `animeko.org`; `myani.org` only redirects to it (configured in Cloudflare, not in this repo). `site` in `astro.config.mts` must stay on the canonical domain: canonical URLs, `og:url` and the sitemap derive from it.
+- Internal links must end with a slash (`/downloads/`, `/wiki/faq/`). The host answers slash-less paths with a temporary redirect, which costs a round trip on every click and crawl.
+- Give every page its own `description` (a `Layout` prop; wiki and `Post` pages take it from frontmatter). Pages without one fall back to the site-wide description in `src/config/seo.ts`.
+- Release data is baked in at build time, so `.github/workflows/redeploy.yml` rebuilds the site daily through a Workers Builds deploy hook (repository secret `CLOUDFLARE_DEPLOY_HOOK_URL`).
+- Do not give `/_astro/*` a long-lived `Cache-Control` in `public/_headers`. The header also lands on 404 responses, so an asset that is briefly missing during a deploy would stay cached as missing in the visitor's browser.
 
 ## Environment
 

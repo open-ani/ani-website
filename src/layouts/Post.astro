@@ -2,11 +2,11 @@
 import Layout from "@/layouts/Layout.astro";
 import "@/styles/markdown.css";
 
-const { title } = Astro.props.frontmatter;
-const pageTitle = `Animeko - ${title}`;
+const { title, description, noindex } = Astro.props.frontmatter;
+const pageTitle = `${title} - Animeko`;
 ---
 
-<Layout title={pageTitle}>
+<Layout title={pageTitle} description={description} noindex={noindex}>
     <div class="pt-20 pb-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <article class="markdown-body">
             <slot />

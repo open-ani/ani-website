@@ -1,16 +1,29 @@
 ---
 import DownloadList from "@/components/modules/DownloadList.tsx";
+import { fetchLatestRelease } from "@/components/modules/downloadRelease";
+import { softwareApplicationSchema } from "@/config/seo";
 import Layout from "@/layouts/Layout.astro";
+
+// Rendered into the static HTML so the version and download links are there without JavaScript.
+// When the update server is unreachable at build time, the page falls back to loading them in the browser.
+const [initialStable, initialBeta] = await Promise.all([
+  fetchLatestRelease("stable").catch(() => null),
+  fetchLatestRelease("beta").catch(() => null),
+]);
 ---
 
-<Layout title="Animeko - 下载">
+<Layout
+  title="Animeko 官方下载 - Android / iOS / Windows / macOS / Linux"
+  description="Animeko 官方下载页：提供 Android APK、iOS IPA、Windows、macOS（Apple 芯片与 Intel 芯片）和 Linux AppImage 的最新稳定版与测试版安装包，附各平台安装教程。"
+  jsonLd={[softwareApplicationSchema(Astro.site, initialStable?.version)]}
+>
     <div class="pt-28 pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-5">
-            <h2 class="text-3xl md:text-4xl font-bold text-text-main mb-4">下载 Animeko</h2>
+            <h1 class="text-3xl md:text-4xl font-bold text-text-main mb-4">下载 Animeko</h1>
             <p class="text-text-muted text-lg max-w-2xl mx-auto">
                 支持 Android, Windows, macOS, Linux 和 iOS 平台
             </p>
         </div>
-        <DownloadList client:load />
+        <DownloadList client:load initialStable={initialStable} initialBeta={initialBeta} />
     </div>
 </Layout>

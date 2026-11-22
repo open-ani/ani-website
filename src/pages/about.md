@@ -1,7 +1,10 @@
 ---
 layout: ../layouts/Post.astro
-title: "About"
+title: "功能介绍与截图"
+description: "Animeko 功能介绍与界面截图：Bangumi 番剧信息与社区评价、新番时间表、标签搜索、云同步追番进度、聚合数据源与弹幕、离线缓存，以及手机、平板和桌面端界面。"
 ---
+
+# Animeko 功能介绍
 
 <div align="center">
 

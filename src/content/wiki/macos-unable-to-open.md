@@ -1,5 +1,6 @@
 ---
 title: "macOS 无法打开解决方案"
+description: "macOS 提示未打开“Ani”、应用无法打开时的两种解决办法：在终端用 xattr 移除隔离属性，或在系统设置的「隐私与安全」中选择仍要打开。"
 order: 3
 authors:
   - MisakaTAT

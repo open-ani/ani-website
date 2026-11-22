@@ -1,0 +1,29 @@
+# The changelog page and the release info on the downloads page are rendered at build time from the update API,
+# so the site keeps showing the previous release until it is rebuilt. Workers Builds only builds on push, hence
+# this scheduled trigger of its deploy hook.
+#
+# GitHub disables scheduled workflows after 60 days without repository activity. When that happens, re-enable
+# this workflow in the Actions tab.
+name: Scheduled Redeploy
+
+on:
+  schedule:
+    - cron: "17 19 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  redeploy:
+    if: github.repository == 'open-ani/ani-website'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger the Workers Builds deploy hook
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$DEPLOY_HOOK_URL" ]; then
+            echo "::error::Secret CLOUDFLARE_DEPLOY_HOOK_URL is not set"
+            exit 1
+          fi
+          curl --fail --silent --show-error -X POST "$DEPLOY_HOOK_URL"

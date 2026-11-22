@@ -1,5 +1,6 @@
 ---
 title: "macOS Intel 芯片安装教程"
+description: "Intel 芯片 Mac 安装 Animeko 的步骤：下载并解压 ZIP 压缩包，把 Ani.app 拖入「应用程序」目录，后续更新由应用内自动完成。"
 order: 4
 authors:
   - Him188
@@ -17,4 +18,4 @@ authors:
 
 ## 常见问题
 
-- [安装后打不开](/wiki/macos-unable-to-open)
+- [安装后打不开](/wiki/macos-unable-to-open/)

@@ -1,33 +1,56 @@
 ---
 interface Props {
   title: string;
+  description?: string;
+  /** Keep the page out of search indexes (e.g. the 404 page). */
+  noindex?: boolean;
+  /** schema.org nodes, emitted as a single JSON-LD graph. */
+  jsonLd?: JsonLdNode[];
 }
 
 import Footer from "@/components/common/Footer.astro";
 import GoogleAnalytics from "@/components/common/GoogleAnalytics.astro";
 import NavBar from "@/components/common/NavBar.astro";
+import { DEFAULT_DESCRIPTION, type JsonLdNode, OG_IMAGE, SITE_NAME } from "@/config/seo";
 import "@/styles/global.css";
 
-const { title } = Astro.props;
+const { title, description = DEFAULT_DESCRIPTION, noindex = false, jsonLd } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const ogImageUrl = new URL(OG_IMAGE.path, Astro.site).href;
+// "<" is escaped so that data can never close the script element.
+const jsonLdText = jsonLd?.length
+  ? JSON.stringify({ "@context": "https://schema.org", "@graph": jsonLd }).replace(/</g, "\\u003c")
+  : undefined;
 ---
 
 <!doctype html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8"/>
-    <meta property="og:title" content={title}>
-    <meta name="generator" content={Astro.generator}/>
     <meta name="viewport" content="width=device-width"/>
-    <meta name="description" content="Animeko - 一个一站式在线弹幕追番平台">
-    <meta property="og:description" content="Animeko - 一个一站式在线弹幕追番平台">
-    <meta name="generator" content={Astro.generator}/>
+    <title>{title}</title>
+    <meta name="description" content={description}>
     <meta name="keywords"
           content="Animeko, 弹幕, 追番, 全自动BT, 数据源聚合, 离线缓存, Bangumi, 弹幕云过滤, 开源, 动漫, 收藏同步">
+    {noindex ? <meta name="robots" content="noindex"> : <link rel="canonical" href={canonicalUrl}/>}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content={SITE_NAME}>
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    {!noindex && <meta property="og:url" content={canonicalUrl}>}
+    <meta property="og:image" content={ogImageUrl}>
+    <meta property="og:image:width" content={String(OG_IMAGE.width)}>
+    <meta property="og:image:height" content={String(OG_IMAGE.height)}>
+    <meta property="og:image:alt" content={OG_IMAGE.alt}>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="generator" content={Astro.generator}/>
     <link rel="sitemap" href="/sitemap-index.xml"/>
-    <link rel="icon" type="image/svg+xml" href="/logo.png"/>
-    <link rel="preload" href="/images/default-avatar.jpg" as="image" type="image/jpeg" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48"/>
+    <link rel="icon" type="image/png" href="/logo.png"/>
     <GoogleAnalytics />
-    <title>{title}</title>
+    {jsonLdText && <script type="application/ld+json" is:inline set:html={jsonLdText}></script>}
 </head>
 <body>
     <NavBar />

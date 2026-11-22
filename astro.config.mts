@@ -9,13 +9,15 @@ import rehypeMarkdownImages from "./src/plugins/rehypeMarkdownImages.js";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://myani.org",
+  site: "https://animeko.org",
+  // Workers static assets serve pages at /path/ and answer /path with a redirect, so links must carry the slash.
+  trailingSlash: "always",
   integrations: [sitemap(), solid()],
   output: "static",
   prefetch: true,
 
   redirects: {
-    "/downloads/stable": "/downloads",
+    "/downloads/stable": "/downloads/",
   },
 
   vite: {

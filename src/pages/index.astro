@@ -2,10 +2,14 @@
 import FAQ from "@/components/home/FAQ.astro";
 import Features from "@/components/home/Features.astro";
 import Header from "@/components/home/Header.astro";
+import { softwareApplicationSchema, webSiteSchema } from "@/config/seo";
 import Layout from "@/layouts/Layout.astro";
 ---
 
-<Layout title="Animeko">
+<Layout
+  title="Animeko 官网 - 开源的一站式弹幕追番平台"
+  jsonLd={[webSiteSchema(Astro.site), softwareApplicationSchema(Astro.site)]}
+>
     <!-- pt-18 for navbar -->
     <main class="pt-18">
         <Header />

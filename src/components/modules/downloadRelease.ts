@@ -9,6 +9,14 @@ export type ReleaseType = "stable" | "beta";
 
 export const TEST_RELEASE_NOTICE = "测试版本仅用于提前体验，可能不稳定，普通用户建议下载稳定版本。";
 
+const API_BASE = "https://danmaku-cn.myani.org/v1/updates/latest";
+
+export const fetchLatestRelease = async (type: ReleaseType): Promise<ReleaseData> => {
+  const res = await fetch(`${API_BASE}?releaseClass=${type === "beta" ? "alpha" : "stable"}`);
+  if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+  return await res.json();
+};
+
 const parseVersion = (version: string) => {
   const [mainVersion, prerelease = ""] = version.replace(/^v/i, "").split("-", 2);
   const parts = mainVersion.split(".").map((part) => Number.parseInt(part, 10) || 0);

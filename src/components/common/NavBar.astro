@@ -1,10 +1,10 @@
 ---
 const navigation = [
   { name: "主页", href: "/" },
-  { name: "下载", href: "/downloads" },
-  { name: "功能截图", href: "/about" },
-  { name: "更新日志", href: "/changelogs" },
-  { name: "文档", href: "/wiki" },
+  { name: "下载", href: "/downloads/" },
+  { name: "功能截图", href: "/about/" },
+  { name: "更新日志", href: "/changelogs/" },
+  { name: "文档", href: "/wiki/" },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -36,7 +36,7 @@ const isActive = (href: string) => {
           href="/"
           class="shrink-0 flex items-center mx-2 group"
         >
-          <img alt="logo" src="/logo.png" class:list={['h-7 w-7 transition-transform group-hover:scale-105', { '-translate-x-1/2 md:translate-0': currentPath !== '/' }]}>
+          <img alt="Animeko" src="/logo.png" class:list={['h-7 w-7 transition-transform group-hover:scale-105', { '-translate-x-1/2 md:translate-0': currentPath !== '/' }]}>
         </a>
         <div class="hidden md:block md:ml-10">
           <div class="flex space-x-1">

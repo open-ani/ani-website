@@ -1,5 +1,6 @@
 ---
 title: "Linux 安装说明"
+description: "在 Arch Linux、Ubuntu 和 Fedora 上安装 Animeko 所需的依赖（VLC、GVFS 等），以及为 AppImage 设置可执行权限并启动的方法。"
 order: 6
 authors:
   - Him188
